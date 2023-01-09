@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_nav"
+    app:startDestination="@id/berandaFragment">
+
+    <fragment
+        android:id="@+id/berandaFragment"
+        android:name="com.example.kud.ui.fragment.BerandaFragment"
+        android:label="fragment_beranda"
+        tools:layout="@layout/fragment_beranda" >
+        <action
+            android:id="@+id/action_berandaFragment_to_semuaProdukFragment"
+            app:destination="@id/semuaProdukFragment" />
+        <action
+            android:id="@+id/action_berandaFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+        <action
+            android:id="@+id/action_berandaFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+        <action
+            android:id="@+id/action_berandaFragment_to_detailFragment"
+            app:destination="@id/detailFragment"
+             />
+    </fragment>
+    <fragment
+        android:id="@+id/semuaProdukFragment"
+        android:name="com.example.kud.ui.fragment.SemuaProdukFragment"
+        android:label="fragment_semua_produk"
+        tools:layout="@layout/fragment_semua_produk" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.kud.ui.fragment.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.kud.ui.fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.kud.ui.fragment.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_berandaFragment"
+            app:destination="@id/berandaFragment" />
+        <action
+            android:id="@+id/action_addFragment_to_scanFragment"
+            app:destination="@id/scanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.example.kud.ui.fragment.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+        <action
+            android:id="@+id/action_updateFragment_to_berandaFragment"
+            app:destination="@id/berandaFragment" />
+        <argument
+            android:name="update"
+            app:argType="com.example.kud.data.model.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/scanFragment"
+        android:name="com.example.kud.ui.fragment.ScanFragment"
+        android:label="fragment_scan"
+        tools:layout="@layout/fragment_scan" >
+        <action
+            android:id="@+id/action_scanFragment_to_addFragment"
+            app:destination="@id/addFragment" />
+    </fragment>
+</navigation>

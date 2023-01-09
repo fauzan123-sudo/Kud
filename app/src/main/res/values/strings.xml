@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Kud</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="network_failure">Network Failure</string>
+    <string name="conversion_error">Error Conversion</string>
+    <string name="check">Periksa Kembali Email atau Password Anda</string>
+    <string name="bad_connection">java.net.ConnectException: Failed to connect to /192.168.1.6:80</string>
+    <string name="failed_connect">java.net.SocketTimeoutException: failed to connect to /192.168.1.6 (port 80) from /192.168.200.2 (port 48372) after 10000ms</string>
+</resources>
