@@ -7,14 +7,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.kud.MyApplication
 import com.example.kud.data.model.LoginRequest
-import com.example.kud.data.network.respon.LoginResponse
+import com.example.kud.data.model.LoginResponse
 import com.example.kud.data.repository.UserRepository
 import com.example.kud.utils.Connections.hasInternetConnection
 import com.example.kud.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import xyz.teamgravity.checkinternet.CheckInternet
 import javax.inject.Inject
 
 @HiltViewModel

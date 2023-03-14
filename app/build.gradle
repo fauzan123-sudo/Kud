@@ -5,6 +5,8 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id "androidx.navigation.safeargs.kotlin"
+
+
 }
 
 android {
@@ -50,6 +52,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
@@ -114,8 +118,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.5.1"
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+
 
 //    Rounded image
     implementation 'com.makeramen:roundedimageview:2.3.0'
@@ -141,4 +144,9 @@ dependencies {
 
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.github.raheemadamboev:check-internet-android:1.1.1'
+
+    implementation 'io.github.pilgr:paperdb:2.7.2'
+
+    implementation 'com.synnapps:carouselview:0.1.4'
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
 }

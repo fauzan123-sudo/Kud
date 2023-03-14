@@ -44,7 +44,7 @@ class BerandaFragment :
     @Inject
     lateinit var userPreferences: UserPreferences
 
-    private lateinit var recyclerview:RecyclerView
+    private lateinit var recyclerview: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -52,6 +52,7 @@ class BerandaFragment :
         recyclerview = binding.recv
         recyclerview.adapter = adapter
         recyclerview.layoutManager = LinearLayoutManager(requireContext())
+        recyclerview.setHasFixedSize(true)
 
         viewModel.readData.observe(viewLifecycleOwner) {
             adapter.differ.submitList(it)
@@ -59,10 +60,11 @@ class BerandaFragment :
         }
 
         binding.logOut.setOnClickListener {
-            lifecycleScope.launch {
-                userPreferences.clear()
-                requireActivity().startNewActivity(LoginActivity::class.java)
-            }
+            tokenManager.deleteToken()
+            requireActivity().startNewActivity(LoginActivity::class.java)
+//            lifecycleScope.launch {
+//                userPreferences.clear()
+//            }
 
         }
 
@@ -89,7 +91,7 @@ class BerandaFragment :
         val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(
             ItemTouchHelper.UP or ItemTouchHelper.DOWN,
             ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
-        ){
+        ) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -100,7 +102,7 @@ class BerandaFragment :
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val pos = viewHolder.adapterPosition
-                val budget =  adapter.differ.currentList[pos]
+                val budget = adapter.differ.currentList[pos]
 
                 viewModel.deleteUser(budget)
 

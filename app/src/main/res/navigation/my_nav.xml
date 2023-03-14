@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/berandaFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/berandaFragment"
@@ -28,12 +28,23 @@
         android:id="@+id/semuaProdukFragment"
         android:name="com.example.kud.ui.fragment.SemuaProdukFragment"
         android:label="fragment_semua_produk"
-        tools:layout="@layout/fragment_semua_produk" />
-    <fragment
+        tools:layout="@layout/fragment_semua_produk" >
+        <action
+            android:id="@+id/action_semuaProdukFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
+    <dialog
         android:id="@+id/detailFragment"
         android:name="com.example.kud.ui.fragment.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="detailProduct"
+            app:argType="com.example.kud.data.model.DataXXX" />
+        <action
+            android:id="@+id/action_detailFragment_to_checkOutFragment"
+            app:destination="@id/checkOutFragment" />
+    </dialog>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.kud.ui.fragment.ProfileFragment"
@@ -72,4 +83,29 @@
             android:id="@+id/action_scanFragment_to_addFragment"
             app:destination="@id/addFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.kud.ui.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailDataProduct"
+            app:destination="@id/detailDataProduct" />
+        <action
+            android:id="@+id/action_homeFragment_to_checkOutFragment"
+            app:destination="@id/checkOutFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/detailDataProduct"
+        android:name="com.example.kud.ui.fragment.DetailDataProduct"
+        android:label="fragment_detail_data_product_list_dialog"
+        tools:layout="@layout/fragment_detail_data_product_list_dialog" />
+    <fragment
+        android:id="@+id/checkOutFragment"
+        android:name="com.example.kud.ui.fragment.CheckOutFragment"
+        android:label="fragment_check_out"
+        tools:layout="@layout/fragment_check_out" />
 </navigation>

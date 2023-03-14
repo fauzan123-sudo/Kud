@@ -17,6 +17,7 @@ import com.example.kud.data.repository.SafeApiCaller
 //import com.example.kud.data.repository.SafeApiCaller
 import com.example.kud.databinding.FragmentProfileBinding
 import com.example.kud.ui.base.BaseFragment
+import com.example.kud.ui.viewModel.AlbumViewModel
 import com.example.kud.ui.viewModel.FakeApiViewModel
 import com.example.kud.ui.viewModel.ViewModelFactory
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
 //            private val viewModel: FakeApiViewModel by viewModels()
-    lateinit var viewModel: FakeApiViewModel
+    private val viewModel: FakeApiViewModel by viewModels()
     private lateinit var adapter: FakeAdapter
     private val fake = "myFak"
 

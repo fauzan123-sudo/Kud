@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:title="Home"
-        android:id="@+id/berandaFragment"
+        android:title="Beranda"
+        android:id="@+id/homeFragment"
         android:icon="@drawable/ic_home"
         app:showAsAction="ifRoom"
         />
 
     <item
-        android:title="Scan"
-        android:id="@+id/scanFragment"
+        android:title="Semua Produk"
+        android:id="@+id/semuaProdukFragment"
         android:icon="@drawable/ic_scan"
         app:showAsAction="ifRoom"
         />

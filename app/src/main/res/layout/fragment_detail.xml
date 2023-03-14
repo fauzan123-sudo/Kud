@@ -1,14 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/_10sdp"
     tools:context=".ui.fragment.DetailFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <View
+        android:id="@+id/view2"
+        android:layout_width="102dp"
+        android:layout_height="5dp"
+        android:layout_centerHorizontal="true"
+        android:background="#D9D9D9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/imgDetailBarang"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/view2"
+        android:layout_margin="@dimen/_10sdp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/kardus"
+        app:layout_constraintBottom_toTopOf="@+id/detailDescription"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view2"
+        app:layout_constraintVertical_bias="0.0"
+        app:riv_corner_radius="@dimen/_20sdp" />
+
+    <TextView
+        android:id="@+id/txtNameProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imgDetailBarang"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/rubik_medium"
+        android:text="Pestisida"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgDetailBarang" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/txtNameProduct"
+        android:layout_marginTop="8dp"
+        android:background="#989898"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNameProduct" />
+
+    <TextView
+        android:id="@+id/detailDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/view"
+        android:fontFamily="@font/rubik_medium"
+        android:text="@string/lorep_ipsum"
+        android:textColor="#989898"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/amount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalPrice"
+        app:layout_constraintVertical_bias="0.120000005" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/minus"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/detailDescription"
+        android:layout_toStartOf="@id/amount"
+        android:background="@drawable/ic_minus"
+        app:layout_constraintBottom_toBottomOf="@+id/amount"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/amount" />
+
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginBottom="16dp"
+        android:layout_toStartOf="@id/plus"
+        android:hint="jumlah"
+        android:inputType="number"
+        android:text="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/addCart"
+        app:layout_constraintEnd_toStartOf="@+id/minus" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/plus"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_above="@id/addCart"
+        android:layout_below="@+id/detailDescription"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/ic_add"
+        app:backgroundTint="#989898"
+        app:layout_constraintBottom_toBottomOf="@+id/amount"
+        app:layout_constraintEnd_toStartOf="@+id/amount"
+        app:layout_constraintTop_toTopOf="@+id/amount" />
+
+    <TextView
+        android:id="@+id/priceProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:fontFamily="@font/rubik_medium"
+        android:text="Rp. 20.000"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/amount"
+        app:layout_constraintEnd_toStartOf="@+id/plus"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/amount" />
+
+    <TextView
+        android:id="@+id/totalPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/addCart"
+        android:layout_below="@+id/detailDescription"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/rubik_medium"
+        android:text="Rp. 20.000"
+        android:textColor="@color/green"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/addToCart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/addToCart"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="#2C974A"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addCart"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:shapeAppearanceOverlay="@style/roundedButtonLeft">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10sdp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_cart"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/textView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/rubik_medium"
+                android:text="Tambahkan ke Cart"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent" />
+            >
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/addCart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@+id/minus"
+        android:background="#EF2B2B"
+        android:backgroundTint="#EF2B2B"
+        app:layout_constraintBottom_toBottomOf="@+id/addToCart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/addToCart"
+        app:layout_constraintTop_toTopOf="@+id/addToCart"
+        app:shapeAppearanceOverlay="@style/roundedButtonRight">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_10sdp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:background="#EF2B2B"
+                android:fontFamily="@font/rubik_medium"
+                android:text="CheckOut"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/stockItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stok"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/amount"
+        app:layout_constraintEnd_toStartOf="@+id/plus"
+        app:layout_constraintStart_toEndOf="@+id/priceProduct"
+        app:layout_constraintTop_toTopOf="@+id/amount" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

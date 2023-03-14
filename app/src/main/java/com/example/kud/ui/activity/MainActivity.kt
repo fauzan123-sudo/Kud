@@ -1,14 +1,12 @@
 package com.example.kud.ui.activity
 
-import android.content.DialogInterface
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.kud.R
 import com.example.kud.databinding.ActivityMainBinding
@@ -30,10 +28,19 @@ class MainActivity : AppCompatActivity() {
 //        Bottom Navigation
         binding.bottomNav.setupWithNavController(navController)
 
-        val appBarConfiguration = AppBarConfiguration.Builder(
-            R.id.berandaFragment
-        ).build()
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        navController.addOnDestinationChangedListener { _, nd: NavDestination, _ ->
+            if (nd.id == R.id.checkOutFragment ) {
+                binding.bottomNav.visibility = View.GONE
+            } else {
+                binding.bottomNav.visibility = View.VISIBLE
+            }
+        }
+
+//        val appBarConfiguration = AppBarConfiguration.Builder(
+//            R.id.berandaFragment
+//        ).build()
+//        setupActionBarWithNavController(navController, appBarConfiguration)
+//        setupActionBarWithNavController(navController)
     }
 
 

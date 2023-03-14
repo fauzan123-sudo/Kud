@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.example.kud.data.db.MyDatabase
 import com.example.kud.data.network.AuthInterceptor
 import com.example.kud.data.network.FakeApi
+import com.example.kud.data.network.HomeApi
 import com.example.kud.data.network.UserApi
 import com.example.kud.utils.Constans
 import dagger.Module
@@ -48,6 +49,13 @@ object DatabaseModule {
             .create(UserApi::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun homeApi(retrofitBuilder: Retrofit.Builder): HomeApi {
+        return retrofitBuilder.build()
+            .create(HomeApi::class.java)
+    }
+
 //    @Singleton
 //    @Provides
 //    fun fakeApi(retrofitBuilder: Retrofit.Builder, okHttpClient: OkHttpClient): FakeApi {
@@ -62,10 +70,14 @@ object DatabaseModule {
         context,
         MyDatabase::class.java,
         "person_database"
-    ).build()
+    ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
 
     @Singleton
     @Provides
     fun provideDao(database: MyDatabase) = database.myDao()
+
+    @Singleton
+    @Provides
+    fun checkOutDao(database: MyDatabase) = database.myCheckOut()
 
 }

@@ -39,17 +39,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             requireActivity().startNewActivity(MainActivity::class.java)
         }
 
-
-
-//        lifecycleScope.launch {
-//            val data = userPreferences.read()
-//            if (data != null) requireActivity().startNewActivity(MainActivity::class.java)
-//            Log.d(TAG, " read token user  $data")
-//        }
-//        userPreferences.accessToken.asLiveData().observe(requireActivity()) {
-//            readToken = it.toString()
-//        }
-
         Log.d(TAG + "logins", readToken)
 
         binding.btnLogin.setOnClickListener {
@@ -82,17 +71,26 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             binding.progressBar.isVisible = false
             when (it) {
                 is NetworkResult.Success -> {
+
                     Log.d(TAG, "here success")
-                    tokenManager.saveToken(it.data!!.user.access_token)
+                    val statusResponse = it.data!!.status
+                    if (statusResponse == 200) {
+                        val userToken = it.data.data.access_token
+                        tokenManager.saveToken(userToken)
+                        requireActivity().startNewActivity(MainActivity::class.java)
+
+                    }else{
+                        handleApiError(statusResponse.toString())
+                    }
+
 //                    lifecycleScope.launch {
 //                        userPreferences.saveAccessTokens(it.data!!.user.access_token)
 //                    }
-                    requireActivity().startNewActivity(MainActivity::class.java)
                 }
                 is NetworkResult.Error -> {
                     val error = it.message.toString()
                     handleApiError(error)
-                    Log.d(TAG,(it.message.toString()))
+                    Log.d(TAG, (it.message.toString()))
 
                 }
                 is NetworkResult.Loading -> {
