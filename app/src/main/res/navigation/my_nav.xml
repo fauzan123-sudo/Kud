@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_nav"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/perizinanFragment">
 
     <fragment
         android:id="@+id/berandaFragment"
@@ -108,4 +108,9 @@
         android:name="com.example.kud.ui.fragment.CheckOutFragment"
         android:label="fragment_check_out"
         tools:layout="@layout/fragment_check_out" />
+    <fragment
+        android:id="@+id/perizinanFragment"
+        android:name="com.example.kud.ui.fragment.PerizinanFragment"
+        android:label="fragment_perizinan"
+        tools:layout="@layout/fragment_perizinan" />
 </navigation>

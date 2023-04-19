@@ -25,6 +25,25 @@ object DatabaseModule {
 
     @Singleton
     @Provides
+    fun provideDatabase(
+        @ApplicationContext context: Context
+    ) = Room.databaseBuilder(
+        context,
+        MyDatabase::class.java,
+        "person_database"
+    ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
+
+    @Singleton
+    @Provides
+    fun provideDao(database: MyDatabase) = database.myDao()
+
+    @Singleton
+    @Provides
+    fun checkOutDao(database: MyDatabase) = database.myCheckOut()
+
+
+    @Singleton
+    @Provides
     fun providesRetrofit(): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(Constans.BASE_URL)
@@ -55,29 +74,4 @@ object DatabaseModule {
         return retrofitBuilder.build()
             .create(HomeApi::class.java)
     }
-
-//    @Singleton
-//    @Provides
-//    fun fakeApi(retrofitBuilder: Retrofit.Builder, okHttpClient: OkHttpClient): FakeApi {
-//        return retrofitBuilder.client(okHttpClient).build().create(FakeApi::class.java)
-//    }
-
-    @Singleton
-    @Provides
-    fun provideDatabase(
-        @ApplicationContext context: Context
-    ) = Room.databaseBuilder(
-        context,
-        MyDatabase::class.java,
-        "person_database"
-    ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
-
-    @Singleton
-    @Provides
-    fun provideDao(database: MyDatabase) = database.myDao()
-
-    @Singleton
-    @Provides
-    fun checkOutDao(database: MyDatabase) = database.myCheckOut()
-
 }

@@ -14,6 +14,12 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="MyTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/green</item>
+
+    </style>
+
+
     <style name="roundedButtonLeft" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopLeft">9dp</item>

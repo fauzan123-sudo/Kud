@@ -9,6 +9,7 @@ import javax.inject.Inject
 class UserRepository @Inject constructor(private val userApi : UserApi) : BaseRepo() {
 
     suspend fun loginUser(loginRequest: LoginRequest) = safeApiCall { userApi.loginUser(loginRequest) }
+    suspend fun profileUser() = safeApiCall { userApi.profileUser() }
 
 //    suspend fun loginUser(loginRequest: LoginRequest) = safeApiCall { userApi.loginUser(loginRequest) }
 
