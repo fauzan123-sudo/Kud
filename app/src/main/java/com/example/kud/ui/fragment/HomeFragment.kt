@@ -1,7 +1,11 @@
 package com.example.kud.ui.fragment
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -45,6 +49,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        toolbarInit()
+
         sliderView = binding.imageSlider
 
         imageUrl = ArrayList()
@@ -56,7 +62,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         imageUrl =
             (imageUrl + "https://practice.geeksforgeeks.org/_next/image?url=https%3A%2F%2Fmedia.geeksforgeeks.org%2Fimg-practice%2Fbanner%2Ffull-stack-node-thumbnail.png&w=1920&q=75") as ArrayList<String>
 
-        adapterBanner = AdapterBanner( imageUrl)
+        adapterBanner = AdapterBanner(imageUrl)
 
         sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
 
@@ -76,18 +82,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         recyclerviewItems = binding.recItemsHome
         recyclerviewItems.adapter = adapterData
-        recyclerviewItems.layoutManager = GridLayoutManager(requireContext(), 2)
-
-        binding.edtSearch.setOnClickListener {
-
-        }
-
-        binding.imageView2.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_checkOutFragment)
-        }
+        recyclerviewItems.layoutManager = GridLayoutManager(requireContext(), 3)
 
         viewModel.drug()
         viewModel.getDrug.observe(viewLifecycleOwner) {
+            binding.progressBar.isVisible = false
             when (it) {
                 is NetworkResult.Success -> {
                     val status = it.data!!.status
@@ -100,13 +99,42 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                     }
                 }
 
+                is NetworkResult.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+
                 is NetworkResult.Error -> {
                     handleApiError(it.message)
                 }
             }
         }
+    }
 
+    private fun toolbarInit() {
+        binding.toolbarItems.searchView.setOnQueryTextListener(object :
+            SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                Toast.makeText(requireContext(), "$query", Toast.LENGTH_SHORT).show()
+                return true
+            }
 
+            override fun onQueryTextChange(newText: String?): Boolean {
+                // Do something when user changes text
+                return true
+            }
+        })
+
+        binding.toolbarItems.searchView.setOnQueryTextFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                Toast.makeText(requireContext(), "sedang aktif", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "tidak aktif", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.toolbarItems.menu.setOnClickListener {
+            Toast.makeText(requireContext(), "menu", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun pindah() {
@@ -140,5 +168,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         )
         val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(sendData)
         findNavController().navigate(action)
+
+
     }
+
+
 }

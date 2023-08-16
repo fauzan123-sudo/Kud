@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +38,7 @@ class SemuaProdukFragment :
 
         viewModel.drug()
         viewModel.getDrug.observe(viewLifecycleOwner) {
+            binding.progressBar.isVisible = false
             when (it) {
                 is NetworkResult.Success -> {
                     val statusResponse = it.data!!.status
@@ -46,6 +48,7 @@ class SemuaProdukFragment :
                         handleApiError(statusResponse.toString())
                     }
                 }
+                is NetworkResult.Loading ->  binding.progressBar.isVisible = true
 
                 is NetworkResult.Error -> {
                     handleApiError(it.message)

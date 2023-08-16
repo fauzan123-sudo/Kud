@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
+    android:background="#E2EBF0"
     android:padding="@dimen/_20sdp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.LoginFragment">
-<!--edtEmail-->
-<!--edtPassword-->
-
 
     <TextView
         android:id="@+id/txt_error"
@@ -74,9 +71,11 @@
         app:startIconDrawable="@drawable/ic_person"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:hint="Username"
-        app:startIconTint="@color/green"
-        app:hintTextColor="@color/green"
-        app:boxStrokeColor="@color/green"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
+        app:startIconTint="@color/black"
+        app:hintTextColor="#FFEB3B"
+        app:boxStrokeColor="@color/text_input_selector"
         android:textColorHint="@color/green"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"

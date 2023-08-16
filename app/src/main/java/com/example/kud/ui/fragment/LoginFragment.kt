@@ -80,12 +80,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                         requireActivity().startNewActivity(MainActivity::class.java)
 
                     }else{
+                        Toast.makeText(requireContext(), "$statusResponse", Toast.LENGTH_SHORT).show()
                         handleApiError(statusResponse.toString())
                     }
-
-//                    lifecycleScope.launch {
-//                        userPreferences.saveAccessTokens(it.data!!.user.access_token)
-//                    }
                 }
                 is NetworkResult.Error -> {
                     val error = it.message.toString()
@@ -99,5 +96,4 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             }
         }
     }
-
 }

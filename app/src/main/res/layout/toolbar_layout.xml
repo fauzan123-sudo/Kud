@@ -1,7 +1,9 @@
-<androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:padding="@dimen/_10sdp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@color/green"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -11,19 +13,20 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.SearchView
+            android:background="@drawable/search_view_background"
             android:id="@+id/search_view"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            app:queryHint="Cari disini"
+            app:queryHint="CARI PRODUK DISINI"
             app:iconifiedByDefault="false"/>
 
         <ImageView
-            android:id="@+id/profile_icon"
+            android:id="@+id/menu"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="8dp"
-            android:src="@drawable/ic_person" />
+            android:src="@drawable/menu" />
 
     </LinearLayout>
 
