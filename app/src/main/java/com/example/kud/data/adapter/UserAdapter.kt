@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.kud.R
 import com.example.kud.data.model.User
-import com.example.kud.ui.fragment.BerandaFragmentDirections
+import com.example.kud.ui.fragment.home.BerandaFragmentDirections
 import kotlinx.android.synthetic.main.item_user.view.*
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.ViewHolder>() {

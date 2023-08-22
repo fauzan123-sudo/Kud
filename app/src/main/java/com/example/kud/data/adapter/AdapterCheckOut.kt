@@ -5,7 +5,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,10 +12,8 @@ import coil.load
 import com.example.kud.data.model.CheckOut
 import com.example.kud.databinding.ItemCheckoutBinding
 import com.example.kud.ui.fragment.DeleteItemCheckOut
-import com.example.kud.utils.Constans
+import com.example.kud.utils.Constants
 import com.example.kud.utils.Helper
-import java.text.NumberFormat
-import java.util.*
 
 class AdapterCheckOut(val context: Context) : RecyclerView.Adapter<AdapterCheckOut.ViewHolder>() {
     private lateinit var binding: ItemCheckoutBinding
@@ -33,7 +30,7 @@ class AdapterCheckOut(val context: Context) : RecyclerView.Adapter<AdapterCheckO
                     drugName.text = nameItem
                     drugPrice.text = Helper().gantiRupiah("$priceItem")
                     drugType.text = category
-                    imageProduct.load(Constans.IMAGE_OBAT + item.imageItem)
+                    imageProduct.load(Constants.IMAGE_OBAT + item.imageItem)
                 }
 
                 deleteItem.setOnClickListener {

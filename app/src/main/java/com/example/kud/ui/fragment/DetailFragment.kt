@@ -1,11 +1,9 @@
 package com.example.kud.ui.fragment
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,15 +16,9 @@ import com.example.kud.R
 import com.example.kud.data.model.CheckOut
 import com.example.kud.databinding.FragmentDetailBinding
 import com.example.kud.ui.viewModel.CheckOutViewModel
-import com.example.kud.utils.Constans.IMAGE_OBAT
-import com.example.kud.utils.Helper.Companion.keyName
-import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.example.kud.utils.Constants.IMAGE_OBAT
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
-import io.paperdb.Paper
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.*
 

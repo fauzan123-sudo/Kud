@@ -1,8 +1,6 @@
 package com.example.kud.data.db
 
 import androidx.room.*
-import com.example.kud.utils.Constans.CONTACTS_TABLE
-import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface  ContactsDao {

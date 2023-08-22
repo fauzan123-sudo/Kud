@@ -4,10 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.example.kud.data.db.MyDatabase
 import com.example.kud.data.network.AuthInterceptor
-import com.example.kud.data.network.FakeApi
 import com.example.kud.data.network.HomeApi
 import com.example.kud.data.network.UserApi
-import com.example.kud.utils.Constans
+import com.example.kud.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,7 +45,7 @@ object DatabaseModule {
     @Provides
     fun providesRetrofit(): Retrofit.Builder {
         return Retrofit.Builder()
-            .baseUrl(Constans.BASE_URL)
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
     }
 

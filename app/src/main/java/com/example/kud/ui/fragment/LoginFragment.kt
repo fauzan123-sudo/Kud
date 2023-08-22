@@ -6,18 +6,14 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
-import com.example.kud.R
 import com.example.kud.data.model.LoginRequest
 import com.example.kud.databinding.FragmentLoginBinding
 import com.example.kud.ui.activity.MainActivity
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.LoginViewModel
 import com.example.kud.utils.*
-import com.example.kud.utils.Constans.TAG
+import com.example.kud.utils.Constants.TAG
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint

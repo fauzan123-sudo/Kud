@@ -6,7 +6,6 @@ import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 
 
 class AppPermissions {
@@ -26,7 +25,7 @@ class AppPermissions {
             arrayOf(
                 Manifest.permission.ACCESS_FINE_LOCATION,
             ),
-            Constans.LOCATION_REQUEST_CODE
+            Constants.LOCATION_REQUEST_CODE
         )
     }
 

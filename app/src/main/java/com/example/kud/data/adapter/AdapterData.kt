@@ -11,7 +11,7 @@ import coil.load
 import com.example.kud.R
 import com.example.kud.data.model.DataXXX
 import com.example.kud.ui.fragment.RecyclerViewClickListener
-import com.example.kud.utils.Constans.IMAGE_OBAT
+import com.example.kud.utils.Constants.IMAGE_OBAT
 import kotlinx.android.synthetic.main.data_item.view.*
 import java.text.NumberFormat
 import java.util.*

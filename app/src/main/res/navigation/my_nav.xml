@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/berandaFragment"
-        android:name="com.example.kud.ui.fragment.BerandaFragment"
+        android:name="com.example.kud.ui.fragment.home.BerandaFragment"
         android:label="fragment_beranda"
         tools:layout="@layout/fragment_beranda" >
         <action
@@ -47,7 +47,7 @@
     </dialog>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.kud.ui.fragment.ProfileFragment"
+        android:name="com.example.kud.ui.fragment.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment

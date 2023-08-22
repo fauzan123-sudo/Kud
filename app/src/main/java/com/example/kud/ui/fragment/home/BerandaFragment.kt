@@ -1,4 +1,4 @@
-package com.example.kud.ui.fragment
+package com.example.kud.ui.fragment.home
 
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +21,7 @@ import com.example.kud.databinding.FragmentBerandaBinding
 import com.example.kud.ui.activity.LoginActivity
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.AlbumViewModel
-import com.example.kud.utils.Constans.TAG
+import com.example.kud.utils.Constants.TAG
 import com.example.kud.utils.TokenManager
 import com.example.kud.utils.UserPreferences
 import com.example.kud.utils.startNewActivity

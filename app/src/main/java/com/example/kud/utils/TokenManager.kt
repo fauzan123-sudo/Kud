@@ -2,8 +2,8 @@ package com.example.kud.utils
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.kud.utils.Constans.PREFS_TOKEN_FILE
-import com.example.kud.utils.Constans.USER_TOKEN
+import com.example.kud.utils.Constants.PREFS_TOKEN_FILE
+import com.example.kud.utils.Constants.USER_TOKEN
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
