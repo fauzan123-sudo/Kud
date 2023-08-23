@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="NavTextStyleInActive" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="fontFamily">@font/rubik</item>
+        <item name="android:textSize">@dimen/_8ssp</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+    </style>
+
+</resources>
