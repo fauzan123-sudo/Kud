@@ -99,7 +99,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_masuk"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
@@ -110,14 +110,22 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         tools:layout_editor_absoluteX="16dp" />
 
-    <com.google.android.material.button.MaterialButton
+    <Button
+        android:id="@+id/btn_buat_akun"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:fontFamily="@font/rubik_bold"
+<<<<<<< HEAD
         android:text="Masuk"
         android:background="@drawable/btn_secondary"
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@+id/button2"
+=======
+        android:text="Buat Akun"
+        android:textAllCaps="false"
+        android:background="@drawable/btn_secondary"
+        app:layout_constraintTop_toBottomOf="@+id/btn_masuk"
+>>>>>>> 9ac2397c79ced952095877ce6010e99f4bf50202
         tools:layout_editor_absoluteX="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
