@@ -1,4 +1,4 @@
-package com.example.kud.ui.fragment
+package com.example.kud.ui.fragment.auth
 
 import android.os.Bundle
 import android.util.Log

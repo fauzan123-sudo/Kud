@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#E2EBF0"
     android:padding="@dimen/_20sdp"
-    tools:context=".ui.fragment.LoginFragment">
+    tools:context=".ui.fragment.auth.LoginFragment">
 
     <ImageView
         android:id="@+id/imageView14"
@@ -96,26 +96,31 @@
 
     </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_masuk"
+        android:background="@drawable/btn_primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/btn_primary"
         android:fontFamily="@font/rubik_bold"
+        android:padding="@dimen/_10sdp"
         android:text="Masuk"
         android:textAllCaps="false"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         tools:layout_editor_absoluteX="16dp" />
 
-    <Button
-        android:id="@+id/btn_buat_akun"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_daftar"
+        android:background="@drawable/btn_secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/btn_secondary"
         android:fontFamily="@font/rubik_bold"
-        android:text="Masuk"
+        android:padding="@dimen/_10sdp"
+        android:text="Daftar"
         android:textAllCaps="false"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/btn_masuk"
+        tools:layout_editor_absoluteX="16dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

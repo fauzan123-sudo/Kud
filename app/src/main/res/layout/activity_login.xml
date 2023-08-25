@@ -12,7 +12,7 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainers"
         app:defaultNavHost="true"
-        android:name="com.example.kud.ui.fragment.LoginFragment"
+        android:name="com.example.kud.ui.fragment.auth.LoginFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>

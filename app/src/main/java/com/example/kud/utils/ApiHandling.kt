@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.kud.R
-import com.example.kud.ui.fragment.LoginFragment
 import com.google.android.material.snackbar.Snackbar
 
 
