@@ -25,7 +25,7 @@ class AdapterCheckOut(val context: Context) : RecyclerView.Adapter<AdapterCheckO
             val myPosition = differ.currentList[absoluteAdapterPosition]
             binding.apply {
                 with(item) {
-                    textView9.text = Helper().gantiRupiah(amountItem * priceItem!!)
+//                    textView9.text = Helper().gantiRupiah(amountItem * priceItem!!)
                     totalItems.text = amountItem.toString()
                     drugName.text = nameItem
                     drugPrice.text = Helper().gantiRupiah("$priceItem")
