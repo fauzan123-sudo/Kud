@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#E2EBF0"
+    android:padding="@dimen/_20sdp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.LoginFragment">
+
+    <TextView
+        android:id="@+id/title_otp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:fontFamily="@font/rubik_bold"
+        android:gravity="center_horizontal|top"
+        android:lineSpacingExtra="-2sp"
+        android:text="@string/title_otp"
+        android:textAppearance="@style/koperasi_un"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/ll_kode_otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/title_otp"
+        android:gravity="center_horizontal"
+        tools:layout_editor_absoluteX="26dp">
+
+        <EditText
+            android:id="@+id/et_otp_1"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/frame"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:padding="@dimen/_12ssp"
+            android:textSize="@dimen/_12ssp" />
+
+        <EditText
+            android:id="@+id/et_otp_2"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/frame"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:padding="@dimen/_12ssp"
+            android:textSize="@dimen/_12ssp" />
+
+        <EditText
+            android:id="@+id/et_otp_3"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/frame"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:padding="@dimen/_12ssp"
+            android:textSize="@dimen/_12ssp" />
+
+        <EditText
+            android:id="@+id/et_otp_4"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:background="@drawable/frame"
+            android:padding="@dimen/_12ssp"
+            android:textSize="@dimen/_12ssp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_belum_menem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/ll_kode_otp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/belum_mener"
+            android:textAppearance="@style/belum_mener"
+            android:gravity="center_horizontal|top"
+            android:layout_marginRight="@dimen/_5sdp"
+            />
+        <TextView
+            android:id="@+id/kirim_ulang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kirim Ulang"
+            android:textColor="@color/highlight_text_color"
+            android:textStyle="bold"
+            android:textAppearance="@style/belum_mener"
+            android:gravity="center_horizontal|top"
+            />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_masuk"
+        android:background="@drawable/btn_primary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:fontFamily="@font/rubik_bold"
+        android:padding="@dimen/_10sdp"
+        android:text="Lanjut"
+        android:textAllCaps="false"
+        app:layout_constraintTop_toBottomOf="@+id/ll_belum_menem"
+        tools:layout_editor_absoluteX="16dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

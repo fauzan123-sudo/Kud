@@ -98,6 +98,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_masuk"
+
         android:background="@drawable/btn_primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -111,6 +112,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_daftar"
+        app:backgroundTint="?attr/colorSecondary"
         android:background="@drawable/btn_secondary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
