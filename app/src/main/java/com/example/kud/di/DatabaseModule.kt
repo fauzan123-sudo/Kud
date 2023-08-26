@@ -5,14 +5,18 @@ import androidx.room.Room
 import com.example.kud.data.db.MyDatabase
 import com.example.kud.data.network.*
 import com.example.kud.utils.Constants
+import com.example.kud.utils.Constants.BASE_URL
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -42,17 +46,22 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun providesRetrofit(): Retrofit.Builder {
+        val gson = GsonBuilder().setLenient().create()
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+
     }
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(interceptor: AuthInterceptor): OkHttpClient {
+    fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
-            .connectTimeout(20, TimeUnit.SECONDS)
+            .addInterceptor(authInterceptor)
+            .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
@@ -77,6 +86,13 @@ object DatabaseModule {
     fun providesAuthAPI(retrofitBuilder: Retrofit.Builder): AuthApi {
         return retrofitBuilder.build()
             .create(AuthApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providesTransactionAPI(retrofitBuilder: Retrofit.Builder): TransactionApi {
+        return retrofitBuilder.build()
+            .create(TransactionApi::class.java)
     }
 
     @Singleton

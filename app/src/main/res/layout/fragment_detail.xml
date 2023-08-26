@@ -99,14 +99,14 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@+id/addCart"
+        app:layout_constraintBottom_toTopOf="@+id/addCheckOut"
         app:layout_constraintEnd_toStartOf="@+id/minus" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/plus"
         android:layout_width="35dp"
         android:layout_height="35dp"
-        android:layout_above="@id/addCart"
+        android:layout_above="@id/addCheckOut"
         android:layout_below="@+id/detailDescription"
         android:layout_alignParentEnd="true"
         android:background="@drawable/ic_add"
@@ -137,7 +137,7 @@
         android:id="@+id/totalPrice"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_above="@id/addCart"
+        android:layout_above="@id/addCheckOut"
         android:layout_below="@+id/detailDescription"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/rubik_medium"
@@ -159,7 +159,7 @@
         android:layout_marginBottom="32dp"
         android:backgroundTint="#2C974A"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addCart"
+        app:layout_constraintEnd_toStartOf="@+id/addCheckOut"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:shapeAppearanceOverlay="@style/roundedButtonLeft">
@@ -202,7 +202,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/addCart"
+        android:id="@+id/addCheckOut"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_below="@+id/minus"

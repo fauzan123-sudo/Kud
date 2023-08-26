@@ -2,22 +2,29 @@ package com.example.kud.ui.fragment
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.kud.R
 import com.example.kud.data.model.CheckOut
+import com.example.kud.data.model.transaction.CartRequest
 import com.example.kud.databinding.FragmentDetailBinding
+import com.example.kud.ui.viewModel.CartViewModel
 import com.example.kud.ui.viewModel.CheckOutViewModel
 import com.example.kud.ui.viewModel.HomeViewModel
 import com.example.kud.utils.NetworkResult
+import com.example.kud.utils.getDataUser
 import com.example.kud.utils.handleApiError
 import com.example.kud.utils.visible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.NumberFormat
 import java.util.*
 
 @AndroidEntryPoint
@@ -26,7 +33,10 @@ class DetailFragment : BottomSheetDialogFragment() {
     private val binding get() = _binding!!
     private val viewModel: CheckOutViewModel by viewModels()
     private val homeViewModel: HomeViewModel by viewModels()
+    private val cartViewModel: CartViewModel by viewModels()
     private val args by navArgs<DetailFragmentArgs>()
+
+    val userData = getDataUser()!!
 
     var listCheckOut: ArrayList<CheckOut> = ArrayList()
 
@@ -73,9 +83,9 @@ class DetailFragment : BottomSheetDialogFragment() {
 //        Paper.init(requireContext())
 //        listCheckOut = Paper.book().read(keyName, ArrayList())!!
 
-//        binding.addCart.setOnClickListener {
-//            findNavController().navigate(R.id.action_detailFragment_to_checkOutFragment)
-//        }
+        binding.addCheckOut.setOnClickListener {
+            findNavController().navigate(R.id.action_detailFragment_to_checkOutFragment)
+        }
 
 
 //        with(binding) {
@@ -98,25 +108,51 @@ class DetailFragment : BottomSheetDialogFragment() {
 //            .into(binding.imgDetailBarang)
 //
 //        binding.minus.backgroundTintList = ColorStateList.valueOf(Color.RED)
-//        var counter = 1
-//        binding.plus.setOnClickListener {
-//            if (counter != myArgs.stok) {
-//                val textAmount = binding.amount.text.toString().toInt()
-//                binding.plus.isEnabled = textAmount <= myArgs.stok!!
-//                binding.minus.isEnabled = textAmount >= 1
-//                counter++
-//                binding.amount.setText(counter.toString())
+        var counter = 1
+        binding.plus.setOnClickListener {
+            if (counter != myArgs.stok) {
+                val textAmount = binding.amount.text.toString().toInt()
+                binding.plus.isEnabled = textAmount <= myArgs.stok!!
+                binding.minus.isEnabled = textAmount >= 1
+                counter++
+                binding.amount.setText(counter.toString())
+
+                val total = myArgs.harga!!.toInt() * counter
+                val totalPrice = NumberFormat.getNumberInstance(Locale.US)
+                    .format(total)
+                    .replace(",", ".")
+
+                binding.priceProduct.text = "Rp. $totalPrice"
+            }
+        }
 //
-//                val total = myArgs.harga!!.toInt() * counter
-//                val totalPrice = NumberFormat.getNumberInstance(Locale.US)
-//                    .format(total)
-//                    .replace(",", ".")
-//
-//                binding.priceProduct.text = "Rp. $totalPrice"
-//            }
-//        }
-//
-//        binding.addToCart.setOnClickListener {
+        binding.addToCart.setOnClickListener {
+            val userId = userData.id_pelanggan
+            val drugId = args.detailProduct.id_obat
+            val data =
+                CartRequest(userId.toString(), drugId.toString(), binding.amount.text.toString())
+            cartViewModel.addCart(data)
+            cartViewModel.getData.observe(viewLifecycleOwner) {
+                hideLoading()
+                when (it) {
+                    is NetworkResult.Success -> {
+                        Toast.makeText(
+                            requireContext(),
+                            "Successfully add in cart item ",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+                    is NetworkResult.Loading -> {
+                        showLoading()
+                    }
+
+                    is NetworkResult.Error -> {
+                        handleApiError(it.message)
+                        Log.d("error add to cart", "${it.message}")
+                    }
+                }
+            }
 ////            CoroutineScope(Dispatchers.IO).launch {
 //            val amount = binding.amount.text.toString().toInt()
 //            val data = myArgs.foto?.let { it1 ->
@@ -139,22 +175,22 @@ class DetailFragment : BottomSheetDialogFragment() {
 //                viewModel.insertData(data)
 //            }
 ////            }
-//        }
+        }
 //
-//        binding.minus.setOnClickListener {
-//            if (counter != 1) {
-//                val textAmount = binding.amount.text.toString().toInt()
-//                binding.minus.isEnabled = textAmount > 0
-//                counter--
-//                binding.amount.setText(counter.toString())
-//                val total = myArgs.harga!!.toInt() * counter
-//                val totalPrice = NumberFormat.getNumberInstance(Locale.US)
-//                    .format(total)
-//                    .replace(",", ".")
-//
-//                binding.priceProduct.text = "Rp. $totalPrice"
-//            }
-//        }
+        binding.minus.setOnClickListener {
+            if (counter != 1) {
+                val textAmount = binding.amount.text.toString().toInt()
+                binding.minus.isEnabled = textAmount > 0
+                counter--
+                binding.amount.setText(counter.toString())
+                val total = myArgs.harga!!.toInt() * counter
+                val totalPrice = NumberFormat.getNumberInstance(Locale.US)
+                    .format(total)
+                    .replace(",", ".")
+
+                binding.priceProduct.text = "Rp. $totalPrice"
+            }
+        }
     }
 
     private fun sellingProduct() {
@@ -191,11 +227,11 @@ class DetailFragment : BottomSheetDialogFragment() {
         }
     }
 
-    fun showLoading() {
+    private fun showLoading() {
         binding.progressBar.visible(true)
     }
 
-    fun hideLoading() {
+    private fun hideLoading() {
         binding.progressBar.visible(false)
     }
 

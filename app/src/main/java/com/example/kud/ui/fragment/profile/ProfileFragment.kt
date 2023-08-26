@@ -12,6 +12,7 @@ import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.LoginViewModel
 import com.example.kud.ui.viewModel.ProfileViewModel
 import com.example.kud.utils.NetworkResult
+import com.example.kud.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -21,13 +22,6 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//
-//        adapter = FakeAdapter()
-//
-//        val recyclerview = binding.recv
-//        recyclerview.adapter = adapter
-//        recyclerview.layoutManager = LinearLayoutManager(requireContext())
-//
         viewModel.profileUser()
         viewModel.profileResponseLiveData.observe(viewLifecycleOwner) {
             binding.progressBar.isVisible = false
@@ -35,15 +29,14 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                 is NetworkResult.Success -> {
                     val response = it.data!!.data
                     binding.tvEmail.text = response.email
-                    binding.tvNama.text = response.name
+                    binding.tvNama.text = response.nama
+                }
 
-                }
-                is NetworkResult.Loading -> {
-                    binding.progressBar.isVisible = true
-                }
-                else -> {
-                    Log.d("profile", it.message.toString())
-                    Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
+                is NetworkResult.Loading -> binding.progressBar.isVisible = true
+
+                is NetworkResult.Error -> {
+                    Log.d("error profile", "${it.message}")
+                    handleApiError(it.message)
                 }
             }
         }

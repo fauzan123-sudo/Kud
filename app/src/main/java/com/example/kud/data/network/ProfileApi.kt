@@ -1,6 +1,6 @@
 package com.example.kud.data.network
 
-import com.example.kud.data.model.*
+import com.example.kud.data.model.profile.ProfileResponse
 import retrofit2.Response
 import retrofit2.http.GET
 

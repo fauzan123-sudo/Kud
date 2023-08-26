@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kud.data.model.ProfileResponse
-import com.example.kud.data.repository.AuthRepository
+import com.example.kud.data.model.profile.ProfileResponse
 import com.example.kud.data.repository.ProfileRepository
 import com.example.kud.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel

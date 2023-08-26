@@ -11,7 +11,6 @@ import com.example.kud.databinding.FragmentLoginBinding
 import com.example.kud.ui.activity.MainActivity
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.AuthViewModel
-import com.example.kud.ui.viewModel.LoginViewModel
 import com.example.kud.utils.*
 import com.example.kud.utils.Constants.TAG
 import dagger.hilt.android.AndroidEntryPoint
@@ -70,9 +69,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                 is NetworkResult.Success -> {
 
                     Log.d(TAG, "here success")
-                    val statusResponse = it.data!!.status
+                    val response = it.data!!
+                    val statusResponse = response.status
                     if (statusResponse == 200) {
                         val userToken = it.data.data.access_token
+                        saveDataUser(response.data)
                         tokenManager.saveToken(userToken)
                         requireActivity().startNewActivity(MainActivity::class.java)
 

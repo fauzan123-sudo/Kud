@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDEDED"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="#EDEDED">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -18,58 +18,56 @@
                 android:id="@+id/rec_list_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="true"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="3"
-                android:clipToPadding="true"
                 tools:listitem="@layout/item_checkout_with_checkbox" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                app:layout_constraintTop_toBottomOf="@id/rec_list_product"
-                android:orientation="vertical"
                 android:background="@color/white"
                 android:clipToPadding="false"
-                android:elevation="11dp">
+                android:elevation="11dp"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/rec_list_product">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:background="#FFFFFF"
                     android:elevation="11dp"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:orientation="horizontal"
                     android:padding="@dimen/_10sdp">
+
                     <TextView
                         android:id="@+id/subtotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:text="@string/subtotal"
-                        android:textAppearance="@style/subtotal"
                         android:gravity="top"
-                        />
+                        android:text="@string/subtotal"
+                        android:textAppearance="@style/subtotal" />
+
                     <TextView
                         android:id="@+id/tv_subtotal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
                         android:text="Rp. 240.000"
-                        android:textAppearance="@style/rp_540_000"
-                        android:textStyle="bold"
                         android:textAlignment="textEnd"
-                        />
+                        android:textAppearance="@style/rp_540_000"
+                        android:textStyle="bold" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:background="#FFFFFF"
                     android:elevation="11dp"
+                    android:orientation="horizontal"
                     android:padding="@dimen/_10sdp">
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_register"
                         android:layout_width="match_parent"

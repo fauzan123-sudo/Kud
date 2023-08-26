@@ -10,9 +10,16 @@
         />
 
     <item
-        android:title="Semua Produk"
+        android:title="Keranjang"
         android:id="@+id/semuaProdukFragment"
         android:icon="@drawable/ic_scan"
+        app:showAsAction="ifRoom"
+        />
+
+    <item
+        android:title="Pesanan"
+        android:id="@+id/orderFragment"
+        android:icon="@drawable/ic_photo_black_48dp"
         app:showAsAction="ifRoom"
         />
 

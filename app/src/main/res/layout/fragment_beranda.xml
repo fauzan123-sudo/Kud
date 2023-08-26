@@ -8,7 +8,6 @@
     android:background="#2C974A"
     tools:context=".ui.fragment.home.BerandaFragment">
 
-
     <EditText
         android:id="@+id/searchItem"
         android:layout_marginEnd="40dp"
