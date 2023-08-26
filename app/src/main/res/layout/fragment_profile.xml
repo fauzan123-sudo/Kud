@@ -1,55 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
-    android:background="@color/white"
-    android:backgroundTint="@color/white"
+    android:background="@color/light_gray"
+    android:backgroundTint="@color/light_gray"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="@dimen/_20sdp"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragment.profile.ProfileFragment">
-
-
-    <ImageView
-        android:id="@+id/imageView15"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/_40sdp"
-        android:src="@drawable/ic_person"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/txt_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:text="Email"
-        app:layout_constraintStart_toStartOf="@+id/imageView15"
-        app:layout_constraintTop_toBottomOf="@+id/imageView15" />
-
-    <TextView
-        android:id="@+id/txt_nama"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:text="Nama"
-        app:layout_constraintStart_toStartOf="@+id/txt_email"
-        app:layout_constraintTop_toBottomOf="@+id/txt_email" />
-
-    <TextView
-        android:id="@+id/tv_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_marginStart="@dimen/_20sdp"
-        app:layout_constraintStart_toEndOf="@+id/txt_email"
-        app:layout_constraintTop_toTopOf="@+id/txt_email" />
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/progress_bar"
@@ -65,11 +23,160 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_nama"
-        android:layout_width="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_user"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_marginTop="@dimen/_70sdp"
+        android:src="@drawable/alucrot"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="11dp"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="@dimen/_3sdp"
+        />
+    <LinearLayout
+        android:id="@+id/ll_nama"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/tv_email"
-        app:layout_constraintTop_toTopOf="@+id/txt_nama" />
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/img_user"
+        android:layout_marginTop="@dimen/_20sdp"
+        style="@style/bg_card"
+        android:padding="@dimen/_15sdp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nama"
+            android:textAppearance="@style/label_basic"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/tv_nama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:textAppearance="@style/label_value"
+            android:gravity="right|center_vertical"
+            />
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ic_arrow_right"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/ll_nama"
+        android:layout_marginTop="@dimen/_10sdp"
+        style="@style/bg_card"
+        android:padding="@dimen/_15sdp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Email"
+            android:textAppearance="@style/label_basic"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/tv_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:textAppearance="@style/label_value"
+            android:gravity="right|center_vertical"
+            />
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ic_arrow_right"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_no_hp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/ll_email"
+        android:layout_marginTop="@dimen/_10sdp"
+        style="@style/bg_card"
+        android:padding="@dimen/_15sdp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Hanphone"
+            android:textAppearance="@style/label_basic"
+            android:gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/tv_no_hp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="-"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:textAppearance="@style/label_value"
+            android:gravity="right|center_vertical"
+            />
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ic_arrow_right"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_alamat_pengiriman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/ll_no_hp"
+        android:layout_marginTop="@dimen/_10sdp"
+        style="@style/bg_card"
+        android:padding="@dimen/_15sdp"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Alamat Pengiriman"
+            android:textAppearance="@style/label_basic"
+            android:gravity="center_vertical"
+            />
+        <ImageView
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_15sdp"
+            android:src="@drawable/ic_arrow_right"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:elevation="11dp"
+        android:padding="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@id/ll_alamat_pengiriman">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_secondary"
+            android:fontFamily="@font/rubik_bold"
+            android:padding="@dimen/_10sdp"
+            android:text="Keluar"
+            android:textAllCaps="false"
+            app:backgroundTint="?attr/colorSecondary"
+            tools:layout_editor_absoluteX="16dp" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

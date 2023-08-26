@@ -59,8 +59,12 @@
                         android:textAppearance="@style/rp_540_000"
                         android:textStyle="bold" />
                 </LinearLayout>
+<<<<<<< HEAD
 
                 <LinearLayout
+=======
+                <RelativeLayout
+>>>>>>> e4079678e78505e31a3d07ce81b59193e1eaf04f
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
@@ -72,16 +76,14 @@
                         android:id="@+id/btn_register"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_10sdp"
                         android:background="@drawable/btn_secondary"
                         android:fontFamily="@font/rubik_bold"
                         android:padding="@dimen/_10sdp"
                         android:text="Checkout"
                         android:textAllCaps="false"
                         app:backgroundTint="?attr/colorSecondary"
-                        app:layout_constraintTop_toBottomOf="@+id/btn_login"
                         tools:layout_editor_absoluteX="16dp" />
-                </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
