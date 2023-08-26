@@ -98,7 +98,7 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_masuk"
+        android:id="@+id/btn_login"
         android:background="@drawable/btn_primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

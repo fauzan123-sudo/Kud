@@ -16,53 +16,45 @@ import coil.request.ImageRequest
 import coil.request.SuccessResult
 import com.example.kud.R
 import com.example.kud.data.model.User
+import com.example.kud.databinding.FragmentUpdateBinding
+import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.AlbumViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_update.*
-import kotlinx.android.synthetic.main.fragment_update.view.*
 
 @AndroidEntryPoint
-class UpdateFragment : Fragment() {
+class UpdateFragment : BaseFragment<FragmentUpdateBinding>(FragmentUpdateBinding::inflate) {
 
     private val args by navArgs<UpdateFragmentArgs>()
-//    private lateinit var viewModel:AlbumViewModel
+
+    //    private lateinit var viewModel:AlbumViewModel
     private val viewModel: AlbumViewModel by viewModels()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        val view:View = inflater.inflate(R.layout.fragment_update, container, false)
-
-//        viewModel = ViewModelProvider(this)[AlbumViewModel::class.java]
-
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val argUpd = args.update
-        view.edt1.setText(argUpd.firstName)
-        view.edt2.setText(argUpd.middleName)
-        view.edt3.setText(argUpd.lastName)
+        binding.edt1.setText(argUpd.firstName)
+        binding.edt2.setText(argUpd.middleName)
+        binding.edt3.setText(argUpd.lastName)
 
-        view.btnUpdt.setOnClickListener {
+        binding.btnUpdt.setOnClickListener {
             updateItem()
         }
 
         setHasOptionsMenu(true)
-
-        return view
     }
 
     private fun updateItem() {
-        val updateFirstName  = edt1.text.toString()
-        val updatedName      = edt2.text.toString()
-        val updateLastName   = edt3.text.toString()
+        val updateFirstName = binding.edt1.text.toString()
+        val updatedName = binding.edt2.text.toString()
+        val updateLastName = binding.edt3.text.toString()
 
-        if(checkInput(updateFirstName, updatedName, updateLastName)){
+        if (checkInput(updateFirstName, updatedName, updateLastName)) {
             val update = User(args.update.id, updateFirstName, updatedName, updateLastName, null)
 //            viewModel.updateData(update)
-            Toast.makeText(requireContext(), "Successfully Update Data!!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Successfully Update Data!!", Toast.LENGTH_SHORT)
+                .show()
             findNavController().navigate(R.id.action_updateFragment_to_berandaFragment)
-        }else{
+        } else {
             Toast.makeText(requireContext(), "Please Fill out the Field", Toast.LENGTH_SHORT).show()
         }
     }
@@ -77,8 +69,10 @@ class UpdateFragment : Fragment() {
         return (result as BitmapDrawable).bitmap
     }
 
-    private fun checkInput(firstName:String, middleName:String, lastname:String):Boolean{
-        return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(middleName) && TextUtils.isEmpty(lastname))
+    private fun checkInput(firstName: String, middleName: String, lastname: String): Boolean {
+        return !(TextUtils.isEmpty(firstName) && TextUtils.isEmpty(middleName) && TextUtils.isEmpty(
+            lastname
+        ))
 
     }
 
@@ -88,7 +82,7 @@ class UpdateFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.delete){
+        if (item.itemId == R.id.delete) {
             deleteUser()
         }
         return super.onOptionsItemSelected(item)
@@ -96,13 +90,17 @@ class UpdateFragment : Fragment() {
 
     private fun deleteUser() {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setPositiveButton("Yes"){_, _ ->
+        builder.setPositiveButton("Yes") { _, _ ->
 //            viewModel.deleteUser(args.update)
-            Toast.makeText(requireContext(), "Successfully for delete : ${args.update.firstName}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Successfully for delete : ${args.update.firstName}",
+                Toast.LENGTH_SHORT
+            ).show()
             findNavController().navigate(R.id.action_updateFragment_to_berandaFragment)
         }
 
-        builder.setNegativeButton("No"){_,_ ->}
+        builder.setNegativeButton("No") { _, _ -> }
         builder.setTitle("Delete ${args.update.firstName}?")
         builder.setMessage("Are you sure for delete ${args.update.firstName}")
         builder.create().show()

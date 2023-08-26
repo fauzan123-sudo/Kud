@@ -21,9 +21,10 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="3"
                 android:clipToPadding="true"
-                tools:listitem="@layout/item_checkout_with_checkbox" />
+                tools:listitem="@layout/item_checkout" />
 
             <LinearLayout
+                android:id="@+id/ll_jenis_peng_pem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
@@ -103,15 +104,179 @@
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/_20sdp"
                             android:textAppearance="@style/radio_button_text"
-                            android:text="COD"/>
+                            android:text="Transfer"/>
+
                         <RadioButton
                             android:id="@+id/rb_tunai"
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/_20sdp"
                             android:textAppearance="@style/radio_button_text"
-                            android:text="Ambil Sendiri"/>
+                            android:text="Tunai"/>
                     </RadioGroup>
                 </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_alamat_pengiriman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:elevation="11dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:layout_constraintTop_toBottomOf="@id/ll_jenis_peng_pem"
+                android:padding="@dimen/_10sdp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/_10sdp">
+                    <TextView
+                        android:id="@+id/tv_alamat_pengiriman"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Alamat Pengiriman"
+                        android:textAppearance="@style/title_text"
+                        android:gravity="top"
+                        />
+                    <TextView
+                        android:id="@+id/ganti"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:text="Ganti"
+                        android:textAlignment="textEnd"
+                        android:textAppearance="@style/ganti"
+                        />
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/jl_trunojoy"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/jl_trunojoy"
+                    android:textAppearance="@style/text_small_muted"
+                    android:gravity="top"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:elevation="11dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:layout_constraintTop_toBottomOf="@id/ll_alamat_pengiriman"
+                android:padding="@dimen/_10sdp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/_10sdp">
+                    <TextView
+                        android:id="@+id/subtotal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/subtotal"
+                        android:textAppearance="@style/subtotal"
+                        android:gravity="top"
+                        />
+                    <TextView
+                        android:id="@+id/sub_total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="Rp20.000"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textAlignment="textEnd"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/_10sdp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ongkos_kirim"
+                        android:textAppearance="@style/subtotal"
+                        android:gravity="top"
+                        />
+                    <TextView
+                        android:id="@+id/tv_ongkos_kirim"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="Rp20.000"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textAlignment="textEnd"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="@dimen/_10sdp">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/total"
+                        android:textAppearance="@style/subtotal"
+                        android:gravity="top"
+                        android:textStyle="bold"
+                        />
+                    <TextView
+                        android:id="@+id/tv_total"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="Rp20.000"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_12ssp"
+                        android:textAlignment="textEnd"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#FFFFFF"
+                android:elevation="11dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                app:layout_constraintTop_toBottomOf="@id/ll_total"
+                android:padding="@dimen/_10sdp">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_gak_jadi"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/btn_muted"
+                    android:fontFamily="@font/rubik_bold"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Batal"
+                    app:backgroundTint="@color/muted"
+                    android:textAllCaps="false"
+                    tools:layout_editor_absoluteX="16dp" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_bayar"
+                    android:layout_weight="1"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:background="@drawable/btn_primary"
+                    android:fontFamily="@font/rubik_bold"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Masuk"
+                    android:textAllCaps="false"
+                    tools:layout_editor_absoluteX="16dp" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

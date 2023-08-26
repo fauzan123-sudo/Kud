@@ -26,7 +26,6 @@ import com.example.kud.databinding.FragmentAddBinding
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.AlbumViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -92,9 +91,9 @@ class AddFragment : BaseFragment<FragmentAddBinding>(FragmentAddBinding::inflate
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
                 val bitmap = it?.data?.extras?.get("data") as Bitmap
-                imgPhoto.setImageBitmap(bitmap)            /* imgPhoto.load(bitmap) */
+                binding.imgPhoto.setImageBitmap(bitmap)            /* imgPhoto.load(bitmap) */
             } else if (it == null) {
-                imgPhoto.setImageResource(R.drawable.ic_launcher_background)
+                binding.imgPhoto.setImageResource(R.drawable.ic_launcher_background)
             } else {
                 Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
             }
@@ -103,10 +102,10 @@ class AddFragment : BaseFragment<FragmentAddBinding>(FragmentAddBinding::inflate
 
     private fun insertData() {
         lifecycleScope.launch {
-            val firstName  : String   = edt1.text.toString()
-            val middleName : String   = edt2.text.toString()
-            val lastName   : String   = edt3.text.toString()
-            val image      :Bitmap    =  imgPhoto.drawable.toBitmap()
+            val firstName  : String   = binding.edt1.text.toString()
+            val middleName : String   = binding.edt2.text.toString()
+            val lastName   : String   = binding.edt3.text.toString()
+            val image      :Bitmap    =  binding.imgPhoto.drawable.toBitmap()
 
             if (checkInput(firstName, middleName, lastName)) {
                 val data = User(0, firstName, middleName, lastName, image)

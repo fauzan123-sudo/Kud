@@ -26,7 +26,6 @@ import com.example.kud.utils.TokenManager
 import com.example.kud.utils.UserPreferences
 import com.example.kud.utils.startNewActivity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_beranda.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -168,7 +167,7 @@ class BerandaFragment :
                 Log.d(TAG, mList.toString())
                 mList.removeAt(position)
 //                viewModel.deleteUser(item)
-                recv.adapter?.notifyItemRemoved(position)
+                binding.recv.adapter?.notifyItemRemoved(position)
                 Toast.makeText(
                     requireContext(),
                     "Successfully Delete Item $item",

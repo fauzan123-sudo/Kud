@@ -12,11 +12,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.budiyev.android.codescanner.*
 import com.example.kud.R
-import kotlinx.android.synthetic.main.fragment_scan.*
 import androidx.appcompat.app.AlertDialog
 import androidx.navigation.fragment.findNavController
+import com.example.kud.databinding.FragmentScanBinding
+import com.example.kud.ui.base.BaseFragment
 
-class ScanFragment : Fragment() {
+class ScanFragment : BaseFragment<FragmentScanBinding>(FragmentScanBinding::inflate) {
     private lateinit var codeScanner: CodeScanner
 
     private val cameraPermissionResult =
@@ -30,31 +31,22 @@ class ScanFragment : Fragment() {
             }
         }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val view: View = inflater.inflate(R.layout.fragment_scan, container, false)
-
-        return view
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             setUpPermissionCamera()
         }
 
 //        displayCameraFragment()
         val activity = requireActivity()
-        codeScanner  = CodeScanner(activity, scanner_view)
+        codeScanner = CodeScanner(activity, binding.scannerView)
         codeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
                 Toast.makeText(activity, it.text, Toast.LENGTH_LONG).show()
             }
         }
-        scanner_view.setOnClickListener {
+        binding.scannerView.setOnClickListener {
             codeScanner.startPreview()
         }
     }
@@ -79,7 +71,7 @@ class ScanFragment : Fragment() {
     }
 
     private fun displayCameraFragment() {
-        codeScanner = CodeScanner(requireActivity(), scanner_view)
+        codeScanner = CodeScanner(requireActivity(), binding.scannerView)
         codeScanner.apply {
             camera = CodeScanner.CAMERA_BACK
             formats = CodeScanner.ALL_FORMATS
@@ -99,7 +91,7 @@ class ScanFragment : Fragment() {
                 Log.e("error", "camera initialize error ${it.message}: ")
             }
         }
-        scanner_view.setOnClickListener {
+        binding.scannerView.setOnClickListener {
             codeScanner.startPreview()
         }
     }

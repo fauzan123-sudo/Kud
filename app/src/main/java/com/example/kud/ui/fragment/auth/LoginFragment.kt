@@ -10,6 +10,7 @@ import com.example.kud.data.model.LoginRequest
 import com.example.kud.databinding.FragmentLoginBinding
 import com.example.kud.ui.activity.MainActivity
 import com.example.kud.ui.base.BaseFragment
+import com.example.kud.ui.viewModel.AuthViewModel
 import com.example.kud.ui.viewModel.LoginViewModel
 import com.example.kud.utils.*
 import com.example.kud.utils.Constants.TAG
@@ -19,7 +20,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::inflate) {
 
-    private val viewModel by activityViewModels<LoginViewModel>()
+    private val viewModel by activityViewModels<AuthViewModel>()
 
     @Inject
     lateinit var tokenManager: TokenManager
@@ -39,8 +40,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
 
         binding.btnLogin.setOnClickListener {
             Helper.hideKeyboard(it)
-            val userName = binding.edtEmail.text.toString().trim()
-            val password = binding.edtPassword.text.toString().trim()
+            val userName = binding.etEmail.text.toString().trim()
+            val password = binding.etPassword.text.toString().trim()
             val loginRequest = LoginRequest(userName, password)
             Log.d(TAG, "onViewCreated: $loginRequest")
             when {

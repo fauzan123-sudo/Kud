@@ -13,15 +13,15 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.kud.R
 import com.example.kud.data.model.CheckOut
+import com.example.kud.databinding.ItemCheckoutBinding
 import com.example.kud.ui.fragment.DeleteItemCheckOut
 import com.example.kud.utils.Constants.IMAGE_OBAT
-import kotlinx.android.synthetic.main.item_checkout.view.*
 import java.text.NumberFormat
 import java.util.*
 
 class AdapterCheck(val context: Context) : RecyclerView.Adapter<AdapterCheck.ViewHolder>() {
 
-    inner class ViewHolder(val item: View) : RecyclerView.ViewHolder(item)
+    inner class ViewHolder(val binding: ItemCheckoutBinding) : RecyclerView.ViewHolder(binding.root)
 
     var listener: DeleteItemCheckOut? = null
 
@@ -38,18 +38,15 @@ class AdapterCheck(val context: Context) : RecyclerView.Adapter<AdapterCheck.Vie
     val differ = AsyncListDiffer(this, differCallback)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
-        LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_checkout, parent, false)
+       ItemCheckoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val dataPosition = differ.currentList[position]
-//        holder.totalPrice.text = "Rp. 22.000"
         with(holder) {
-
-            with(item) {
+            with(binding) {
                 with(dataPosition) {
-                    totalItems.setText(amountItem.toString())
+                    totalItems.text = amountItem.toString()
                     drugName.text = nameItem
                     val totalPrice = NumberFormat.getNumberInstance(Locale.US)
                         .format(priceItem)
@@ -96,7 +93,7 @@ class AdapterCheck(val context: Context) : RecyclerView.Adapter<AdapterCheck.Vie
 
                             var totalItem = 0
                             for (i in 0 until differ.currentList.size) {
-                                totalItem += holder.item.textView9.text.toString().toInt()
+                                totalItem += holder.binding.textView9.text.toString().toInt()
 
                             }
 //                            Toast.makeText(context, "$totalItem", Toast.LENGTH_SHORT).show()
@@ -123,13 +120,13 @@ class AdapterCheck(val context: Context) : RecyclerView.Adapter<AdapterCheck.Vie
                             val amountItem = totalItems.text.toString().toInt()
                             btnMinus.isEnabled = amountItem > 0
                             val total = amountItem - 1
-                            totalItems.setText(total.toString())
+                            totalItems.text = total.toString()
 //                            listener?.addItemCheckOut(holder, absoluteAdapterPosition)
                         }
                     }
                 }
 
-                itemView.deleteItem.setOnClickListener {
+                binding.deleteItem.setOnClickListener {
 //                    if (listener != null) {
 //                        listener?.deleteItemCheckOut(holder, absoluteAdapterPosition)
 ////                        Toast.makeText(context, "not null", Toast.LENGTH_SHORT).show()

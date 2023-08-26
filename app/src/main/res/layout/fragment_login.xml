@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/frame"
             android:clipToOutline="true"
+            android:textColor="@color/black"
             android:hint="Masukkan Email anda"
             android:padding="@dimen/_12ssp"
             android:textSize="@dimen/_12ssp" />
@@ -85,6 +86,7 @@
 
         <EditText
             android:id="@+id/et_password"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/frame"
@@ -97,12 +99,11 @@
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_masuk"
-
-        android:background="@drawable/btn_primary"
+        android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/btn_primary"
         android:fontFamily="@font/rubik_bold"
         android:padding="@dimen/_10sdp"
         android:text="Masuk"
@@ -111,18 +112,29 @@
         tools:layout_editor_absoluteX="16dp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_daftar"
-        app:backgroundTint="?attr/colorSecondary"
-        android:background="@drawable/btn_secondary"
+        android:id="@+id/btn_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/btn_secondary"
         android:fontFamily="@font/rubik_bold"
         android:padding="@dimen/_10sdp"
         android:text="Daftar"
         android:textAllCaps="false"
-        app:layout_constraintTop_toBottomOf="@+id/btn_masuk"
+        app:backgroundTint="?attr/colorSecondary"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
         tools:layout_editor_absoluteX="16dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="invisible"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

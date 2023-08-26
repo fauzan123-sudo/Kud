@@ -13,6 +13,17 @@
     <string name="belum_mener">Belum menerima Kode?</string>
     <string name="jenis_pengi">Jenis Pengiriman</string>
     <string name="jenis_pembayaran">Jenis Pembayaran</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="ongkos_kirim">Ongkos Kirim</string>
+    <string name="total">Total</string>
+    <string name="jl_trunojoy">Jl. Trunojoyo 09 Gang 2 Malang, 74821 Jawa Timur</string>
     <string name="failed_connect">java.net.SocketTimeoutException: failed to connect to /192.168.1.6 (port 80) from /192.168.200.2 (port 48372) after 10000ms</string>
     <string name="lorep_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+    <string name="nomor_reken">Nomor Rekening</string>
+    <string name="silahkan_tr">
+        Silahkan Transfer Sesuai Nominal <b>Rp540.000</b> untuk Pembelian Obat ke Rekening yang tertera di atas
+    </string>
+    <string name="upload_foto">
+    Upload Foto Bukti Transfer
+    </string>
 </resources>

@@ -3,9 +3,7 @@ package com.example.kud.di
 import android.content.Context
 import androidx.room.Room
 import com.example.kud.data.db.MyDatabase
-import com.example.kud.data.network.AuthInterceptor
-import com.example.kud.data.network.HomeApi
-import com.example.kud.data.network.UserApi
+import com.example.kud.data.network.*
 import com.example.kud.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -65,6 +63,20 @@ object DatabaseModule {
     fun providesUserAPI(retrofitBuilder: Retrofit.Builder): UserApi {
         return retrofitBuilder.build()
             .create(UserApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providesProfileAPI(retrofitBuilder: Retrofit.Builder): ProfileApi {
+        return retrofitBuilder.build()
+            .create(ProfileApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providesAuthAPI(retrofitBuilder: Retrofit.Builder): AuthApi {
+        return retrofitBuilder.build()
+            .create(AuthApi::class.java)
     }
 
     @Singleton

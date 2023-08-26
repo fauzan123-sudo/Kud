@@ -1,8 +1,8 @@
 package com.example.kud.utils
 
 object Constants {
-    const val BASE_URL = "https://kud.ngastaa.com/"
-    const val IMAGE_OBAT = "http://192.168.1.2/kud_shop/public/image/obat/"
+    const val BASE_URL = "https://kud.ngastaa.com/api/"
+    const val IMAGE_OBAT = "https://kud.ngastaa.com/public/image/obat/"
     const val TAG = "fauzanapp"
     const val USER_TOKEN = "user_token"
     const val PREFS_TOKEN_FILE = "prefs_token_file"

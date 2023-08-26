@@ -12,4 +12,6 @@
     <color name="highlight_text_color">#2196F3</color>
     <color name="primary">#2C974A</color>
     <color name="secondary">#EF2B2B</color>
+    <color name="orange">#F8983F</color>
+    <color name="muted">#989898</color>
 </resources>

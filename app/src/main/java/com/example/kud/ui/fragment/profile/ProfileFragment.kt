@@ -10,13 +10,14 @@ import androidx.fragment.app.viewModels
 import com.example.kud.databinding.FragmentProfileBinding
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.LoginViewModel
+import com.example.kud.ui.viewModel.ProfileViewModel
 import com.example.kud.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBinding::inflate) {
 
-    private val viewModel: LoginViewModel by viewModels()
+    private val viewModel: ProfileViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
