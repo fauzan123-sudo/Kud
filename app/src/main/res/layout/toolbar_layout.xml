@@ -1,4 +1,5 @@
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
@@ -6,28 +7,14 @@
     android:background="@color/green"
     android:padding="@dimen/_10sdp">
 
-    <LinearLayout
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/search_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/search_view_background"
-            app:iconifiedByDefault="false"
-            app:queryHint="Cari Nama Obat"
-            app:theme="@style/SearchViewStyle" />
-
-        <ImageView
-            android:id="@+id/menu"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="@dimen/_8sdp"
-            android:src="@drawable/ic_filter" />
-
-    </LinearLayout>
+        android:background="@drawable/search_view_background"
+        app:iconifiedByDefault="false"
+        app:queryHint="Cari Nama Obat"
+        android:layout_marginEnd="@dimen/_10sdp"
+        app:theme="@style/SearchViewStyle" />
 
 </androidx.appcompat.widget.Toolbar>

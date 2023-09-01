@@ -21,7 +21,7 @@ class AdapterData(val context: Context) : RecyclerView.Adapter<AdapterData.ViewH
     var listener: RecyclerViewClickListener? = null
     private val differCallback = object : DiffUtil.ItemCallback<DataXXX>() {
         override fun areItemsTheSame(oldItem: DataXXX, newItem: DataXXX): Boolean {
-            return oldItem.id_obat == newItem.id_obat
+            return oldItem == newItem
         }
 
         override fun areContentsTheSame(oldItem: DataXXX, newItem: DataXXX): Boolean {

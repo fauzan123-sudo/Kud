@@ -9,7 +9,6 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/_10sdp">
 
-
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/imageProduct"
         android:layout_width="@dimen/_70sdp"
@@ -96,7 +95,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/rubik"
         android:inputType="numberDecimal"
-        android:textSize="12sp"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintBottom_toBottomOf="@+id/imageProduct"
         app:layout_constraintEnd_toStartOf="@+id/btnPlus" />
 

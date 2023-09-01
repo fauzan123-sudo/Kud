@@ -5,16 +5,15 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.example.kud.MyApplication
 import com.example.kud.data.model.LoginRequest
 import com.example.kud.data.model.LoginResponse
 import com.example.kud.data.model.ProfileResponse
 import com.example.kud.data.repository.UserRepository
-import com.example.kud.utils.Connections.hasInternetConnection
 import com.example.kud.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import xyz.teamgravity.checkinternet.CheckInternet
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,7 +30,8 @@ class LoginViewModel @Inject constructor(app: Application, private val repositor
 
     fun login(loginRequest: LoginRequest) {
         viewModelScope.launch {
-            if (hasInternetConnection(getApplication<MyApplication>())) {
+            val connected = CheckInternet().check()
+            if (connected) {
                 _userResponseLiveData.postValue(NetworkResult.Loading())
                 _userResponseLiveData.postValue(repository.loginUser(loginRequest))
             } else
@@ -42,7 +42,8 @@ class LoginViewModel @Inject constructor(app: Application, private val repositor
 
     fun profileUser() {
         viewModelScope.launch {
-            if (hasInternetConnection(getApplication<MyApplication>())) {
+            val connected = CheckInternet().check()
+            if (connected) {
                 _profileResponseLiveData.postValue(NetworkResult.Loading())
                 _profileResponseLiveData.postValue(repository.profileUser())
             } else

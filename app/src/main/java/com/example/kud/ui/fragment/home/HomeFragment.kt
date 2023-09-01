@@ -1,7 +1,7 @@
-package com.example.kud.ui.fragment
+package com.example.kud.ui.fragment.home
 
 import android.os.Bundle
-import android.view.MenuItem
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
@@ -17,6 +17,7 @@ import com.example.kud.data.adapter.AdapterKategori
 import com.example.kud.data.model.DataXXX
 import com.example.kud.databinding.FragmentHomeBinding
 import com.example.kud.ui.base.BaseFragment
+import com.example.kud.ui.fragment.RecyclerViewClickListener
 import com.example.kud.ui.viewModel.HomeViewModel
 import com.example.kud.utils.NetworkResult
 import com.example.kud.utils.TokenManager
@@ -82,13 +83,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         recyclerviewItems = binding.recItemsHome
         recyclerviewItems.adapter = adapterData
-        recyclerviewItems.layoutManager = GridLayoutManager(requireContext(), 3)
+        recyclerviewItems.layoutManager = GridLayoutManager(requireContext(), 2)
 
         viewModel.drug()
         viewModel.getDrug.observe(viewLifecycleOwner) {
             binding.progressBar.isVisible = false
             when (it) {
                 is NetworkResult.Success -> {
+                    Log.d("success", "data is exist")
                     val status = it.data!!.status
                     if (status == 200) {
                         val data = it.data.data
@@ -96,6 +98,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                         mList.add(it.toString())
                     } else {
                         handleApiError(status.toString())
+                        Log.d("is error ", "data is not exist and ${it.message}")
                     }
                 }
 
@@ -104,6 +107,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
 
                 is NetworkResult.Error -> {
+                    Log.d("is error ", "data is not exist and ${it.message}")
                     handleApiError(it.message)
                 }
             }
@@ -132,9 +136,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
         }
 
-        binding.toolbarItems.menu.setOnClickListener {
-            Toast.makeText(requireContext(), "menu", Toast.LENGTH_SHORT).show()
-        }
+//        binding.toolbarItems.menu.setOnClickListener {
+//            Toast.makeText(requireContext(), "menu", Toast.LENGTH_SHORT).show()
+//        }
     }
 
     private fun pindah() {
@@ -143,28 +147,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     override fun onItemClicked(view: View, data: DataXXX) {
         val dataName = data.nama
-        val dataCreateBy = data.created_by
-        val dataCreateAt = data.created_at
-        val dataUpdateAt = data.updated_at
-        val dataUpdateBy = data.updated_by
+//        val dataCreateBy = data.created_by
+//        val dataCreateAt = data.created_at
+//        val dataUpdateAt = data.updated_at
+//        val dataUpdateBy = data.updated_by
         val dataImage = data.foto
         val dataPrice = data.harga
-        val dataDetail = data.deskripsi
+        val dataDescription = data.deskripsi
         val stockDetail = data.stok
         val idCategory = data.id_kategori
         val idDrug = data.id_obat
         val sendData = DataXXX(
-            dataCreateAt,
-            dataCreateBy,
-            dataDetail,
+//            dataCreateAt,
+//            dataCreateBy,
+            dataDescription,
             dataImage,
             dataPrice,
             idCategory,
             idDrug,
             dataName,
             stockDetail,
-            dataUpdateAt,
-            dataUpdateBy
+//            dataUpdateAt,
+//            dataUpdateBy
         )
         val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(sendData)
         findNavController().navigate(action)

@@ -30,13 +30,13 @@ class DetailDataProduct : BottomSheetDialogFragment() {
 
     }
 
-    private inner class ViewHolder internal constructor(binding: FragmentDetailDataProductListDialogItemBinding) :
+    private inner class ViewHolder(binding: FragmentDetailDataProductListDialogItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         internal val text: TextView = binding.text
     }
 
-    private inner class ItemAdapter internal constructor(private val mItemCount: Int) :
+    private inner class ItemAdapter(private val mItemCount: Int) :
         RecyclerView.Adapter<ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -50,7 +50,7 @@ object DatabaseModule {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
-
+            .addConverterFactory(MoshiConverterFactory.create().asLenient())
     }
 
     @Singleton
@@ -69,36 +69,73 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun providesUserAPI(retrofitBuilder: Retrofit.Builder): UserApi {
-        return retrofitBuilder.build()
+    fun providesUserAPI(retrofitBuilder: Retrofit.Builder, okHttpClient: OkHttpClient): UserApi {
+        return retrofitBuilder.client(okHttpClient).build()
             .create(UserApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun providesProfileAPI(retrofitBuilder: Retrofit.Builder): ProfileApi {
-        return retrofitBuilder.build()
+    fun providesProfileAPI(
+        retrofitBuilder: Retrofit.Builder,
+        okHttpClient: OkHttpClient
+    ): ProfileApi {
+        return retrofitBuilder.client(okHttpClient).build()
             .create(ProfileApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun providesAuthAPI(retrofitBuilder: Retrofit.Builder): AuthApi {
-        return retrofitBuilder.build()
+    fun providesAuthAPI(retrofitBuilder: Retrofit.Builder, okHttpClient: OkHttpClient): AuthApi {
+        return retrofitBuilder.client(okHttpClient).build()
             .create(AuthApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun providesTransactionAPI(retrofitBuilder: Retrofit.Builder): TransactionApi {
-        return retrofitBuilder.build()
+    fun providesTransactionAPI(
+        retrofitBuilder: Retrofit.Builder,
+        okHttpClient: OkHttpClient
+    ): TransactionApi {
+        return retrofitBuilder.client(okHttpClient).build()
             .create(TransactionApi::class.java)
     }
 
     @Singleton
     @Provides
-    fun homeApi(retrofitBuilder: Retrofit.Builder): HomeApi {
-        return retrofitBuilder.build()
+    fun providesCheckOutAPI(
+        retrofitBuilder: Retrofit.Builder,
+        okHttpClient: OkHttpClient
+    ): CheckOutApi {
+        return retrofitBuilder.client(okHttpClient).build()
+            .create(CheckOutApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun providesCartAPI(retrofitBuilder: Retrofit.Builder, okHttpClient: OkHttpClient): CartApi {
+        return retrofitBuilder.client(okHttpClient).build()
+            .create(CartApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun homeApi(retrofitBuilder: Retrofit.Builder, okHttpClient: OkHttpClient): HomeApi {
+        return retrofitBuilder.client(okHttpClient).build()
             .create(HomeApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun detailApi(retrofitBuilder: Retrofit.Builder, okHttpClient: OkHttpClient): DetailApi {
+        return retrofitBuilder.client(okHttpClient).build()
+            .create(DetailApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun addressApi(retrofitBuilder: Retrofit.Builder, okHttpClient: OkHttpClient): AddressApi {
+        return retrofitBuilder.client(okHttpClient).build()
+            .create(AddressApi::class.java)
     }
 }

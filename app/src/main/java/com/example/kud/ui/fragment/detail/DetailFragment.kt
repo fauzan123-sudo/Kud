@@ -1,4 +1,4 @@
-package com.example.kud.ui.fragment
+package com.example.kud.ui.fragment.detail
 
 import android.app.Dialog
 import android.os.Bundle
@@ -12,12 +12,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.kud.R
-import com.example.kud.data.model.CheckOut
-import com.example.kud.data.model.transaction.CartRequest
+import com.example.kud.data.model.detail.DetailProduct
+import com.example.kud.data.model.detail.request.RequestToCart
+import com.example.kud.data.model.detail.request.RequestToCheckOut
 import com.example.kud.databinding.FragmentDetailBinding
-import com.example.kud.ui.viewModel.CartViewModel
-import com.example.kud.ui.viewModel.CheckOutViewModel
-import com.example.kud.ui.viewModel.HomeViewModel
+import com.example.kud.ui.viewModel.DetailViewModel
 import com.example.kud.utils.NetworkResult
 import com.example.kud.utils.getDataUser
 import com.example.kud.utils.handleApiError
@@ -31,20 +30,15 @@ import java.util.*
 class DetailFragment : BottomSheetDialogFragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CheckOutViewModel by viewModels()
-    private val homeViewModel: HomeViewModel by viewModels()
-    private val cartViewModel: CartViewModel by viewModels()
+    private val viewModel: DetailViewModel by viewModels()
     private val args by navArgs<DetailFragmentArgs>()
 
-    val userData = getDataUser()!!
-
-    var listCheckOut: ArrayList<CheckOut> = ArrayList()
+    private val userData = getDataUser()!!
 
     override fun getTheme() = R.style.BottomSheetDialogTheme
 
     override fun onStart() {
         super.onStart()
-
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -73,66 +67,22 @@ class DetailFragment : BottomSheetDialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val myArgs = args.detailProduct
+        Log.d("data", "$myArgs")
 
-        loadData(myArgs.id_obat)
-
-//        addToCart()
-//        sellingProduct()
-
-
-//        Paper.init(requireContext())
-//        listCheckOut = Paper.book().read(keyName, ArrayList())!!
+        loadDataDetail(myArgs.id_obat)
 
         binding.addCheckOut.setOnClickListener {
-            findNavController().navigate(R.id.action_detailFragment_to_checkOutFragment)
+            val qty = binding.amount.text.toString()
+            addToCheckOut(userData.id_pelanggan, myArgs.id_obat, qty)
         }
 
-
-//        with(binding) {
-//            with(myArgs) {
-//                Log.d("data", "$myArgs")
-//                detailDescription.text = deskripsi
-//                txtNameProduct.text = nama
-//                totalPrice.text = harga
-//                stockItem.text = "jumlah Stok : $stok"
-//            }
-//        }
-
-
-//        val totalPrice = NumberFormat.getNumberInstance(Locale.US)
-//            .format(myArgs.harga!!.toInt())
-//            .replace(",", ".")
-//        binding.totalPrice.text = "Rp. $totalPrice"
-//        val picture = myArgs.foto
-//        Glide.with(requireContext()).load("$IMAGE_OBAT$picture")
-//            .into(binding.imgDetailBarang)
-//
-//        binding.minus.backgroundTintList = ColorStateList.valueOf(Color.RED)
-        var counter = 1
-        binding.plus.setOnClickListener {
-            if (counter != myArgs.stok) {
-                val textAmount = binding.amount.text.toString().toInt()
-                binding.plus.isEnabled = textAmount <= myArgs.stok!!
-                binding.minus.isEnabled = textAmount >= 1
-                counter++
-                binding.amount.setText(counter.toString())
-
-                val total = myArgs.harga!!.toInt() * counter
-                val totalPrice = NumberFormat.getNumberInstance(Locale.US)
-                    .format(total)
-                    .replace(",", ".")
-
-                binding.priceProduct.text = "Rp. $totalPrice"
-            }
-        }
-//
         binding.addToCart.setOnClickListener {
             val userId = userData.id_pelanggan
             val drugId = args.detailProduct.id_obat
             val data =
-                CartRequest(userId.toString(), drugId.toString(), binding.amount.text.toString())
-            cartViewModel.addCart(data)
-            cartViewModel.getData.observe(viewLifecycleOwner) {
+                RequestToCart(userId.toString(), drugId.toString(), binding.amount.text.toString())
+            viewModel.addToCartRequest(data)
+            viewModel.addToCart.observe(viewLifecycleOwner) {
                 hideLoading()
                 when (it) {
                     is NetworkResult.Success -> {
@@ -176,6 +126,46 @@ class DetailFragment : BottomSheetDialogFragment() {
 //            }
 ////            }
         }
+
+//        with(binding) {
+//            with(myArgs) {
+//                Log.d("data", "$myArgs")
+//                detailDescription.text = deskripsi
+//                txtNameProduct.text = nama
+//                totalPrice.text = harga
+//                stockItem.text = "jumlah Stok : $stok"
+//            }
+//        }
+
+
+//        val totalPrice = NumberFormat.getNumberInstance(Locale.US)
+//            .format(myArgs.harga!!.toInt())
+//            .replace(",", ".")
+//        binding.totalPrice.text = "Rp. $totalPrice"
+//        val picture = myArgs.foto
+//        Glide.with(requireContext()).load("$IMAGE_OBAT$picture")
+//            .into(binding.imgDetailBarang)
+//
+//        binding.minus.backgroundTintList = ColorStateList.valueOf(Color.RED)
+        var counter = 1
+        binding.plus.setOnClickListener {
+            if (counter != myArgs.stok) {
+                val textAmount = binding.amount.text.toString().toInt()
+                binding.plus.isEnabled = textAmount <= myArgs.stok!!
+                binding.minus.isEnabled = textAmount >= 1
+                counter++
+                binding.amount.text = counter.toString()
+
+                val total = myArgs.harga!!.toInt() * counter
+                val totalPrice = NumberFormat.getNumberInstance(Locale.US)
+                    .format(total)
+                    .replace(",", ".")
+
+                binding.priceProduct.text = "Rp. $totalPrice"
+            }
+        }
+
+
 //
         binding.minus.setOnClickListener {
             if (counter != 1) {
@@ -193,17 +183,52 @@ class DetailFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private fun sellingProduct() {
+    private fun addToCheckOut(userId: Int, drugId: Int?, qty: String) {
+        val data = RequestToCheckOut(userId.toString(), drugId.toString(), qty)
+        viewModel.requestToCheckOut(data)
+        viewModel.addDataCheckOut.observe(viewLifecycleOwner) {
+            hideLoading()
+            when (it) {
+                is NetworkResult.Success -> {
+                    val dataDetail = args.detailProduct
 
+                    val response = it.data!!.data
+
+                    val dataAddToCheckOut = DetailProduct(
+                        dataDetail.deskripsi,
+                        response.image,
+                        dataDetail.harga,
+                        response.total,
+                        response.kategori,
+                        response.qty.toInt(),
+                        response.id_obat,
+                        response.nama_obat,
+                        dataDetail.stok,
+                        1,
+                        response.id_keranjang
+                    )
+                    val action = DetailFragmentDirections.actionDetailFragmentToCheckOutFragment(
+                        arrayOf(
+                            dataAddToCheckOut
+                        )
+                    )
+                    findNavController().navigate(action)
+                }
+
+                is NetworkResult.Loading -> {
+                    showLoading()
+                }
+
+                is NetworkResult.Error -> {
+                    handleApiError(it.message)
+                }
+            }
+        }
     }
 
-    private fun addToCart() {
-
-    }
-
-    private fun loadData(idObat: Int?) {
-        homeViewModel.detailDrug(idObat!!)
-        homeViewModel.getDetailDrug.observe(viewLifecycleOwner) {
+    private fun loadDataDetail(drugId: Int?) {
+        viewModel.requestDetailDrug(drugId!!)
+        viewModel.getDetailDrug.observe(viewLifecycleOwner) {
             hideLoading()
             when (it) {
                 is NetworkResult.Success -> {
@@ -213,6 +238,7 @@ class DetailFragment : BottomSheetDialogFragment() {
                         txtNameProduct.text = response.nama
                         totalPrice.text = response.harga
                         stockItem.text = "jumlah Stok : ${response.stok}"
+                        amount.text = "1"
                     }
                 }
 

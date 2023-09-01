@@ -38,7 +38,7 @@ abstract class BaseRepo{
 //                NetworkResult.Error("Request Time Out")
             } catch (e: Exception) {
 //                NetworkResult.Error(e.toString() + "Url not found error code 404" )
-                NetworkResult.Error("Url not found error code 404")
+                NetworkResult.Error("Url not found error code 404 $e")
             } catch (e: Throwable) {
                 NetworkResult.Error(e.toString() + "Something went wrong 3")
             } catch (e: SocketTimeoutException) {

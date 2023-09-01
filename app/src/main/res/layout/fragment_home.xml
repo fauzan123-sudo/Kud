@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EDEDED"
-    tools:context=".ui.fragment.HomeFragment">
+    tools:context=".ui.fragment.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -61,7 +61,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_glass"
+                android:src="@drawable/no_image"
+                android:padding="@dimen/_5sdp"
                 app:layout_constraintBottom_toTopOf="@+id/tt1"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -108,7 +109,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_glass"
+                android:src="@drawable/no_image"
+                android:padding="@dimen/_5sdp"
                 app:layout_constraintBottom_toTopOf="@+id/tt2"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -155,7 +157,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_glass"
+                android:src="@drawable/no_image"
+                android:padding="@dimen/_5sdp"
                 app:layout_constraintBottom_toTopOf="@+id/tt3"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -203,7 +206,8 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_glass"
+                android:src="@drawable/no_image"
+                android:padding="@dimen/_5sdp"
                 app:layout_constraintBottom_toTopOf="@+id/tt4"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -323,7 +327,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         app:layout_constraintEnd_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/imageView4" />
-
 
     <ImageView
         android:id="@+id/imageView4"

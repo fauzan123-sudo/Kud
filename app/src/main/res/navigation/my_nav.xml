@@ -16,7 +16,7 @@
     </fragment>
     <dialog
         android:id="@+id/detailFragment"
-        android:name="com.example.kud.ui.fragment.DetailFragment"
+        android:name="com.example.kud.ui.fragment.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
@@ -25,15 +25,22 @@
         <action
             android:id="@+id/action_detailFragment_to_checkOutFragment"
             app:destination="@id/checkOutFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_cartFragment"
+            app:destination="@id/cartFragment" />
     </dialog>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.kud.ui.fragment.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_userAddressFragment"
+            app:destination="@id/userAddressFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.kud.ui.fragment.HomeFragment"
+        android:name="com.example.kud.ui.fragment.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -53,9 +60,16 @@
         tools:layout="@layout/fragment_detail_data_product_list_dialog" />
     <fragment
         android:id="@+id/checkOutFragment"
-        android:name="com.example.kud.ui.fragment.CheckOutFragment"
+        android:name="com.example.kud.ui.fragment.checkout.CheckOutFragment"
         android:label="fragment_check_out"
-        tools:layout="@layout/fragment_check_out" />
+        tools:layout="@layout/fragment_check_out" >
+        <argument
+            android:name="dataCheckOut"
+            app:argType="com.example.kud.data.model.detail.DetailProduct[]" />
+        <action
+            android:id="@+id/action_checkOutFragment_to_userAddressFragment"
+            app:destination="@id/userAddressFragment" />
+    </fragment>
     <fragment
         android:id="@+id/orderFragment"
         android:name="com.example.kud.ui.fragment.transaction.OrderFragment"
@@ -66,4 +80,21 @@
         android:name="com.example.kud.ui.fragment.transaction.PaymentProofFragment"
         android:label="fragment_payment_proof"
         tools:layout="@layout/fragment_payment_proof" />
+    <fragment
+        android:id="@+id/cartFragment"
+        android:name="com.example.kud.ui.fragment.cart.CartFragment"
+        android:label="Keranjang"
+        tools:layout="@layout/fragment_cart">
+        <action
+            android:id="@+id/action_cartFragment_to_checkOutFragment"
+            app:destination="@id/checkOutFragment" />
+        <argument
+            android:name="dataDetail"
+            app:argType="com.example.kud.data.model.detail.DetailProduct" />
+    </fragment>
+    <fragment
+        android:id="@+id/userAddressFragment"
+        android:name="com.example.kud.ui.fragment.address.UserAddressFragment"
+        android:label="fragment_user_address"
+        tools:layout="@layout/fragment_user_address" />
 </navigation>

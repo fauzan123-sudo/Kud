@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDEDED"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="#EDEDED">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -18,10 +18,10 @@
                 android:id="@+id/rec_list_product"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clipToPadding="true"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:itemCount="3"
-                android:clipToPadding="true"
-                tools:listitem="@layout/item_alamat_pengiriman" />
+                tools:listitem="@layout/item_address" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

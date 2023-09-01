@@ -16,6 +16,8 @@ abstract class BaseFragment<VB : ViewBinding>(
     val binding: VB
         get() = _binding as VB
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

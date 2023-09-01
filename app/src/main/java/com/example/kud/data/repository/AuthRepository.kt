@@ -11,6 +11,7 @@ class AuthRepository @Inject constructor(private val api : AuthApi) : BaseRepo()
 
     suspend fun loginUser(loginRequest: LoginRequest) = safeApiCall { api.loginUser(loginRequest) }
     suspend fun profileUser() = safeApiCall { api.profileUser() }
+    suspend fun logOut() = safeApiCall { api.logout() }
 
 //    suspend fun loginUser(loginRequest: LoginRequest) = safeApiCall { userApi.loginUser(loginRequest) }
 

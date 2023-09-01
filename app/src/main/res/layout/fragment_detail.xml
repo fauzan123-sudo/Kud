@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_10sdp"
-    tools:context=".ui.fragment.DetailFragment">
+    tools:context=".ui.fragment.detail.DetailFragment">
 
     <View
         android:id="@+id/view2"
@@ -86,19 +86,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/amount" />
 
-    <EditText
+    <TextView
         android:id="@+id/amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_5sdp"
         android:layout_marginBottom="16dp"
         android:layout_toStartOf="@id/plus"
-        android:hint="jumlah"
-        android:inputType="number"
         android:text="1"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="14sp"
+        android:textSize="@dimen/_14ssp"
         app:layout_constraintBottom_toTopOf="@+id/addCheckOut"
         app:layout_constraintEnd_toStartOf="@+id/minus" />
 

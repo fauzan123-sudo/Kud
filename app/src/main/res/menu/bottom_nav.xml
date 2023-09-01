@@ -11,15 +11,15 @@
 
     <item
         android:title="Keranjang"
-        android:id="@+id/semuaProdukFragment"
-        android:icon="@drawable/ic_scan"
+        android:id="@+id/cartFragment"
+        android:icon="@drawable/ic_cart"
         app:showAsAction="ifRoom"
         />
 
     <item
         android:title="Pesanan"
         android:id="@+id/orderFragment"
-        android:icon="@drawable/ic_photo_black_48dp"
+        android:icon="@drawable/ic_clock"
         app:showAsAction="ifRoom"
         />
 
