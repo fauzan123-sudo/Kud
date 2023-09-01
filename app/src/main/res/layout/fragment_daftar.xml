@@ -15,12 +15,24 @@
             android:layout_height="match_parent"
             android:padding="@dimen/_20sdp">
 
+            <TextView
+                android:id="@+id/title_daftar_dulu"
+                android:layout_width="340dp"
+                android:layout_height="72dp"
+                android:gravity="center_horizontal|top"
+                android:text="@string/title_daftar"
+                android:textAppearance="@style/title_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <LinearLayout
-                android:id="@+id/ll_judul_alamat"
+                android:id="@+id/ll_nama_lengkap"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="parent"
+                android:paddingBottom="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/title_daftar_dulu"
                 tools:layout_editor_absoluteX="26dp">
 
                 <TextView
@@ -29,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="top"
                     android:lineSpacingExtra="11sp"
-                    android:text="Judul Alamat"
+                    android:text="Nama Lengkap"
                     android:textAppearance="@style/label_form" />
 
                 <EditText
@@ -38,7 +50,91 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/frame"
                     android:clipToOutline="true"
-                    android:hint="Masukkan Judul Alamat"
+                    android:hint="Kamu Siapa?"
+                    android:padding="@dimen/_12ssp"
+                    android:textSize="@dimen/_12ssp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/ll_nama_lengkap"
+                tools:layout_editor_absoluteX="26dp">
+
+                <TextView
+                    android:id="@+id/tv_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:lineSpacingExtra="11sp"
+                    android:text="Email"
+                    android:textAppearance="@style/label_form" />
+
+                <EditText
+                    android:id="@+id/et_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/frame"
+                    android:clipToOutline="true"
+                    android:hint="Email Kamu apa?"
+                    android:padding="@dimen/_12ssp"
+                    android:textSize="@dimen/_12ssp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/ll_email"
+                tools:layout_editor_absoluteX="26dp">
+
+                <TextView
+                    android:id="@+id/tv_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:lineSpacingExtra="11sp"
+                    android:text="Password"
+                    android:textAppearance="@style/label_form" />
+
+                <EditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/frame"
+                    android:clipToOutline="true"
+                    android:hint="Buat password kamu"
+                    android:padding="@dimen/_12ssp"
+                    android:textSize="@dimen/_12ssp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ll_password_konf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/ll_password"
+                tools:layout_editor_absoluteX="26dp">
+
+                <TextView
+                    android:id="@+id/tv_password_konf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="top"
+                    android:lineSpacingExtra="11sp"
+                    android:text="Konfirmasi Password"
+                    android:textAppearance="@style/label_form" />
+
+                <EditText
+                    android:id="@+id/et_password_konf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/frame"
+                    android:clipToOutline="true"
+                    android:hint="Konfirmasi password kamu"
                     android:padding="@dimen/_12ssp"
                     android:textSize="@dimen/_12ssp" />
             </LinearLayout>
@@ -49,7 +145,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="vertical"
-                app:layout_constraintTop_toBottomOf="@+id/ll_judul_alamat"
+                android:paddingBottom="@dimen/_10sdp"
+                app:layout_constraintTop_toBottomOf="@+id/ll_password_konf"
                 tools:layout_editor_absoluteX="26dp">
 
                 <TextView
@@ -73,7 +170,26 @@
                     android:textSize="@dimen/_12ssp" />
 
             </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="#FFFFFF"
+                android:elevation="11dp"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/ll_alamat">
 
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_secondary"
+                    android:fontFamily="@font/rubik_bold"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Daftar"
+                    android:textAllCaps="false"
+                    tools:layout_editor_absoluteX="16dp" />
+            </RelativeLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

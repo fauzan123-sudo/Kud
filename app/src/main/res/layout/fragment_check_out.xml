@@ -302,7 +302,7 @@
                     android:background="@drawable/btn_primary"
                     android:fontFamily="@font/rubik_bold"
                     android:padding="@dimen/_10sdp"
-                    android:text="Masuk"
+                    android:text="Bayar"
                     android:textAllCaps="false"
                     tools:layout_editor_absoluteX="16dp" />
             </LinearLayout>
