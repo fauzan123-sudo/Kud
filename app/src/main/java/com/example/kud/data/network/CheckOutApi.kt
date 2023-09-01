@@ -5,6 +5,7 @@ import com.example.kud.data.model.checkOut.address.UserAddressModel
 import com.example.kud.data.model.checkOut.list.ListCheckOutModel
 import com.example.kud.data.model.checkOut.plusMinus.PlusMinusModel
 import com.example.kud.data.model.checkOut.request.RequestAddress
+import com.example.kud.data.model.checkOut.request.RequestList
 import com.example.kud.data.model.checkOut.request.RequestPlusMinus
 import retrofit2.Response
 import retrofit2.http.Body
@@ -15,7 +16,7 @@ interface CheckOutApi {
 
     @POST("keranjang/list")
     suspend fun getListCheckOut(
-        @Field("id_pelanggan") userId:String,
+        @Body request: RequestList
     ): Response<ListCheckOutModel>
 
     @POST("keranjang/tambah-kurang")

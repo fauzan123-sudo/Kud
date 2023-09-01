@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:background="@color/light_gray"
-    android:backgroundTint="@color/light_gray"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/light_gray"
+    android:backgroundTint="@color/light_gray"
     tools:context=".ui.fragment.profile.ProfileFragment">
 
     <com.github.ybq.android.spinkit.SpinKitView
@@ -28,145 +27,150 @@
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
         android:layout_marginTop="@dimen/_70sdp"
-        android:src="@drawable/alucrot"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:elevation="11dp"
+        android:src="@drawable/alucrot"
         app:civ_border_color="@color/white"
         app:civ_border_width="@dimen/_3sdp"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/ll_nama"
+        style="@style/bg_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/img_user"
         android:layout_marginTop="@dimen/_20sdp"
-        style="@style/bg_card"
+        android:orientation="horizontal"
         android:padding="@dimen/_15sdp"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/img_user">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Nama"
-            android:textAppearance="@style/label_basic"
             android:gravity="center_vertical"
-            />
+            android:text="Nama"
+            android:textAppearance="@style/label_basic" />
+
         <TextView
             android:id="@+id/tv_nama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="-"
             android:layout_marginRight="@dimen/_10sdp"
-            android:textAppearance="@style/label_value"
+            android:layout_weight="1"
             android:gravity="right|center_vertical"
-            />
+            android:text="-"
+            android:textAppearance="@style/label_value" />
+
         <ImageView
             android:layout_width="@dimen/_10sdp"
             android:layout_height="@dimen/_15sdp"
-            android:src="@drawable/ic_arrow_right"/>
+            android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_email"
+        style="@style/bg_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/ll_nama"
         android:layout_marginTop="@dimen/_10sdp"
-        style="@style/bg_card"
+        android:orientation="horizontal"
         android:padding="@dimen/_15sdp"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/ll_nama">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Email"
-            android:textAppearance="@style/label_basic"
             android:gravity="center_vertical"
-            />
+            android:text="Email"
+            android:textAppearance="@style/label_basic" />
+
         <TextView
             android:id="@+id/tv_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="-"
             android:layout_marginRight="@dimen/_10sdp"
-            android:textAppearance="@style/label_value"
+            android:layout_weight="1"
             android:gravity="right|center_vertical"
-            />
+            android:text="-"
+            android:textAppearance="@style/label_value" />
+
         <ImageView
             android:layout_width="@dimen/_10sdp"
             android:layout_height="@dimen/_15sdp"
-            android:src="@drawable/ic_arrow_right"/>
+            android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_no_hp"
+        style="@style/bg_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/ll_email"
         android:layout_marginTop="@dimen/_10sdp"
-        style="@style/bg_card"
+        android:orientation="horizontal"
         android:padding="@dimen/_15sdp"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/ll_email">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Hanphone"
-            android:textAppearance="@style/label_basic"
             android:gravity="center_vertical"
-            />
+            android:text="Hanphone"
+            android:textAppearance="@style/label_basic" />
+
         <TextView
             android:id="@+id/tv_no_hp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="-"
             android:layout_marginRight="@dimen/_10sdp"
-            android:textAppearance="@style/label_value"
+            android:layout_weight="1"
             android:gravity="right|center_vertical"
-            />
+            android:text="-"
+            android:textAppearance="@style/label_value" />
+
         <ImageView
             android:layout_width="@dimen/_10sdp"
             android:layout_height="@dimen/_15sdp"
-            android:src="@drawable/ic_arrow_right"/>
+            android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
+
     <LinearLayout
-        android:id="@+id/ll_alamat_pengiriman"
+        android:id="@+id/ll_user_address"
+        style="@style/bg_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/ll_no_hp"
         android:layout_marginTop="@dimen/_10sdp"
-        style="@style/bg_card"
+        android:orientation="horizontal"
         android:padding="@dimen/_15sdp"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/ll_no_hp">
+
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Alamat Pengiriman"
-            android:textAppearance="@style/label_basic"
             android:gravity="center_vertical"
-            />
+            android:text="Alamat Pengiriman"
+            android:textAppearance="@style/label_basic" />
+
         <ImageView
             android:layout_width="@dimen/_10sdp"
             android:layout_height="@dimen/_15sdp"
-            android:src="@drawable/ic_arrow_right"/>
+            android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/_10sdp"
         android:background="#FFFFFF"
         android:elevation="11dp"
+        android:orientation="horizontal"
         android:padding="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@id/ll_alamat_pengiriman">
+        app:layout_constraintTop_toBottomOf="@id/ll_user_address">
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"

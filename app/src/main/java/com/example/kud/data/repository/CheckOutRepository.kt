@@ -1,6 +1,7 @@
 package com.example.kud.data.repository
 
 import com.example.kud.data.model.checkOut.request.RequestAddress
+import com.example.kud.data.model.checkOut.request.RequestList
 import com.example.kud.data.model.checkOut.request.RequestPlusMinus
 import com.example.kud.data.network.CheckOutApi
 import javax.inject.Inject
@@ -8,8 +9,8 @@ import javax.inject.Inject
 class CheckOutRepository @Inject constructor(private val api: CheckOutApi) : BaseRepo() {
 
 
-    suspend fun listCheckOut(userId: String) =
-        safeApiCall { api.getListCheckOut(userId) }
+    suspend fun listCheckOut(request: RequestList) =
+        safeApiCall { api.getListCheckOut(request) }
 
     suspend fun plusMinus(request: RequestPlusMinus) =
         safeApiCall { api.plusMinus(request) }

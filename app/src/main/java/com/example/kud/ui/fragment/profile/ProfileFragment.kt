@@ -7,7 +7,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.example.kud.R
 //import com.example.kud.data.repository.SafeApiCaller
 import com.example.kud.databinding.FragmentProfileBinding
 import com.example.kud.ui.activity.LoginActivity
@@ -36,6 +38,10 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
         binding.btnLogout.setOnClickListener {
             logOut()
+        }
+
+        binding.llUserAddress.setOnClickListener {
+            findNavController().navigate(R.id.action_profileFragment_to_userAddressFragment)
         }
     }
 

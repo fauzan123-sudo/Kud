@@ -1,10 +1,12 @@
 package com.example.kud.data.model.checkOut.list
 
 data class DataX(
-    val created_at: String,
-    val id: Int,
-    val id_obat: String,
-    val id_pelanggan: String,
+    val harga: String,
+    val id_keranjang: Int,
+    val id_obat: Int,
+    val image: String,
+    val kategori: String,
+    val nama_obat: String,
     val qty: String,
-    val updated_at: String
+    val total: Int
 )

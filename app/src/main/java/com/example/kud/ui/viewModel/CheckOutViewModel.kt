@@ -5,6 +5,7 @@ import com.example.kud.data.model.checkOut.address.UserAddressModel
 import com.example.kud.data.model.checkOut.list.ListCheckOutModel
 import com.example.kud.data.model.checkOut.plusMinus.PlusMinusModel
 import com.example.kud.data.model.checkOut.request.RequestAddress
+import com.example.kud.data.model.checkOut.request.RequestList
 import com.example.kud.data.model.checkOut.request.RequestPlusMinus
 import com.example.kud.data.repository.CheckOutRepository
 import com.example.kud.utils.NetworkResult
@@ -26,12 +27,12 @@ class CheckOutViewModel @Inject constructor(private val repository: CheckOutRepo
     private val _getAddress = MutableLiveData<NetworkResult<UserAddressModel>>()
     val getUserAddress: LiveData<NetworkResult<UserAddressModel>> = _getAddress
 
-    fun requestList(userId: String) {
+    fun requestList(request: RequestList) {
         viewModelScope.launch {
             val connected = CheckInternet().check()
             if (connected) {
                 _getData.postValue(NetworkResult.Loading())
-                _getData.postValue(repository.listCheckOut(userId))
+                _getData.postValue(repository.listCheckOut(request))
             } else
                 _getData.postValue(NetworkResult.Error("No Internet Connection"))
         }

@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kud.R
 import com.example.kud.data.adapter.NewAdapterCheckOut
+import com.example.kud.data.model.checkOut.list.DataX
 import com.example.kud.data.model.checkOut.request.RequestAddress
+import com.example.kud.data.model.checkOut.request.RequestList
 import com.example.kud.data.model.checkOut.request.RequestPlusMinus
-import com.example.kud.data.model.detail.DetailProduct
 import com.example.kud.databinding.FragmentCheckOutBinding
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.CheckOutViewModel
@@ -50,6 +51,10 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
         grandTotal()
         userAddress()
         changeAddress()
+
+        binding.btnCancel.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
 
     }
@@ -149,21 +154,25 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
     }
 
     private fun loadData(dataDetail: CheckOutFragmentArgs) {
-        viewModel.requestList(userData.id_pelanggan.toString())
-        viewModel.getData.observe(viewLifecycleOwner){
+        val userId = dataDetail.dataCheckOut.id_pelanggan
+        val type = dataDetail.dataCheckOut.tipe
+        val cartId = dataDetail.dataCheckOut.id_keranjang
+        viewModel.requestList(RequestList(userId, type, cartId))
+        viewModel.getData.observe(viewLifecycleOwner) {
             binding.progressBar.isVisible = false
-            when(it){
-                is NetworkResult.Success ->{
+            when (it) {
+                is NetworkResult.Success -> {
                     val response = it.data!!.data
                     val data = response.data
                     adapterCheckOut.differ.submitList(data)
+                    binding.subTotal.text = response.sub_total
                 }
 
-                is NetworkResult.Loading ->{
+                is NetworkResult.Loading -> {
                     binding.progressBar.isVisible = true
                 }
 
-                is NetworkResult.Error ->{
+                is NetworkResult.Error -> {
                     handleApiError(it.message)
                 }
             }
@@ -217,7 +226,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
 
     }
 
-    override fun onDeleteButtonClicked(position: Int, data: DetailProduct) {
+    override fun onDeleteButtonClicked(position: Int, data: DataX) {
         Log.d("delete item", "deleteItemCheckOut: ")
     }
 

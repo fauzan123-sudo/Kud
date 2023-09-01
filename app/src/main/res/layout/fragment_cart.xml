@@ -90,7 +90,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ll_subtotal">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_register"
+                    android:id="@+id/btn_order"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/btn_secondary"

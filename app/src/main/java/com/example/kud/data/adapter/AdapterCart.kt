@@ -63,10 +63,11 @@ class AdapterCart(
 
             binding.checkBox.setOnCheckedChangeListener { _, isChecked ->
                 myPosition.isSelected = isChecked
+
                 val selectedItems = differ.currentList.filter { it.isSelected }
                 val cartId = selectedItems.joinToString(", ") { it.id_keranjang.toString() }
                 itemClickListener?.checkBox(layoutPosition, cartId, myPosition)
-//                Log.d("CheckBox adapter", "Item ${myPosition} dicentang")
+                Log.d("CheckBox adapter", "Item $cartId dicentang")
 
             }
 

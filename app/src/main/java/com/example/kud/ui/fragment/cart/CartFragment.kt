@@ -14,7 +14,7 @@ import com.example.kud.data.model.cart.request.RequestCheckUnCheck
 import com.example.kud.data.model.cart.request.RequestDeleteDrug
 import com.example.kud.data.model.cart.request.RequestListCart
 import com.example.kud.data.model.cart.request.RequestPlusMinus
-import com.example.kud.data.model.detail.DetailProduct
+import com.example.kud.data.model.checkOut.request.RequestList
 import com.example.kud.databinding.FragmentCartBinding
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.CartViewModel
@@ -174,8 +174,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                 is NetworkResult.Success -> {
                     val response = it.data!!.data
                     binding.tvGrandTotal.text = Helper().gantiRupiah(response.sub_total)
-
-//                    checkOut(data)
+                    val requestData = RequestList(dataUser.id_pelanggan.toString(), 2, cartId)
+                    goToCheckOut(requestData)
                 }
 
                 is NetworkResult.Loading -> {
@@ -186,6 +186,13 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                     handleApiError(it.message)
                 }
             }
+        }
+    }
+
+    private fun goToCheckOut(data: RequestList) {
+        binding.btnOrder.setOnClickListener {
+            val action = CartFragmentDirections.actionCartFragmentToCheckOutFragment(data)
+            findNavController().navigate(action)
         }
     }
 }

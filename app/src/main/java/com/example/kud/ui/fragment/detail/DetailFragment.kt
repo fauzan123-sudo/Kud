@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.kud.R
+import com.example.kud.data.model.checkOut.request.RequestList
 import com.example.kud.data.model.detail.DetailProduct
 import com.example.kud.data.model.detail.request.RequestToCart
 import com.example.kud.data.model.detail.request.RequestToCheckOut
@@ -191,26 +192,14 @@ class DetailFragment : BottomSheetDialogFragment() {
             when (it) {
                 is NetworkResult.Success -> {
                     val dataDetail = args.detailProduct
-
                     val response = it.data!!.data
-
-                    val dataAddToCheckOut = DetailProduct(
-                        dataDetail.deskripsi,
-                        response.image,
-                        dataDetail.harga,
-                        response.total,
-                        response.kategori,
-                        response.qty.toInt(),
-                        response.id_obat,
-                        response.nama_obat,
-                        dataDetail.stok,
-                        1,
-                        response.id_keranjang
-                    )
+                    val dataToCheckOut =
+                        RequestList(userData.id_pelanggan.toString(), 2, response.id_keranjang.toString())
                     val action = DetailFragmentDirections.actionDetailFragmentToCheckOutFragment(
-                        arrayOf(
-                            dataAddToCheckOut
-                        )
+                        dataToCheckOut
+//                        arrayOf(
+//                            dataAddToCheckOut
+//                        )
                     )
                     findNavController().navigate(action)
                 }

@@ -1,19 +1,14 @@
 package com.example.kud.data.adapter
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.kud.data.model.CheckOut
-import com.example.kud.data.model.detail.DetailProduct
+import com.example.kud.data.model.checkOut.list.DataX
 import com.example.kud.databinding.ItemCheckoutBinding
-import com.example.kud.ui.fragment.CheckOutHelper
-import com.example.kud.utils.Constants
-import com.example.kud.utils.Constants.BASE_URL
 import com.example.kud.utils.Constants.IMAGE_OBAT
 import com.example.kud.utils.Helper
 
@@ -25,16 +20,16 @@ class NewAdapterCheckOut(val context: Context) :
     var itemClickListener: ItemClickListener? = null
 
     inner class ViewHolder : RecyclerView.ViewHolder(binding.root) {
-        fun setData(item: DetailProduct) {
+        fun setData(item: DataX) {
 //            var totalItem = item.amountItem
             val myPosition = differ.currentList[absoluteAdapterPosition]
             binding.apply {
 //                    textView9.text = Helper().gantiRupiah(amountItem * priceItem!!)
-                totalItems.text = item.jumlah.toString()
-                drugName.text = item.nama
-                drugPrice.text = Helper().gantiRupiah("${item.harga}")
-                drugType.text = item.id_kategori.toString()
-                imageProduct.load(IMAGE_OBAT + item.foto)
+                totalItems.text = item.qty
+                drugName.text = item.nama_obat
+                drugPrice.text = Helper().gantiRupiah(item.harga)
+                drugType.text = item.kategori
+                imageProduct.load(IMAGE_OBAT + item.image)
 
                 deleteItem.setOnClickListener {
                     itemClickListener?.onDeleteButtonClicked(layoutPosition, item)
@@ -82,12 +77,12 @@ class NewAdapterCheckOut(val context: Context) :
         }
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<DetailProduct>() {
-        override fun areItemsTheSame(oldItem: DetailProduct, newItem: DetailProduct): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<DataX>() {
+        override fun areItemsTheSame(oldItem: DataX, newItem: DataX): Boolean {
             return oldItem.id_obat == newItem.id_obat
         }
 
-        override fun areContentsTheSame(oldItem: DetailProduct, newItem: DetailProduct): Boolean {
+        override fun areContentsTheSame(oldItem: DataX, newItem: DataX): Boolean {
             return oldItem.id_obat == newItem.id_obat
         }
     }
@@ -96,7 +91,7 @@ class NewAdapterCheckOut(val context: Context) :
 
     interface ItemClickListener {
         fun upsert(drugId: Int?, status: Int)
-        fun onDeleteButtonClicked(position: Int, data: DetailProduct)
+        fun onDeleteButtonClicked(position: Int, data: DataX)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

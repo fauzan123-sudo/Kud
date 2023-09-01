@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/semuaProdukFragment"
-        android:name="com.example.kud.ui.fragment.SemuaProdukFragment"
+        android:name="com.example.kud.ui.fragment.home.AllProductFragment"
         android:label="fragment_semua_produk"
-        tools:layout="@layout/fragment_semua_produk" >
+        tools:layout="@layout/fragment_all_product" >
         <action
             android:id="@+id/action_semuaProdukFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
@@ -63,12 +63,12 @@
         android:name="com.example.kud.ui.fragment.checkout.CheckOutFragment"
         android:label="fragment_check_out"
         tools:layout="@layout/fragment_check_out" >
-        <argument
-            android:name="dataCheckOut"
-            app:argType="com.example.kud.data.model.detail.DetailProduct[]" />
         <action
             android:id="@+id/action_checkOutFragment_to_userAddressFragment"
             app:destination="@id/userAddressFragment" />
+        <argument
+            android:name="dataCheckOut"
+            app:argType="com.example.kud.data.model.checkOut.request.RequestList" />
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
