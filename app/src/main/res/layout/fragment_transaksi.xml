@@ -8,11 +8,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clipChildren="false">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_list_product"
@@ -29,8 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@color/white"
-                android:clipToPadding="false"
-                android:elevation="11dp"
+                android:elevation="@dimen/_11sdp"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/rec_list_product">
 
@@ -38,7 +39,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
-                    android:elevation="11dp"
                     android:orientation="vertical"
                     android:padding="@dimen/_10sdp">
 
@@ -85,7 +85,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
-                    android:elevation="11dp"
                     android:orientation="vertical"
                     android:padding="@dimen/_10sdp">
 
@@ -290,7 +289,7 @@
                     android:background="@drawable/btn_primary"
                     android:fontFamily="@font/rubik_bold"
                     android:padding="@dimen/_10sdp"
-                    android:text="Masuk"
+                    android:text="Bayar"
                     android:textAllCaps="false"
                     tools:layout_editor_absoluteX="16dp" />
             </LinearLayout>

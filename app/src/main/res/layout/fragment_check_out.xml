@@ -22,12 +22,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:clipChildren="false">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recCheckOut"
@@ -48,7 +51,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:background="@color/white"
                 android:clipToPadding="false"
-                android:elevation="11dp"
+                android:elevation="@dimen/_11sdp"
                 android:orientation="vertical"
                 app:layout_constraintTop_toBottomOf="@id/recCheckOut">
 
@@ -56,7 +59,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
-                    android:elevation="11dp"
                     android:orientation="vertical"
                     android:padding="@dimen/_10sdp">
 
@@ -90,12 +92,12 @@
                             android:layout_height="@dimen/_20sdp"
                             android:text="Ambil Sendiri" />
 
-<!--                        <RadioButton-->
-<!--                            android:id="@+id/rb_antar"-->
-<!--                            style="@style/radio_button_text"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="@dimen/_20sdp"-->
-<!--                            android:text="Antar" />-->
+                        <!--                        <RadioButton-->
+                        <!--                            android:id="@+id/rb_antar"-->
+                        <!--                            style="@style/radio_button_text"-->
+                        <!--                            android:layout_width="wrap_content"-->
+                        <!--                            android:layout_height="@dimen/_20sdp"-->
+                        <!--                            android:text="Antar" />-->
                     </RadioGroup>
                 </LinearLayout>
 
@@ -103,7 +105,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFFFFF"
-                    android:elevation="11dp"
                     android:orientation="vertical"
                     android:padding="@dimen/_10sdp">
 
@@ -146,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="#FFFFFF"
-                android:elevation="11dp"
+                android:elevation="@dimen/_11sdp"
                 android:orientation="vertical"
                 android:padding="@dimen/_10sdp"
                 app:layout_constraintTop_toBottomOf="@id/ll_jenis_peng_pem">
@@ -189,7 +190,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="#FFFFFF"
-                android:elevation="11dp"
+                android:elevation="@dimen/_11sdp"
                 android:orientation="vertical"
                 android:padding="@dimen/_10sdp"
                 app:layout_constraintTop_toBottomOf="@id/ll_alamat_pengiriman">
@@ -270,42 +271,44 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:background="#FFFFFF"
-                android:elevation="11dp"
-                android:orientation="horizontal"
-                android:padding="@dimen/_10sdp"
-                app:layout_constraintTop_toBottomOf="@id/ll_total">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_cancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_muted"
-                    android:fontFamily="@font/rubik_bold"
-                    android:padding="@dimen/_10sdp"
-                    android:text="Batal"
-                    android:textAllCaps="false"
-                    app:backgroundTint="@color/muted"
-                    tools:layout_editor_absoluteX="16dp" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_payment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/btn_primary"
-                    android:fontFamily="@font/rubik_bold"
-                    android:padding="@dimen/_10sdp"
-                    android:text="Bayar"
-                    android:textAllCaps="false"
-                    tools:layout_editor_absoluteX="16dp" />
-            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:elevation="11dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_muted"
+            android:fontFamily="@font/rubik_bold"
+            android:padding="@dimen/_10sdp"
+            android:text="Batal"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/muted"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_bayar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_primary"
+            android:fontFamily="@font/rubik_bold"
+            android:padding="@dimen/_10sdp"
+            android:text="Bayar"
+            android:textAllCaps="false"
+            tools:layout_editor_absoluteX="16dp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
