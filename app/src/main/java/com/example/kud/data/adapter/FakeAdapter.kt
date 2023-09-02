@@ -1,14 +1,5 @@
 package com.example.kud.data.adapter
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import com.example.kud.R
-import com.example.kud.data.model.FakeApiItem
-
 
 //class FakeAdapter : RecyclerView.Adapter<FakeAdapter.ViewHolder>() {
 //

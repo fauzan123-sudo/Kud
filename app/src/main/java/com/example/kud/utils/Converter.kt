@@ -1,4 +1,4 @@
-package com.example.kud.data.model
+package com.example.kud.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

@@ -33,7 +33,7 @@ class DetailDataProduct : BottomSheetDialogFragment() {
     private inner class ViewHolder(binding: FragmentDetailDataProductListDialogItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        internal val text: TextView = binding.text
+        val text: TextView = binding.text
     }
 
     private inner class ItemAdapter(private val mItemCount: Int) :

@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kud.data.model.LoginRequest
-import com.example.kud.data.model.LoginResponse
 import com.example.kud.data.model.ProfileResponse
+import com.example.kud.data.model.auth.login.LoginRequest
+import com.example.kud.data.model.auth.login.LoginResponse
 import com.example.kud.data.model.auth.logout.LogOutResponse
 import com.example.kud.data.repository.AuthRepository
 import com.example.kud.utils.NetworkResult

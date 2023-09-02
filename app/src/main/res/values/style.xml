@@ -83,7 +83,11 @@
         <item name="android:textSize">@dimen/_12ssp</item>
         <item name="android:textColor">#000000</item>
         <item name="fontFamily">@font/rubik_medium</item>
-
+    </style>
+    <style name="terima_kasi">
+        <item name="android:textSize">@dimen/_12ssp</item>
+        <item name="android:textColor">#1E1E1E</item>
+        <item name="fontFamily">@font/rubik_bold</item>
     </style>
 
 </resources>

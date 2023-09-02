@@ -15,7 +15,6 @@ import com.example.kud.databinding.FragmentProfileBinding
 import com.example.kud.ui.activity.LoginActivity
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.AuthViewModel
-import com.example.kud.ui.viewModel.LoginViewModel
 import com.example.kud.ui.viewModel.ProfileViewModel
 import com.example.kud.utils.NetworkResult
 import com.example.kud.utils.TokenManager

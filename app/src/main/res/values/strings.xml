@@ -24,6 +24,9 @@
         Silahkan Transfer Sesuai Nominal <b>Rp540.000</b> untuk Pembelian Obat ke Rekening yang tertera di atas
     </string>
     <string name="upload_foto">
-    Upload Foto Bukti Transfer
+        Upload Foto Bukti Transfer
+    </string>
+    <string name="terima_kasi">
+    Terima Kasih\nMohon Tunggu untuk Proses Pembeliannya
     </string>
 </resources>

@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
-import com.example.kud.data.model.LoginRequest
+import com.example.kud.data.model.auth.login.LoginRequest
 import com.example.kud.databinding.FragmentLoginBinding
 import com.example.kud.ui.activity.MainActivity
 import com.example.kud.ui.base.BaseFragment
@@ -72,7 +72,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
                     val response = it.data!!
                     val statusResponse = response.status
                     if (statusResponse == 200) {
-                        val userToken = it.data.data.access_token
+                        val userToken = it.data.data!!.access_token
                         saveDataUser(response.data)
                         tokenManager.saveToken(userToken)
                         requireActivity().startNewActivity(MainActivity::class.java)

@@ -1,9 +1,7 @@
 package com.example.kud.data.repository
 
-import com.example.kud.data.model.LoginRequest
+import com.example.kud.data.model.auth.login.LoginRequest
 import com.example.kud.data.network.AuthApi
-import com.example.kud.data.network.UserApi
-import com.example.kud.utils.NetworkResult
 import javax.inject.Inject
 
 

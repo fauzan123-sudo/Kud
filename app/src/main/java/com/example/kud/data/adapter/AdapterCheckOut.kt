@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.kud.data.model.CheckOut
 import com.example.kud.databinding.ItemCheckoutBinding
 import com.example.kud.ui.fragment.DeleteItemCheckOut
 import com.example.kud.utils.Constants

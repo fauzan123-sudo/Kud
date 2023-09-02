@@ -24,23 +24,23 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-    @Singleton
-    @Provides
-    fun provideDatabase(
-        @ApplicationContext context: Context
-    ) = Room.databaseBuilder(
-        context,
-        MyDatabase::class.java,
-        "person_database"
-    ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
-
-    @Singleton
-    @Provides
-    fun provideDao(database: MyDatabase) = database.myDao()
-
-    @Singleton
-    @Provides
-    fun checkOutDao(database: MyDatabase) = database.myCheckOut()
+//    @Singleton
+//    @Provides
+//    fun provideDatabase(
+//        @ApplicationContext context: Context
+//    ) = Room.databaseBuilder(
+//        context,
+//        MyDatabase::class.java,
+//        "person_database"
+//    ).fallbackToDestructiveMigration().allowMainThreadQueries().build()
+//
+//    @Singleton
+//    @Provides
+//    fun provideDao(database: MyDatabase) = database.myDao()
+//
+//    @Singleton
+//    @Provides
+//    fun checkOutDao(database: MyDatabase) = database.myCheckOut()
 
 
     @Singleton
@@ -65,13 +65,6 @@ object DatabaseModule {
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .build()
-    }
-
-    @Singleton
-    @Provides
-    fun providesUserAPI(retrofitBuilder: Retrofit.Builder, okHttpClient: OkHttpClient): UserApi {
-        return retrofitBuilder.client(okHttpClient).build()
-            .create(UserApi::class.java)
     }
 
     @Singleton

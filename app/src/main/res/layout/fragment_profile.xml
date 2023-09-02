@@ -28,7 +28,7 @@
         android:layout_height="@dimen/_100sdp"
         android:layout_marginTop="@dimen/_70sdp"
         android:elevation="11dp"
-        android:src="@drawable/alucrot"
+        android:src="@drawable/man"
         app:civ_border_color="@color/white"
         app:civ_border_width="@dimen/_3sdp"
         app:layout_constraintEnd_toEndOf="parent"
