@@ -5,7 +5,9 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kud.data.adapter.AdapterCategory
 import com.example.kud.data.adapter.AdapterData
 import com.example.kud.databinding.FragmentAllProductBinding
 import com.example.kud.ui.base.BaseFragment
@@ -19,17 +21,42 @@ class AllProductFragment :
     BaseFragment<FragmentAllProductBinding>(FragmentAllProductBinding::inflate) {
 
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var recyclerviewItems: RecyclerView
+    private lateinit var recyclerView: RecyclerView
     private lateinit var adapterData: AdapterData
+    private lateinit var adapterCategorise: AdapterCategory
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapterData = AdapterData(requireContext())
-        recyclerviewItems = binding.recAllProduct
-        recyclerviewItems.adapter = adapterData
-        recyclerviewItems.layoutManager = GridLayoutManager(requireContext(), 2)
+        setRecycleCategory()
+        setRecycleProduct()
+        loadDataDrug()
+        loadDataCategory()
 
+    }
+
+    private fun loadDataCategory() {
+        viewModel.category()
+        viewModel.getCategory.observe(viewLifecycleOwner) {
+            when (it) {
+                is NetworkResult.Success -> {
+                    val response = it.data!!
+                    val data = response.data
+                    adapterCategorise.differ.submitList(data)
+                }
+
+                is NetworkResult.Loading -> {
+
+                }
+
+                is NetworkResult.Error -> {
+                    handleApiError(it.message)
+                }
+            }
+        }
+    }
+
+    private fun loadDataDrug() {
         viewModel.drug()
         viewModel.getDrug.observe(viewLifecycleOwner) {
             binding.progressBar.isVisible = false
@@ -42,14 +69,29 @@ class AllProductFragment :
                         handleApiError(statusResponse.toString())
                     }
                 }
-                is NetworkResult.Loading ->  binding.progressBar.isVisible = true
+                is NetworkResult.Loading -> binding.progressBar.isVisible = true
 
                 is NetworkResult.Error -> {
                     handleApiError(it.message)
                 }
             }
         }
+    }
 
+    private fun setRecycleProduct() {
+        adapterData = AdapterData(requireContext())
+        recyclerView = binding.recAllProduct
+        recyclerView.adapter = adapterData
+        recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+    }
+
+    private fun setRecycleCategory() {
+        adapterCategorise = AdapterCategory()
+//        adapterData.listener = this
+        recyclerView = binding.recFilter
+        recyclerView.adapter = adapterCategorise
+        recyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
 }

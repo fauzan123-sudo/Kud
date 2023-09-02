@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.fragment.home.AllProductFragment">
 
     <include
@@ -11,7 +12,7 @@
         layout="@layout/toolbar_layout" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_filter"
+        android:id="@+id/rec_filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -31,7 +32,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guideline2"
         app:layout_constraintStart_toStartOf="@id/guideline1"
-        app:layout_constraintTop_toBottomOf="@+id/rc_filter"
+        app:layout_constraintTop_toBottomOf="@+id/rec_filter"
         app:layout_constraintVertical_bias="1.0" />
 
     <androidx.constraintlayout.widget.Guideline

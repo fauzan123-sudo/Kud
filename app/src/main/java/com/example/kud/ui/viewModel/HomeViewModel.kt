@@ -8,6 +8,7 @@ import com.example.kud.data.model.Category
 import com.example.kud.data.model.DataDrug
 import com.example.kud.data.model.DataRequest
 import com.example.kud.data.model.RequestData
+import com.example.kud.data.model.allProduct.response.CategoryResponse
 import com.example.kud.data.model.product.DetailProductResponse
 import com.example.kud.data.repository.HomeRepository
 import com.example.kud.utils.NetworkResult
@@ -22,8 +23,8 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
     private val _getData = MutableLiveData<NetworkResult<DataRequest>>()
     val getData: LiveData<NetworkResult<DataRequest>> = _getData
 
-    private val _getCategory = MutableLiveData<NetworkResult<Category>>()
-    val getCategory: LiveData<NetworkResult<Category>> = _getCategory
+    private val _getCategory = MutableLiveData<NetworkResult<CategoryResponse>>()
+    val getCategory: LiveData<NetworkResult<CategoryResponse>> = _getCategory
 
     private val _getDrug = MutableLiveData<NetworkResult<DataDrug>>()
     val getDrug: LiveData<NetworkResult<DataDrug>> = _getDrug

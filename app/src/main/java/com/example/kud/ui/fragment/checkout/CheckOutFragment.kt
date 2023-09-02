@@ -5,6 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -34,8 +35,13 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
     private val userData = getDataUser()!!
     private val viewModel: CheckOutViewModel by viewModels()
 
+    private var isJenisPengirimanSelected = false
+    private var isJenisPembayaranSelected = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         adapterCheckOut = NewAdapterCheckOut(requireContext())
         adapterCheckOut.itemClickListener = this
         with(binding) {
@@ -56,6 +62,21 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
             findNavController().popBackStack()
         }
 
+        binding.btnPayment.setOnClickListener {
+            if (isJenisPengirimanSelected && isJenisPembayaranSelected) {
+                Log.d("CheckOutFragment", "Tombol Bayar diklik dengan kedua kondisi terpenuhi")
+            } else {
+                Log.d(
+                    "CheckOutFragment",
+                    "Kedua kondisi harus terpenuhi untuk melakukan pembayaran"
+                )
+            }
+        }
+
+    }
+
+    private fun enablePaymentButton(btnPayment: Button) {
+        btnPayment.isEnabled = isJenisPengirimanSelected && isJenisPembayaranSelected
 
     }
 
@@ -133,6 +154,8 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
     private fun pickToSend() {
         with(binding) {
             rgJenisPengiriman.setOnCheckedChangeListener { _, checkedId ->
+                isJenisPengirimanSelected = checkedId != -1
+                enablePaymentButton(btnPayment)
                 val selectedRadioButton = when (checkedId) {
                     binding.rbCod.id -> binding.rbCod
                     else -> binding.rbAmbilSendiri
@@ -145,6 +168,11 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
                     binding.tvOngkosKirim.text = "0"
                     binding.txtAddress.text = ""
                 }
+            }
+
+            rgJenisPembayaran.setOnCheckedChangeListener { _, checkedId ->
+                isJenisPembayaranSelected = checkedId != -1
+                enablePaymentButton(btnPayment)
             }
         }
     }

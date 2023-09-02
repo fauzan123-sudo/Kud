@@ -294,7 +294,7 @@
                     tools:layout_editor_absoluteX="16dp" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_bayar"
+                    android:id="@+id/btn_payment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"

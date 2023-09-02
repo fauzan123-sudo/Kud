@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kud.R
 import com.example.kud.data.adapter.AdapterBanner
 import com.example.kud.data.adapter.AdapterData
-import com.example.kud.data.adapter.AdapterKategori
+import com.example.kud.data.adapter.AdapterCategory
 import com.example.kud.data.model.DataXXX
 import com.example.kud.databinding.FragmentHomeBinding
 import com.example.kud.ui.base.BaseFragment
@@ -35,14 +35,14 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var adapterData: AdapterData
-    private lateinit var adapterCategorise: AdapterKategori
+    private lateinit var adapterCategorise: AdapterCategory
 
     private var mList = mutableListOf<String>()
     private lateinit var recyclerviewItems: RecyclerView
 
-    lateinit var imageUrl: ArrayList<String>
+    private lateinit var imageUrl: ArrayList<String>
 
-    lateinit var sliderView: SliderView
+//    lateinit var sliderView: SliderView
 
     lateinit var adapterBanner: AdapterBanner
 
@@ -52,7 +52,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         toolbarInit()
 
-        sliderView = binding.imageSlider
+        binding.textView7.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_semuaProdukFragment)
+        }
+
+//        sliderView = binding.imageSlider
 
         imageUrl = ArrayList()
 
@@ -65,19 +69,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
         adapterBanner = AdapterBanner(imageUrl)
 
-        sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
-
-        sliderView.setSliderAdapter(adapterBanner)
-
-
-        sliderView.scrollTimeInSec = 3
-
-        sliderView.isAutoCycle = true
-
-        sliderView.startAutoCycle()
+//        sliderView.autoCycleDirection = SliderView.LAYOUT_DIRECTION_LTR
+//
+//        sliderView.setSliderAdapter(adapterBanner)
+//
+//
+//        sliderView.scrollTimeInSec = 3
+//
+//        sliderView.isAutoCycle = true
+//
+//        sliderView.startAutoCycle()
 
         adapterData = AdapterData(requireContext())
-        adapterCategorise = AdapterKategori()
+        adapterCategorise = AdapterCategory()
 
         adapterData.listener = this
 

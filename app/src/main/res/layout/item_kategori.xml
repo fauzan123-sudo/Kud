@@ -1,9 +1,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:paddingHorizontal="@dimen/_20sdp"
     android:paddingVertical="@dimen/_10sdp"
-    android:layout_width="@dimen/_100sdp"
+    android:layout_width="@dimen/_50sdp"
     android:layout_height="wrap_content"
     android:background="@drawable/reactable_border_grey">
     <ImageView
