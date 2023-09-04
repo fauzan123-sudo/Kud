@@ -18,7 +18,7 @@
 
     <item
         android:title="Pesanan"
-        android:id="@+id/orderFragment"
+        android:id="@+id/historyTransactionFragment"
         android:icon="@drawable/ic_clock"
         app:showAsAction="ifRoom"
         />

@@ -1,4 +1,4 @@
-package com.example.kud.data.model.transaction
+package com.example.kud.data.model.transaction.response
 
 data class CartRequest(
     val id_pelanggan: String,

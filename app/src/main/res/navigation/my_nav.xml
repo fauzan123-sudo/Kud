@@ -21,7 +21,7 @@
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="detailProduct"
-            app:argType="com.example.kud.data.model.DataXXX" />
+            app:argType="com.example.kud.data.model.home.list.Data" />
         <action
             android:id="@+id/action_detailFragment_to_checkOutFragment"
             app:destination="@id/checkOutFragment" />
@@ -72,6 +72,12 @@
         <argument
             android:name="dataCheckOut"
             app:argType="com.example.kud.data.model.checkOut.request.RequestList" />
+        <action
+            android:id="@+id/action_checkOutFragment_to_paymentProofFragment"
+            app:destination="@id/paymentProofFragment" />
+        <action
+            android:id="@+id/action_checkOutFragment_to_thanksFragment"
+            app:destination="@id/thanksFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
@@ -82,7 +88,15 @@
         android:id="@+id/paymentProofFragment"
         android:name="com.example.kud.ui.fragment.transaction.PaymentProofFragment"
         android:label="fragment_payment_proof"
-        tools:layout="@layout/fragment_payment_proof" />
+        tools:layout="@layout/fragment_payment_proof" >
+        <action
+            android:id="@+id/action_paymentProofFragment_to_thanksFragment"
+            app:destination="@id/thanksFragment" />
+        <argument
+            android:name="totalShopping"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
     <fragment
         android:id="@+id/cartFragment"
         android:name="com.example.kud.ui.fragment.cart.CartFragment"
@@ -100,4 +114,14 @@
         android:name="com.example.kud.ui.fragment.address.UserAddressFragment"
         android:label="fragment_user_address"
         tools:layout="@layout/fragment_user_address" />
+    <fragment
+        android:id="@+id/thanksFragment"
+        android:name="com.example.kud.ui.fragment.transaction.ThanksFragment"
+        android:label="fragment_thanks"
+        tools:layout="@layout/fragment_thanks" />
+    <fragment
+        android:id="@+id/historyTransactionFragment"
+        android:name="com.example.kud.ui.fragment.transaction.HistoryTransactionFragment"
+        android:label="fragment_history_transaction"
+        tools:layout="@layout/fragment_history_transaction" />
 </navigation>

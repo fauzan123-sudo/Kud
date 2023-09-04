@@ -8,7 +8,7 @@ import com.example.kud.data.model.detail.addCheckOut.AddToCheckOutModel
 import com.example.kud.data.model.detail.request.RequestToCart
 import com.example.kud.data.model.detail.request.RequestToCheckOut
 import com.example.kud.data.model.product.DetailProductResponse
-import com.example.kud.data.model.transaction.AddCartResponse
+import com.example.kud.data.model.transaction.response.AddCartResponse
 import com.example.kud.data.repository.DetailRepository
 import com.example.kud.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel

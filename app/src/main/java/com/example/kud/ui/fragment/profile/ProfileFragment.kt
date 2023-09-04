@@ -18,6 +18,7 @@ import com.example.kud.ui.viewModel.AuthViewModel
 import com.example.kud.ui.viewModel.ProfileViewModel
 import com.example.kud.utils.NetworkResult
 import com.example.kud.utils.TokenManager
+import com.example.kud.utils.deleteDataUser
 import com.example.kud.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -66,8 +67,9 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
                     val status = it.data!!.status
                     Log.d("status", "$status")
                     if (status == 200) {
-                    startActivity(Intent(requireContext(), LoginActivity::class.java))
-                    token.deleteToken()
+                        startActivity(Intent(requireContext(), LoginActivity::class.java))
+                        token.deleteToken()
+                        deleteDataUser()
                     } else {
                         Toast.makeText(requireContext(), "gagal logout", Toast.LENGTH_SHORT).show()
                     }

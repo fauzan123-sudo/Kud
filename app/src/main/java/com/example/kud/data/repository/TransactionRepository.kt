@@ -1,13 +1,18 @@
 package com.example.kud.data.repository
 
-import com.example.kud.data.model.transaction.CartRequest
-import com.example.kud.data.network.ProfileApi
+import com.example.kud.data.model.transaction.request.RequestAddPayment
 import com.example.kud.data.network.TransactionApi
-import retrofit2.http.Body
 import javax.inject.Inject
 
 
 class TransactionRepository @Inject constructor(private val api: TransactionApi) : BaseRepo() {
 
-    suspend fun getCart(body: CartRequest) = safeApiCall { api.getCart(body) }
+    suspend fun getHistoryTransaction(userId: Int) =
+        safeApiCall { api.getHistoryTransaction(userId) }
+
+    suspend fun getDetailTransaction(transactionCode: String) =
+        safeApiCall { api.getDetailTransaction(transactionCode) }
+
+    suspend fun getAddTransaction(request: RequestAddPayment) =
+        safeApiCall { api.getAddTransaction(request) }
 }

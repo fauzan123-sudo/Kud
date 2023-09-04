@@ -2,7 +2,7 @@ package com.example.kud.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.kud.data.db.MyDatabase
+//import com.example.kud.data.db.MyDatabase
 import com.example.kud.data.network.*
 import com.example.kud.utils.Constants
 import com.example.kud.utils.Constants.BASE_URL

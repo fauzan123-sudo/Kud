@@ -4,7 +4,7 @@ import com.example.kud.data.model.cart.request.RequestCheckUnCheck
 import com.example.kud.data.model.cart.request.RequestDeleteDrug
 import com.example.kud.data.model.cart.request.RequestListCart
 import com.example.kud.data.model.cart.request.RequestPlusMinus
-import com.example.kud.data.model.transaction.CartRequest
+import com.example.kud.data.model.transaction.response.CartRequest
 import com.example.kud.data.network.CartApi
 import javax.inject.Inject
 

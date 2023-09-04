@@ -6,6 +6,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.example.kud.R
 import com.example.kud.data.model.auth.login.LoginRequest
 import com.example.kud.databinding.FragmentLoginBinding
 import com.example.kud.ui.activity.MainActivity
@@ -33,6 +35,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
         super.onViewCreated(view, savedInstanceState)
         if (tokenManager.getToken() != null) {
             requireActivity().startNewActivity(MainActivity::class.java)
+        }
+
+        binding.btnRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment2_to_registerFragment)
         }
 
         Log.d(TAG + "logins", readToken)
@@ -67,19 +73,19 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(FragmentLoginBinding::i
             binding.progressBar.isVisible = false
             when (it) {
                 is NetworkResult.Success -> {
-
                     Log.d(TAG, "here success")
                     val response = it.data!!
-                    val statusResponse = response.status
-                    if (statusResponse == 200) {
-                        val userToken = it.data.data!!.access_token
-                        saveDataUser(response.data)
+                    val data = response.data
+                    val statusResponse = response.msg
+                    if (data != null) {
+                        val userToken = data.access_token
+                        saveDataUser(data)
                         tokenManager.saveToken(userToken)
                         requireActivity().startNewActivity(MainActivity::class.java)
-
-                    }else{
-                        Toast.makeText(requireContext(), "$statusResponse", Toast.LENGTH_SHORT).show()
-                        handleApiError(statusResponse.toString())
+                    } else {
+                        Toast.makeText(requireContext(), statusResponse, Toast.LENGTH_SHORT)
+                            .show()
+                        handleApiError(statusResponse)
                     }
                 }
                 is NetworkResult.Error -> {

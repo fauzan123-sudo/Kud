@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.kud.R
 import com.example.kud.data.model.checkOut.request.RequestList
-import com.example.kud.data.model.detail.DetailProduct
 import com.example.kud.data.model.detail.request.RequestToCart
 import com.example.kud.data.model.detail.request.RequestToCheckOut
 import com.example.kud.databinding.FragmentDetailBinding
@@ -37,10 +36,6 @@ class DetailFragment : BottomSheetDialogFragment() {
     private val userData = getDataUser()!!
 
     override fun getTheme() = R.style.BottomSheetDialogTheme
-
-    override fun onStart() {
-        super.onStart()
-    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
@@ -150,9 +145,9 @@ class DetailFragment : BottomSheetDialogFragment() {
 //        binding.minus.backgroundTintList = ColorStateList.valueOf(Color.RED)
         var counter = 1
         binding.plus.setOnClickListener {
-            if (counter != myArgs.stok) {
+            if (counter != myArgs.stok.toInt()) {
                 val textAmount = binding.amount.text.toString().toInt()
-                binding.plus.isEnabled = textAmount <= myArgs.stok!!
+                binding.plus.isEnabled = textAmount <= myArgs.stok!!.toInt()
                 binding.minus.isEnabled = textAmount >= 1
                 counter++
                 binding.amount.text = counter.toString()
@@ -173,7 +168,7 @@ class DetailFragment : BottomSheetDialogFragment() {
                 val textAmount = binding.amount.text.toString().toInt()
                 binding.minus.isEnabled = textAmount > 0
                 counter--
-                binding.amount.setText(counter.toString())
+                binding.amount.text = counter.toString()
                 val total = myArgs.harga!!.toInt() * counter
                 val totalPrice = NumberFormat.getNumberInstance(Locale.US)
                     .format(total)

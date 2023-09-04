@@ -1,11 +1,14 @@
 package com.example.kud.ui.fragment.checkout
 
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -21,6 +24,7 @@ import com.example.kud.data.model.checkOut.request.RequestPlusMinus
 import com.example.kud.databinding.FragmentCheckOutBinding
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.CheckOutViewModel
+import com.example.kud.ui.viewModel.TransactionViewModel
 import com.example.kud.utils.NetworkResult
 import com.example.kud.utils.getDataUser
 import com.example.kud.utils.handleApiError
@@ -34,6 +38,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
     private val args by navArgs<CheckOutFragmentArgs>()
     private val userData = getDataUser()!!
     private val viewModel: CheckOutViewModel by viewModels()
+    private val transactionViewModel: TransactionViewModel by viewModels()
 
     private var isJenisPengirimanSelected = false
     private var isJenisPembayaranSelected = false
@@ -55,21 +60,82 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
         subTotal(args)
         pickToSend()
         grandTotal()
-        userAddress()
         changeAddress()
 
         binding.btnCancel.setOnClickListener {
             findNavController().popBackStack()
         }
 
+        binding.lvCopy.setOnClickListener {
+            val textToCopy = binding.tvNoRek.text.toString()
+            val clipboardManager =
+                requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            clipboardManager.text = textToCopy
+
+            Toast.makeText(requireContext(), "Teks telah disalin", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.btnPayment.isEnabled = binding.rgJenisPengiriman.checkedRadioButtonId != -1 &&
+                binding.rgJenisPembayaran.checkedRadioButtonId != -1
+
         binding.btnPayment.setOnClickListener {
-            if (isJenisPengirimanSelected && isJenisPembayaranSelected) {
-                Log.d("CheckOutFragment", "Tombol Bayar diklik dengan kedua kondisi terpenuhi")
+            Log.d("CheckOutFragment", "Tombol Bayar diklik")
+            if (binding.rgJenisPengiriman.checkedRadioButtonId != -1 &&
+                binding.rgJenisPembayaran.checkedRadioButtonId != -1
+            ) {
+                Log.d("CheckOutFragment", "Kedua kondisi terpenuhi")
+                binding.btnPayment.isEnabled = true
+                val selectedPaymentId = binding.rgJenisPembayaran.checkedRadioButtonId
+                if (selectedPaymentId == R.id.rb_transfer) {
+                    val totalShopping = binding.tvTotal.text.toString()
+                    val transferPay = binding.rbTransfer.isChecked
+                    val cashPay = binding.rbTunai.isChecked
+                    val viaCod = binding.rbTransfer.isChecked
+                    val viaPickUp = binding.rbTunai.isChecked
+                    val paymentMethod =
+                        if (transferPay) "2" else if (cashPay) "1" else "Tidak ada yang dipilih"
+                    val paymentPick =
+                        if (viaCod) "2" else if (viaPickUp) "1" else "Tidak ada yang dipilih"
+
+                    Log.d("metode bayar", "$paymentMethod")
+                    Log.d("metode kirim", "$paymentPick")
+//                    transactionViewModel.requestAddPayment(
+//                        RequestAddPayment(
+//                            args.dataCheckOut.id_keranjang,
+//                            userData.id_pelanggan.toString(),
+//                            "",
+//                            "1",
+//                            "2"
+//                        )
+//                    )
+//                    transactionViewModel.getAddPayment.observe(viewLifecycleOwner) {
+//                        binding.progressBar.isVisible = false
+//                        when (it) {
+//                            is NetworkResult.Success -> {
+//                                val action =
+//                                    CheckOutFragmentDirections.actionCheckOutFragmentToPaymentProofFragment(
+//                                        totalShopping
+//                                    )
+//                                findNavController().navigate(action)
+//                            }
+//
+//                            is NetworkResult.Loading -> {
+//                                binding.progressBar.isVisible = true
+//
+//                            }
+//
+//                            is NetworkResult.Error -> {
+//                                handleApiError(it.message)
+//                            }
+//                        }
+//                    }
+
+                } else {
+                    findNavController().navigate(R.id.action_checkOutFragment_to_thanksFragment)
+                }
             } else {
-                Log.d(
-                    "CheckOutFragment",
-                    "Kedua kondisi harus terpenuhi untuk melakukan pembayaran"
-                )
+                Log.d("CheckOutFragment", "Kondisi belum terpenuhi")
+                binding.btnPayment.isEnabled = false
             }
         }
 
@@ -77,7 +143,6 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
 
     private fun enablePaymentButton(btnPayment: Button) {
         btnPayment.isEnabled = isJenisPengirimanSelected && isJenisPembayaranSelected
-
     }
 
     private fun changeAddress() {
@@ -86,7 +151,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
         }
     }
 
-    private fun userAddress() {
+    private fun getUserAddress() {
         viewModel.requestUserAddress(RequestAddress(userData.id_pelanggan.toString()))
         viewModel.getUserAddress.observe(viewLifecycleOwner) {
             hideLoading()
@@ -163,7 +228,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
 
                 if (selectedRadioButton.id == binding.rbCod.id) {
                     binding.tvOngkosKirim.text = "5000"
-                    binding.txtAddress.text = "5000"
+                    getUserAddress()
                 } else {
                     binding.tvOngkosKirim.text = "0"
                     binding.txtAddress.text = ""

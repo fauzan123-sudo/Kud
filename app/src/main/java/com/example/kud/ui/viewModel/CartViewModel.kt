@@ -12,8 +12,8 @@ import com.example.kud.data.model.cart.request.RequestCheckUnCheck
 import com.example.kud.data.model.cart.request.RequestDeleteDrug
 import com.example.kud.data.model.cart.request.RequestListCart
 import com.example.kud.data.model.cart.request.RequestPlusMinus
-import com.example.kud.data.model.transaction.AddCartResponse
-import com.example.kud.data.model.transaction.CartRequest
+import com.example.kud.data.model.transaction.response.AddCartResponse
+import com.example.kud.data.model.transaction.response.CartRequest
 import com.example.kud.data.repository.CartRepository
 import com.example.kud.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel

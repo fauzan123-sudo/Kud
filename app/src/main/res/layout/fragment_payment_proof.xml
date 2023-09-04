@@ -56,7 +56,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/silahkan_tr"
+            android:id="@+id/tv_transfer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|top"
@@ -90,10 +90,10 @@
             android:background="@drawable/borer_dashed">
 
             <ImageView
+                android:id="@+id/img_proof_photo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layerType="software"
-                android:padding="@dimen/_16sdp"
+                android:layout_height="@dimen/_100sdp"
+
                 android:src="@drawable/uploa_bukti" />
         </RelativeLayout>
 

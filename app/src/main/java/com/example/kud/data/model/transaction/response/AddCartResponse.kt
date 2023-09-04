@@ -1,4 +1,4 @@
-package com.example.kud.data.model.transaction
+package com.example.kud.data.model.transaction.response
 
 data class AddCartResponse(
     val `data`: Data,

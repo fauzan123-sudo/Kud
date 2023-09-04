@@ -3,6 +3,7 @@ package com.example.kud.utils
 import android.app.Activity
 import android.content.Intent
 import android.view.View
+import com.example.kud.data.model.auth.login.Data
 import io.paperdb.Paper
 
 fun <A : Activity> Activity.startNewActivity(activity: Class<A>) {

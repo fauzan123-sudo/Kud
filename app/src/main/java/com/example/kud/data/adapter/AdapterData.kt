@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.kud.data.model.DataXXX
+import com.example.kud.data.model.home.list.Data
 import com.example.kud.databinding.DataItemBinding
 import com.example.kud.ui.fragment.RecyclerViewClickListener
 import com.example.kud.utils.Constants.IMAGE_OBAT
@@ -19,12 +19,12 @@ class AdapterData(val context: Context) : RecyclerView.Adapter<AdapterData.ViewH
     inner class ViewHolder(val binding:DataItemBinding) : RecyclerView.ViewHolder(binding.root)
 
     var listener: RecyclerViewClickListener? = null
-    private val differCallback = object : DiffUtil.ItemCallback<DataXXX>() {
-        override fun areItemsTheSame(oldItem: DataXXX, newItem: DataXXX): Boolean {
+    private val differCallback = object : DiffUtil.ItemCallback<Data>() {
+        override fun areItemsTheSame(oldItem: Data, newItem: Data): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: DataXXX, newItem: DataXXX): Boolean {
+        override fun areContentsTheSame(oldItem: Data, newItem: Data): Boolean {
             return oldItem == newItem
         }
     }

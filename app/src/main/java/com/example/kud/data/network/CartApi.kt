@@ -11,11 +11,10 @@ import com.example.kud.data.model.cart.request.RequestListCart
 import com.example.kud.data.model.cart.request.RequestPlusMinus
 //import com.example.kud.data.model.checkOut.plusMinus.PlusMinusModel
 //import com.example.kud.data.model.checkOut.request.RequestPlusMinus
-import com.example.kud.data.model.transaction.AddCartResponse
-import com.example.kud.data.model.transaction.CartRequest
+import com.example.kud.data.model.transaction.response.AddCartResponse
+import com.example.kud.data.model.transaction.response.CartRequest
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.Field
 import retrofit2.http.POST
 
 interface CartApi {

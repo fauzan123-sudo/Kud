@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/_15sdp"
@@ -9,7 +8,7 @@
     android:layout_marginBottom="@dimen/_10sdp">
 
     <TextView
-        android:id="@+id/tv_nama"
+        android:id="@+id/tv_order_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -25,10 +24,10 @@
         android:text="Rp500.000"
         android:textAppearance="@style/total_rp_54"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_order_id" />
 
     <TextView
-        android:id="@+id/tv_deskipsi"
+        android:id="@+id/tv_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
