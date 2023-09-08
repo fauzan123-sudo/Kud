@@ -11,12 +11,14 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.example.kud.R
 import com.example.kud.data.model.checkOut.request.RequestList
 import com.example.kud.data.model.detail.request.RequestToCart
 import com.example.kud.data.model.detail.request.RequestToCheckOut
 import com.example.kud.databinding.FragmentDetailBinding
 import com.example.kud.ui.viewModel.DetailViewModel
+import com.example.kud.utils.Constants.IMAGE_OBAT
 import com.example.kud.utils.NetworkResult
 import com.example.kud.utils.getDataUser
 import com.example.kud.utils.handleApiError
@@ -223,6 +225,12 @@ class DetailFragment : BottomSheetDialogFragment() {
                         totalPrice.text = response.harga
                         stockItem.text = "jumlah Stok : ${response.stok}"
                         amount.text = "1"
+                        Glide.with(requireActivity())
+                            .load(IMAGE_OBAT+response.foto)
+//                            .placeholder(R.drawable.no_image)
+                            .error(R.drawable.no_image)
+                            .into(imgDetailBarang)
+
                     }
                 }
 

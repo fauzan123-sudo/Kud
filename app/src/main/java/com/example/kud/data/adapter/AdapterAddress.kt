@@ -12,8 +12,13 @@ import com.example.kud.databinding.ItemAddressBinding
 
 class AdapterAddress(
     val context: Context,
-//    private val onItemClickListener: (DataX) -> Unit
 ) : RecyclerView.Adapter<AdapterAddress.ViewHolder>() {
+
+    var listener:ItemListener? = null
+
+    interface ItemListener{
+        fun itemClick(data: Data)
+    }
 
     inner class ViewHolder(val binding: ItemAddressBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -45,6 +50,11 @@ class AdapterAddress(
         with(holder) {
             binding.tvTitleAddress.text = myPosition.nama
             binding.tvAddress.text = myPosition.alamat
+
+            holder.itemView.setOnClickListener {
+                listener?.itemClick(myPosition)
+            }
+
             Log.d("address", "${myPosition.alamat}")
         }
     }

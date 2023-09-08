@@ -78,6 +78,13 @@
                         android:orientation="vertical">
 
                         <RadioButton
+                            android:id="@+id/rb_ambil_sendiri"
+                            style="@style/radio_button_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_20sdp"
+                            android:text="Ambil Sendiri" />
+
+                        <RadioButton
                             android:id="@+id/rb_cod"
                             style="@style/radio_button_text"
                             android:layout_width="wrap_content"
@@ -85,20 +92,6 @@
                             android:layout_marginTop="@dimen/_10ssp"
                             android:dividerPadding="@dimen/_5ssp"
                             android:text="COD" />
-
-                        <RadioButton
-                            android:id="@+id/rb_ambil_sendiri"
-                            style="@style/radio_button_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_20sdp"
-                            android:text="Ambil Sendiri" />
-
-                        <!--                        <RadioButton-->
-                        <!--                            android:id="@+id/rb_antar"-->
-                        <!--                            style="@style/radio_button_text"-->
-                        <!--                            android:layout_width="wrap_content"-->
-                        <!--                            android:layout_height="@dimen/_20sdp"-->
-                        <!--                            android:text="Antar" />-->
                     </RadioGroup>
                 </LinearLayout>
 
@@ -122,6 +115,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
+
+                        <RadioButton
+                            android:id="@+id/rb_tunai"
+                            style="@style/radio_button_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/_20sdp"
+                            android:text="Tunai" />
 
                         <RadioButton
                             android:id="@+id/rb_transfer"
@@ -170,12 +170,7 @@
                             </LinearLayout>
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        <RadioButton
-                            android:id="@+id/rb_tunai"
-                            style="@style/radio_button_text"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_20sdp"
-                            android:text="Tunai" />
+
                     </RadioGroup>
                 </LinearLayout>
             </LinearLayout>
@@ -217,10 +212,12 @@
                 <TextView
                     android:id="@+id/txtAddress"
                     style="@style/text_small_muted"
+                    android:textColor="@color/grey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
-                    android:text="" />
+                    android:text=""
+                    android:visibility="invisible" />
             </LinearLayout>
 
             <LinearLayout
@@ -309,8 +306,6 @@
                         android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

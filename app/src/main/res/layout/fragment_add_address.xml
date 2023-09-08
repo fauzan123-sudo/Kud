@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_15sdp">
+    android:background="@color/white"
+    tools:context=".ui.fragment.address.AddAddressFragment">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/menu_toolbar"
+        app:subtitleTextColor="#C6FFFFFF"
+        app:title="Alamat Pengiriman"
+        app:titleTextColor="@color/white" />
 
     <LinearLayout
         android:id="@+id/ll_judul_alamat"
@@ -13,7 +37,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingBottom="@dimen/_10sdp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         tools:layout_editor_absoluteX="26dp">
 
         <TextView
@@ -30,9 +54,11 @@
             android:layout_height="wrap_content"
             android:background="@drawable/frame"
             android:hint="Judul Alamat"
+            android:textColor="@color/black"
             android:padding="@dimen/_12ssp"
             android:textSize="@dimen/_12ssp" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/ll_alamat"
         android:layout_width="match_parent"
@@ -56,10 +82,12 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_150sdp"
             android:background="@drawable/frame"
-            android:hint="Ketikan Alamatmu"
             android:gravity="start"
+            android:textColor="@color/black"
+            android:hint="Ketikan Alamatmu"
             android:padding="@dimen/_12ssp"
             android:textSize="@dimen/_12ssp" />
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

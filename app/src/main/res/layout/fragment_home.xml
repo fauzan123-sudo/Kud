@@ -33,7 +33,7 @@
 
     <include
         android:id="@+id/toolbar_items"
-        layout="@layout/toolbar_layout" />
+        layout="@layout/toolbar_search" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"

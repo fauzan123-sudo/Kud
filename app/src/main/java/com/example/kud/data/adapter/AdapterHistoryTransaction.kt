@@ -43,6 +43,7 @@ class AdapterHistoryTransaction(
         with(holder) {
             binding.tvOrderId.text = myPosition.id_transaksi.toString()
             binding.tvTotal.text = myPosition.total_harga
+            binding.tvOrderId.text = myPosition.id_transaksi.toString()
         }
     }
 

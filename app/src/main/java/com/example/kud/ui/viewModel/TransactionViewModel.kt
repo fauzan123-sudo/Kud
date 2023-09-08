@@ -7,10 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.kud.data.model.transaction.request.RequestAddPayment
 import com.example.kud.data.model.transaction.response.addPayment.AddPaymentResponse
 import com.example.kud.data.model.transaction.response.history.HistoryTransactionModel
+import com.example.kud.data.model.upload.ImageUploadResponse
 import com.example.kud.data.repository.TransactionRepository
 import com.example.kud.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import xyz.teamgravity.checkinternet.CheckInternet
 import javax.inject.Inject
 
@@ -25,6 +28,10 @@ class TransactionViewModel @Inject constructor(private val repository: Transacti
     private val _getAddPayment = MutableLiveData<NetworkResult<AddPaymentResponse>>()
     val getAddPayment: LiveData<NetworkResult<AddPaymentResponse>> =
         _getAddPayment
+
+    private val _uploadImage = MutableLiveData<NetworkResult<ImageUploadResponse>>()
+    val uploadImage: LiveData<NetworkResult<ImageUploadResponse>> =
+        _uploadImage
 
     fun requestHistoryTransaction(userId: Int) {
         viewModelScope.launch {
@@ -45,6 +52,20 @@ class TransactionViewModel @Inject constructor(private val repository: Transacti
                 _getAddPayment.postValue(repository.getAddTransaction(request))
             } else
                 _getAddPayment.postValue(NetworkResult.Error("No Internet Connection"))
+        }
+    }
+
+    fun requestImageUpload(
+        transactionCode: RequestBody,
+        file: MultipartBody.Part
+    ) {
+        viewModelScope.launch {
+            val connected = CheckInternet().check()
+            if (connected) {
+                _uploadImage.postValue(NetworkResult.Loading())
+                _uploadImage.postValue(repository.imageUpload(transactionCode, file))
+            } else
+                _uploadImage.postValue(NetworkResult.Error("No Internet Connection"))
         }
     }
 

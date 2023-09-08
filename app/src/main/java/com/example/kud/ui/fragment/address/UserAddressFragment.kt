@@ -2,17 +2,15 @@ package com.example.kud.ui.fragment.address
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kud.R
 import com.example.kud.data.adapter.AdapterAddress
-import com.example.kud.data.adapter.NewAdapterCheckOut
+import com.example.kud.data.model.address.list.Data
 import com.example.kud.data.model.address.request.RequestAddress
 import com.example.kud.databinding.FragmentUserAddressBinding
 import com.example.kud.ui.base.BaseFragment
@@ -24,18 +22,42 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class UserAddressFragment :
-    BaseFragment<FragmentUserAddressBinding>(FragmentUserAddressBinding::inflate) {
+    BaseFragment<FragmentUserAddressBinding>(FragmentUserAddressBinding::inflate),
+    AdapterAddress.ItemListener {
 
     private val userData = getDataUser()!!
     private val viewModel: AddressViewModel by viewModels()
     lateinit var adapter: AdapterAddress
     lateinit var recyclerView: RecyclerView
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadListAddress()
         initRecyclerView()
         initSwipeRefreshLayout()
+        toolbarInit()
+        addAddress()
+
+
+    }
+
+    private fun addAddress() {
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.actionAdd -> {
+                    findNavController().navigate(R.id.action_userAddressFragment_to_addAddressFragment)
+                    return@setOnMenuItemClickListener true
+                }
+                else -> {
+                    return@setOnMenuItemClickListener false
+                }
+            }
+        }
+    }
+
+    private fun toolbarInit() {
+        val toolbar = binding.toolbar
+//        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+//        toolbar.inflateMenu(R.menu.menu_add)
     }
 
     private fun initSwipeRefreshLayout() {
@@ -46,6 +68,7 @@ class UserAddressFragment :
 
     private fun initRecyclerView() {
         adapter = AdapterAddress(requireContext())
+        adapter.listener = this
         recyclerView = binding.recListProduct
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -73,6 +96,7 @@ class UserAddressFragment :
         }
     }
 
+
     private fun showLoading() {
         binding.progressBar.isVisible = true
     }
@@ -80,6 +104,13 @@ class UserAddressFragment :
     private fun hideLoading() {
         binding.swipeRefreshLayout.isRefreshing = false
         binding.progressBar.isVisible = false
+    }
+
+    override fun itemClick(data: Data) {
+        val action =
+            UserAddressFragmentDirections.actionUserAddressFragmentToChangeAddressFragment(data)
+        findNavController().navigate(action)
+//        Toast.makeText(requireContext(), "$data", Toast.LENGTH_SHORT).show()
     }
 
 }

@@ -3,12 +3,14 @@ package com.example.kud.ui.fragment.home
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.kud.R
 import com.example.kud.data.adapter.AdapterBanner
 import com.example.kud.data.adapter.AdapterCategory
@@ -47,6 +49,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         super.onViewCreated(view, savedInstanceState)
 
         toolbarInit()
+        onBackPress()
 
         binding.textView7.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_semuaProdukFragment)
@@ -99,6 +102,28 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
                 }
             }
         }
+    }
+
+    private fun onBackPress() {
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                SweetAlertDialog(requireContext(), SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Konfirmasi")
+                    .setContentText("Apakah Anda yakin ingin keluar dari aplikasi?")
+                    .setConfirmText("Ya")
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.dismissWithAnimation()
+                        requireActivity().finish()
+                    }
+                    .setCancelText("Tidak")
+                    .setCancelClickListener { sDialog ->
+                        sDialog.dismissWithAnimation()
+                    }
+                    .show()
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
 
     private fun toolbarInit() {

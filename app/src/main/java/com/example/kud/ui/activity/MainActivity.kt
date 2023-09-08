@@ -42,7 +42,22 @@ class MainActivity : AppCompatActivity() {
                 R.id.userAddressFragment -> {
                     binding.bottomNav.visibility = View.GONE
                 }
+                R.id.changeAddressFragment -> {
+                    binding.bottomNav.visibility = View.GONE
+                }
+                R.id.addAddressFragment -> {
+                    binding.bottomNav.visibility = View.GONE
+                }
                 R.id.semuaProdukFragment -> {
+                    binding.bottomNav.visibility = View.GONE
+                }
+                R.id.thanksFragment -> {
+                    binding.bottomNav.visibility = View.GONE
+                }
+                R.id.detailFragment -> {
+                    binding.bottomNav.visibility = View.GONE
+                }
+                R.id.paymentProofFragment -> {
                     binding.bottomNav.visibility = View.GONE
                 }
                 else -> {

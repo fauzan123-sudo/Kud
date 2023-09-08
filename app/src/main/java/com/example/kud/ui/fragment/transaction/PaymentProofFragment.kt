@@ -1,22 +1,30 @@
 package com.example.kud.ui.fragment.transaction
 
+import android.graphics.Bitmap
 import android.graphics.Typeface
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.kud.databinding.FragmentPaymentProofBinding
 import com.example.kud.ui.base.BaseFragment
+import com.example.kud.ui.viewModel.TransactionViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
+import java.io.ByteArrayOutputStream
 
 @AndroidEntryPoint
 class PaymentProofFragment :
     BaseFragment<FragmentPaymentProofBinding>(FragmentPaymentProofBinding::inflate) {
+
+    private val viewModel: TransactionViewModel by viewModels()
 
     private val totalShoppingArgs by navArgs<PaymentProofFragmentArgs>()
     private var isImageLoaded = false
@@ -35,24 +43,31 @@ class PaymentProofFragment :
             resultContract.launch("image/*")
         }
 
-        binding.btnLogin.setOnClickListener {
+        binding.btnUpload.setOnClickListener {
             if (isImageLoaded) {
-                Log.d("imageview", "gambar sudah berubah sip...: ")
-                Toast.makeText(requireContext(), "gambar sudah berubah sip...", Toast.LENGTH_SHORT)
-                    .show()
+                val transactionCode = totalShoppingArgs.transactionCode
+                val bitmap: Bitmap = (binding.imgProofPhoto.drawable as BitmapDrawable).bitmap
+                val photo = uriToMultipartBody(bitmap)
+//                viewModel.requestImageUpload(transactionCode, photo)
             } else {
-                Log.d("imageview", "gambar tidak berubah")
-                Toast.makeText(requireContext(), "gambar tidak berubah", Toast.LENGTH_SHORT)
-                    .show()
+
             }
         }
-        binding.btnLogin.isEnabled = false
+        binding.btnUpload.isEnabled = false
         checkButtonState()
 
     }
 
+    private fun uriToMultipartBody(bitmap: Bitmap): MultipartBody.Part {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
+        val byteArray = byteArrayOutputStream.toByteArray()
+        val requestFile = byteArray.toRequestBody("image/png".toMediaTypeOrNull())
+        return MultipartBody.Part.createFormData("bukti_transfer", "image.png", requestFile)
+    }
+
     private fun checkButtonState() {
-        binding.btnLogin.isEnabled = isImageLoaded
+        binding.btnUpload.isEnabled = isImageLoaded
     }
 
     private fun setAmount() {

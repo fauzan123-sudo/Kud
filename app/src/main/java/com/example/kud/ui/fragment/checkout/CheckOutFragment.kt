@@ -21,6 +21,7 @@ import com.example.kud.data.model.checkOut.list.DataX
 import com.example.kud.data.model.checkOut.request.RequestAddress
 import com.example.kud.data.model.checkOut.request.RequestList
 import com.example.kud.data.model.checkOut.request.RequestPlusMinus
+import com.example.kud.data.model.transaction.request.RequestAddPayment
 import com.example.kud.databinding.FragmentCheckOutBinding
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.CheckOutViewModel
@@ -39,6 +40,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
     private val userData = getDataUser()!!
     private val viewModel: CheckOutViewModel by viewModels()
     private val transactionViewModel: TransactionViewModel by viewModels()
+    private var userLocation = ""
 
     private var isJenisPengirimanSelected = false
     private var isJenisPembayaranSelected = false
@@ -61,6 +63,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
         pickToSend()
         grandTotal()
         changeAddress()
+        getUserAddress()
 
         binding.btnCancel.setOnClickListener {
             findNavController().popBackStack()
@@ -79,66 +82,107 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
                 binding.rgJenisPembayaran.checkedRadioButtonId != -1
 
         binding.btnPayment.setOnClickListener {
-            Log.d("CheckOutFragment", "Tombol Bayar diklik")
-            if (binding.rgJenisPengiriman.checkedRadioButtonId != -1 &&
-                binding.rgJenisPembayaran.checkedRadioButtonId != -1
-            ) {
-                Log.d("CheckOutFragment", "Kedua kondisi terpenuhi")
-                binding.btnPayment.isEnabled = true
-                val selectedPaymentId = binding.rgJenisPembayaran.checkedRadioButtonId
-                if (selectedPaymentId == R.id.rb_transfer) {
-                    val totalShopping = binding.tvTotal.text.toString()
-                    val transferPay = binding.rbTransfer.isChecked
-                    val cashPay = binding.rbTunai.isChecked
-                    val viaCod = binding.rbTransfer.isChecked
-                    val viaPickUp = binding.rbTunai.isChecked
-                    val paymentMethod =
-                        if (transferPay) "2" else if (cashPay) "1" else "Tidak ada yang dipilih"
-                    val paymentPick =
-                        if (viaCod) "2" else if (viaPickUp) "1" else "Tidak ada yang dipilih"
+            val selectedJenisPengirimanId = binding.rgJenisPengiriman.checkedRadioButtonId
+            val selectedJenisPembayaranId = binding.rgJenisPembayaran.checkedRadioButtonId
 
-                    Log.d("metode bayar", "$paymentMethod")
-                    Log.d("metode kirim", "$paymentPick")
-//                    transactionViewModel.requestAddPayment(
-//                        RequestAddPayment(
-//                            args.dataCheckOut.id_keranjang,
-//                            userData.id_pelanggan.toString(),
-//                            "",
-//                            "1",
-//                            "2"
-//                        )
-//                    )
-//                    transactionViewModel.getAddPayment.observe(viewLifecycleOwner) {
-//                        binding.progressBar.isVisible = false
-//                        when (it) {
-//                            is NetworkResult.Success -> {
-//                                val action =
-//                                    CheckOutFragmentDirections.actionCheckOutFragmentToPaymentProofFragment(
-//                                        totalShopping
-//                                    )
-//                                findNavController().navigate(action)
-//                            }
-//
-//                            is NetworkResult.Loading -> {
-//                                binding.progressBar.isVisible = true
-//
-//                            }
-//
-//                            is NetworkResult.Error -> {
-//                                handleApiError(it.message)
-//                            }
-//                        }
-//                    }
-
-                } else {
-                    findNavController().navigate(R.id.action_checkOutFragment_to_thanksFragment)
-                }
-            } else {
-                Log.d("CheckOutFragment", "Kondisi belum terpenuhi")
-                binding.btnPayment.isEnabled = false
+            val selectedJenisPengirimanText = when (selectedJenisPengirimanId) {
+                binding.rbAmbilSendiri.id -> "1"
+                binding.rbCod.id -> "2"
+                else -> "Tidak dipilih"
             }
+
+            val selectedJenisPembayaranText = when (selectedJenisPembayaranId) {
+                binding.rbTunai.id -> "1"
+                binding.rbTransfer.id -> "2"
+                else -> "Tidak dipilih"
+            }
+
+            checkOutPayment(selectedJenisPengirimanText, selectedJenisPembayaranText)
+
+//            val toastMessage =
+//                "Jenis Pengiriman: $selectedJenisPengirimanText\nJenis Pembayaran: $selectedJenisPembayaranText"
+//
+//            Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show()
+
+
+//            val transferPay = binding.rbTransfer.isChecked
+//            val cashPay = binding.rbTunai.isChecked
+//            val viaCod = binding.rbTransfer.isChecked
+//            val viaPickUp = binding.rbTunai.isChecked
+//            val paymentMethod =
+//                if (transferPay) "2" else if (cashPay) "1" else "Tidak ada yang dipilih"
+//            val paymentPick =
+//                if (viaCod) "2" else if (viaPickUp) "1" else "Tidak ada yang dipilih"
+//            Log.d("CheckOutFragment", "Tombol Bayar diklik")
+//            if (binding.rgJenisPengiriman.checkedRadioButtonId != -1 &&
+//                binding.rgJenisPembayaran.checkedRadioButtonId != -1
+//            ) {
+//                Log.d("CheckOutFragment", "Kedua kondisi terpenuhi")
+//                binding.btnPayment.isEnabled = true
+//                val selectedPaymentId = binding.rgJenisPembayaran.checkedRadioButtonId
+//                if (selectedPaymentId == R.id.rb_transfer) {
+//                    val totalShopping = binding.tvTotal.text.toString()
+//                    Log.d("metode bayar", paymentMethod)
+//                    Log.d("metode kirim", "$paymentPick")
+//                } else {
+//                    Log.d("metode bayar", "$paymentMethod")
+//                    Log.d("metode kirim", "$paymentPick")
+////                    findNavController().navigate(R.id.action_checkOutFragment_to_thanksFragment)
+//                }
+//            } else {
+//                Log.d("CheckOutFragment", "Kondisi belum terpenuhi")
+//                binding.btnPayment.isEnabled = false
+//            }
         }
 
+    }
+
+    private fun checkOutPayment(
+        selectedJenisPengirimanText: String,
+        selectedJenisPembayaranText: String
+    ) {
+        transactionViewModel.requestAddPayment(
+            RequestAddPayment(
+                args.dataCheckOut.id_keranjang,
+                userData.id_pelanggan.toString(),
+                userLocation,
+                selectedJenisPengirimanText,
+                selectedJenisPembayaranText
+            )
+        )
+        transactionViewModel.getAddPayment.observe(viewLifecycleOwner) {
+            binding.progressBar.isVisible = false
+            when (it) {
+                is NetworkResult.Success -> {
+                    val response = it.data!!
+                    if (response.status == 1) {
+                        if (selectedJenisPembayaranText == "1") {
+                            findNavController().navigate(R.id.action_checkOutFragment_to_thanksFragment)
+                        } else {
+                            val action =
+                                CheckOutFragmentDirections.actionCheckOutFragmentToPaymentProofFragment(
+                                    " ${response.data.total_bayar}",
+                                    response.data.kode_transaksi
+                                )
+                            findNavController().navigate(action)
+                        }
+
+                    } else {
+                        Toast.makeText(requireContext(), response.msg, Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+
+                is NetworkResult.Loading -> {
+                    binding.progressBar.isVisible = true
+
+                }
+
+                is NetworkResult.Error -> {
+                    handleApiError(it.message)
+                }
+            }
+        }
     }
 
     private fun enablePaymentButton(btnPayment: Button) {
@@ -160,6 +204,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
                     val response = it.data!!.data
                     response.forEach { address ->
                         binding.txtAddress.text = address.alamat
+                        userLocation = address.id.toString()
                     }
                 }
 
@@ -228,10 +273,12 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
 
                 if (selectedRadioButton.id == binding.rbCod.id) {
                     binding.tvOngkosKirim.text = "5000"
-                    getUserAddress()
+//                    getUserAddress()
+                    binding.txtAddress.isVisible = true
                 } else {
+                    binding.txtAddress.isVisible = false
                     binding.tvOngkosKirim.text = "0"
-                    binding.txtAddress.text = ""
+//                    binding.txtAddress.text = ""
                 }
             }
 

@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.fragment.transaction.ThanksFragment">
 
     <com.airbnb.lottie.LottieAnimationView
-        app:lottie_rawRes="@raw/packing_animation"
         android:id="@+id/lottie_layer_name"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-         />
+        app:lottie_rawRes="@raw/packing_animation" />
 
     <TextView
         android:id="@+id/terima_kasi"

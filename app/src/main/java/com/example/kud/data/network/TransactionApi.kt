@@ -7,11 +7,11 @@ import com.example.kud.data.model.transaction.response.CartRequest
 import com.example.kud.data.model.transaction.response.addPayment.AddPaymentResponse
 import com.example.kud.data.model.transaction.response.detail.DetailTransactionModel
 import com.example.kud.data.model.transaction.response.history.HistoryTransactionModel
+import com.example.kud.data.model.upload.ImageUploadResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface TransactionApi {
 
@@ -34,6 +34,13 @@ interface TransactionApi {
     suspend fun getAddTransaction(
         @Body request: RequestAddPayment
     ): Response<AddPaymentResponse>
+
+    @Multipart
+    @POST("upload-bukti-transfer")
+    suspend fun imageUpload(
+        @Part("kode_transaksi") transactionCode: RequestBody,
+        @Part bukti_transfer: MultipartBody.Part
+    ): Response<ImageUploadResponse>
 
 
 
