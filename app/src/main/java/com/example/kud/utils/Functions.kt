@@ -1,8 +1,10 @@
 package com.example.kud.utils
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.view.View
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.kud.data.model.auth.login.Data
 import io.paperdb.Paper
 
@@ -25,7 +27,56 @@ fun getDataUser(): Data? {
     return Paper.book().read<Data>("user")
 }
 
-fun deleteDataUser(){
+fun deleteDataUser() {
     Paper.book().delete("user")
 }
+
+fun showSweetAlert(
+    context: Context,
+    type: Int,
+    title: String,
+    content: String,
+    confirmClickListener: (() -> Unit)? = null
+) {
+    val sweetAlertDialog = SweetAlertDialog(context, type)
+    sweetAlertDialog.titleText = title
+    sweetAlertDialog.contentText = content
+
+    confirmClickListener?.let {
+        sweetAlertDialog.setConfirmClickListener { sDialog ->
+            sDialog.dismissWithAnimation()
+            it.invoke()
+        }
+    }
+
+    sweetAlertDialog.show()
+}
+
+//fun showSuccessDialog(context: Context) {
+//    SweetAlertDialog(context, SweetAlertDialog.SUCCESS_TYPE)
+//        .setTitleText("Success")
+//        .setContentText("Upload successfully completed!")
+//        .setConfirmClickListener {
+//            it.dismissWithAnimation()
+//        }
+//        .show()
+//}
+
+//fun hideLoading(context: Context){
+//    val progressDialog = SweetAlertDialog(context)
+//    progressDialog.dismissWithAnimation()
+//}
+
+
+//fun showErrorDialog(context: Context, errorMessage: String) {
+//    SweetAlertDialog(context, SweetAlertDialog.ERROR_TYPE)
+//        .setTitleText("Error")
+//        .setContentText(errorMessage)
+//        .setConfirmClickListener {
+//            it.dismissWithAnimation()
+//        }
+//        .show()
+//}
+
+
 

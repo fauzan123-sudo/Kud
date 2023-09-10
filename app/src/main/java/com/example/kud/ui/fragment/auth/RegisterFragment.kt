@@ -6,9 +6,6 @@ import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import cn.pedant.SweetAlert.SweetAlertDialog
-import com.example.kud.R
 import com.example.kud.databinding.FragmentRegisterBinding
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.AuthViewModel
@@ -79,6 +76,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
         viewModel.registerUser(fullName, email, password, address)
         viewModel.getRegisterUser.observe(viewLifecycleOwner) {
             binding.progressBar.isVisible = false
+            dismissLoadingDialog()
             when (it) {
                 is NetworkResult.Success -> {
                     viewModel.getRegisterUser.removeObservers(viewLifecycleOwner)
@@ -89,54 +87,19 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(FragmentRegisterB
                     }else{
                         showErrorDialog(registerResponse.msg)
                     }
-//                    if (registerResponse.data != null) {
-//                        showSuccessDialog()
-//                    } else {
-//                        val emailResponse = registerResponse.msg.email?.joinToString("\n") ?: ""
-//                        val passwordResponse = registerResponse.msg.email?.joinToString("\n") ?: ""
-//                        val message = emailResponse + passwordResponse
-//                        val errorMessage = "Registrasi gagal:\nEmail: $emailResponse \nPassword: $passwordResponse"
-//                        Log.e("Registrasi", errorMessage)
-//                        showErrorDialog(errorMessage)
-//                    }
                 }
 
                 is NetworkResult.Loading -> {
-                    binding.progressBar.isVisible = true
+                    showLoadingDialog()
                 }
 
                 is NetworkResult.Error -> {
                     viewModel.getRegisterUser.removeObservers(viewLifecycleOwner)
                     handleApiError(it.message)
+                    showErrorDialog(it.message!!)
                     Log.e("error", "${it.message}")
                 }
             }
         }
     }
-
-    private fun showSuccessDialog() {
-        SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText("Registrasi Berhasil")
-            .setContentText("Selamat, Anda telah berhasil terdaftar!")
-            .setConfirmText("OK")
-            .setConfirmClickListener {
-                it.dismissWithAnimation()
-                findNavController().navigate(R.id.action_registerFragment_to_loginFragment2)
-            }
-            .show()
-    }
-
-    private fun showErrorDialog(message: String) {
-        SweetAlertDialog(requireContext(), SweetAlertDialog.ERROR_TYPE)
-            .setTitleText("Registrasi Gagal")
-            .setContentText(message)
-//            .setCancelText("ok")
-//            .setConfirmText("Ok")
-//            .setConfirmClickListener {
-//                findNavController().navigate(R.id.action_registerFragment_to_loginFragment2)
-//            }
-            .showCancelButton(true)
-            .show()
-    }
-
 }

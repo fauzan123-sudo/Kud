@@ -1,19 +1,28 @@
 package com.example.kud.ui.fragment.transaction
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Typeface
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.kud.R
 import com.example.kud.databinding.FragmentPaymentProofBinding
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.TransactionViewModel
+import com.example.kud.utils.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -31,6 +40,7 @@ class PaymentProofFragment :
     private val resultContract =
         registerForActivityResult(ActivityResultContracts.GetContent()) { result ->
             binding.imgProofPhoto.setImageURI(result)
+            binding.btnUpload.isEnabled = true
             isImageLoaded = true
             checkButtonState()
         }
@@ -40,23 +50,81 @@ class PaymentProofFragment :
 
         setAmount()
         binding.imgProofPhoto.setOnClickListener {
-            resultContract.launch("image/*")
+            takePhoto()
         }
 
         binding.btnUpload.setOnClickListener {
-            if (isImageLoaded) {
-                val transactionCode = totalShoppingArgs.transactionCode
-                val bitmap: Bitmap = (binding.imgProofPhoto.drawable as BitmapDrawable).bitmap
-                val photo = uriToMultipartBody(bitmap)
-//                viewModel.requestImageUpload(transactionCode, photo)
-            } else {
+            val transactionCode = totalShoppingArgs.transactionCode
+            val transactionCodeBody =
+                transactionCode!!.toRequestBody("text/plain".toMediaTypeOrNull())
+            Log.d("transactionCodeBody", "$transactionCodeBody")
+            val bitmap: Bitmap = (binding.imgProofPhoto.drawable as BitmapDrawable).bitmap
+            val photo = uriToMultipartBody(bitmap)
+            viewModel.requestImageUpload(transactionCodeBody, photo)
+            viewModel.uploadImage.observe(viewLifecycleOwner) {
+                dismissLoadingDialog()
+                when (it) {
+                    is NetworkResult.Success -> {
+                        showSuccessDialog()
+                        findNavController().navigate(R.id.action_paymentProofFragment_to_thanksFragment)
+                    }
 
+                    is NetworkResult.Loading -> {
+                        showLoadingDialog()
+                    }
+
+                    is NetworkResult.Error -> {
+                        showErrorDialog(it.message ?: "")
+                    }
+                }
             }
+
         }
         binding.btnUpload.isEnabled = false
         checkButtonState()
 
     }
+
+
+    private fun takePhoto() {
+        val pictureDialog = AlertDialog.Builder(requireContext())
+        pictureDialog.setTitle("Select Action")
+        val pictureDialogItem = arrayOf(
+            "Select photo from Gallery",
+            "Capture photo from Camera"
+        )
+        pictureDialog.setItems(pictureDialogItem) { _, which ->
+            when (which) {
+                0 -> gallery()
+                1 -> camera()
+            }
+        }
+
+        pictureDialog.show()
+
+    }
+
+    private fun gallery() {
+        resultContract.launch("image/*")
+    }
+
+    private fun camera() {
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        putPhoto.launch(intent)
+    }
+
+    private val putPhoto =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val bitmap = it?.data?.extras?.get("data") as Bitmap
+                binding.imgProofPhoto.setImageBitmap(bitmap)
+                binding.btnUpload.isEnabled = true
+            } else if (it == null) {
+                binding.imgProofPhoto.setImageResource(R.drawable.uploa_bukti)
+            } else {
+                Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+            }
+        }
 
     private fun uriToMultipartBody(bitmap: Bitmap): MultipartBody.Part {
         val byteArrayOutputStream = ByteArrayOutputStream()
@@ -89,8 +157,4 @@ class PaymentProofFragment :
         binding.tvTransfer.text = spannableText
     }
 
-    override fun onResume() {
-        super.onResume()
-        checkButtonState()
-    }
 }

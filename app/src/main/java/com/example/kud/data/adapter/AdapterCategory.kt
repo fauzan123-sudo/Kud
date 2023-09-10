@@ -27,8 +27,6 @@ class AdapterCategory : RecyclerView.Adapter<AdapterCategory.ViewHolder>() {
 
     interface ItemClickListener {
         fun getCategory(drugId: String)
-//        fun onDeleteButtonClicked(position: Int, drugId: Int)
-//        fun checkBox(position: Int, cartId: String, data: DataX)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(

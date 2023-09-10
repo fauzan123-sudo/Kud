@@ -14,9 +14,9 @@ class AdapterAddress(
     val context: Context,
 ) : RecyclerView.Adapter<AdapterAddress.ViewHolder>() {
 
-    var listener:ItemListener? = null
+    var listener: ItemListener? = null
 
-    interface ItemListener{
+    interface ItemListener {
         fun itemClick(data: Data)
     }
 
@@ -59,7 +59,7 @@ class AdapterAddress(
         }
     }
 
-    override fun getItemCount() = differ.currentList.size
-
-
+    override fun getItemCount(): Int {
+        return differ.currentList.size
+    }
 }
