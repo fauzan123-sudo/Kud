@@ -22,6 +22,7 @@ import com.example.kud.ui.fragment.RecyclerViewClickListener
 import com.example.kud.ui.viewModel.HomeViewModel
 import com.example.kud.utils.NetworkResult
 import com.example.kud.utils.TokenManager
+import com.example.kud.utils.getAddress
 import com.example.kud.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -44,12 +45,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     lateinit var adapterBanner: AdapterBanner
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         toolbarInit()
         onBackPress()
+        checkAddress()
 
         binding.textView7.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_semuaProdukFragment)
@@ -67,7 +68,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         adapterBanner = AdapterBanner(imageUrl)
 
         adapterData = AdapterData(requireContext())
-        adapterCategorise = AdapterCategory()
+        adapterCategorise = AdapterCategory(requireContext())
 
         adapterData.listener = this
 
@@ -104,6 +105,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
+    private fun checkAddress() {
+        Log.d("checkAddress", "${getAddress()}")
+    }
+
     private fun onBackPress() {
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -135,7 +140,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                // Do something when user changes text
                 return true
             }
         })

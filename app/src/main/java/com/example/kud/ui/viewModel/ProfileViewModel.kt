@@ -22,7 +22,7 @@ class ProfileViewModel @Inject constructor(
     val profileResponseLiveData: LiveData<NetworkResult<ProfileResponse>>
         get() = _profileResponseLiveData
 
-    fun profileUser() {
+    fun requestProfileUser() {
         viewModelScope.launch {
             val connected = CheckInternet().check()
             if (connected) {

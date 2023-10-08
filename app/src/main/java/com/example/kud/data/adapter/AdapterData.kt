@@ -39,7 +39,7 @@ class AdapterData(val context: Context) : RecyclerView.Adapter<AdapterData.ViewH
         val dataPosition = differ.currentList[position]
         holder.binding.itemName.text = dataPosition.nama
         val totalPrice = NumberFormat.getNumberInstance(Locale.US)
-            .format(dataPosition.harga!!.toInt())
+            .format(dataPosition.harga.toInt())
             .replace(",", ".")
         holder.binding.amountData.text =  "Rp. $totalPrice"
         holder.binding.imageItem.load(IMAGE_OBAT+dataPosition.foto)

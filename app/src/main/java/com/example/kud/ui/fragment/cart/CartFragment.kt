@@ -31,7 +31,8 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
     private val cartViewModel: CartViewModel by viewModels()
     private val dataUser = getDataUser()!!
     lateinit var adapter: AdapterCart
-    lateinit var recyclerView: RecyclerView
+    private lateinit var recyclerView: RecyclerView
+    private val TAG = "CartFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -194,5 +195,20 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
             val action = CartFragmentDirections.actionCartFragmentToCheckOutFragment(data)
             findNavController().navigate(action)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(TAG, "has been onStarted")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(TAG, "has been onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG, "has been onStop")
     }
 }

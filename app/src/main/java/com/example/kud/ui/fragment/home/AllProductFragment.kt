@@ -1,6 +1,7 @@
 package com.example.kud.ui.fragment.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
@@ -42,7 +43,10 @@ class AllProductFragment :
     }
 
     private fun searchDrug(query: String?, key: String) {
+//        Todo this is a request data
         viewModel.requestSearchDrug(query!!, key)
+
+//        Todo is a response data
         viewModel.searchDrug.observe(viewLifecycleOwner) {
             binding.progressBar.isVisible = false
             when (it) {
@@ -144,7 +148,7 @@ class AllProductFragment :
     }
 
     private fun setRecycleCategory() {
-        adapterCategorise = AdapterCategory()
+        adapterCategorise = AdapterCategory(requireContext())
         adapterCategorise.itemClickListener = this
         recyclerView = binding.recFilter
         recyclerView.adapter = adapterCategorise
@@ -154,6 +158,7 @@ class AllProductFragment :
 
     override fun getCategory(drugId: String) {
         searchDrug("", drugId)
+        Log.d("check category", drugId)
     }
 
     override fun onItemClicked(view: View, data: com.example.kud.data.model.home.list.Data) {

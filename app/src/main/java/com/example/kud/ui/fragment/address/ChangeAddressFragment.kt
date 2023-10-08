@@ -1,6 +1,7 @@
 package com.example.kud.ui.fragment.address
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -8,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.kud.R
-import com.example.kud.data.model.address.request.RequestAddOrEdit
+import com.example.kud.data.model.address.request.RequestEditAddress
 import com.example.kud.databinding.FragmentChangeAdressBinding
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.AddressViewModel
@@ -24,15 +25,16 @@ class ChangeAddressFragment :
     private val args: ChangeAddressFragmentArgs by navArgs()
     private val viewModel: AddressViewModel by viewModels()
     private val dataUser = getDataUser()!!
+    val data = args.dataAddress
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val data = args.dataAddress
         binding.etJudul.setText(data.nama)
         binding.etNamaLengkap.setText(data.alamat)
 
         initToolbar()
+        Log.d("address id", "${data.id}")
 
     }
 
@@ -40,21 +42,23 @@ class ChangeAddressFragment :
         val title = binding.etJudul.text.toString()
         val fullAddress = binding.etNamaLengkap.text.toString()
         viewModel.requestEditAddress(
-            RequestAddOrEdit(
-                dataUser.id_pelanggan.toString(),
+            RequestEditAddress(
+                data.id.toString(),
                 title,
-                fullAddress
+                fullAddress,
+                0
             )
         )
         viewModel.getEdit.observe(viewLifecycleOwner) {
             binding.progressBar.isVisible = false
             when (it) {
                 is NetworkResult.Success -> {
+                    viewModel.getEdit.removeObservers(viewLifecycleOwner)
                     val response = it.data!!
                     if (response.status == 1) {
                         showSuccessAlert()
                     } else {
-                        showErrorAlert()
+                        showErrorAlert(response.msg)
                     }
                 }
                 is NetworkResult.Loading -> {
@@ -62,6 +66,7 @@ class ChangeAddressFragment :
                 }
 
                 is NetworkResult.Error -> {
+                    viewModel.getEdit.removeObservers(viewLifecycleOwner)
                     handleApiError(it.message)
                 }
             }
@@ -94,10 +99,10 @@ class ChangeAddressFragment :
             .show()
     }
 
-    private fun showErrorAlert() {
+    private fun showErrorAlert(s: String) {
         SweetAlertDialog(requireContext(), SweetAlertDialog.ERROR_TYPE)
             .setTitleText("Gagal")
-            .setContentText("Terjadi kesalahan saat menyimpan data")
+            .setContentText("Terjadi kesalahan saat menyimpan data $s")
             .setConfirmText("OK")
             .setConfirmClickListener { it.dismissWithAnimation() }
             .show()

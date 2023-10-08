@@ -7,7 +7,7 @@
     app:cardCornerRadius="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:background="@color/white"
+        android:id="@+id/mcv_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/_10sdp">

@@ -59,9 +59,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/frame"
             android:clipToOutline="true"
-            android:textColor="@color/black"
             android:hint="Masukkan Email anda"
             android:padding="@dimen/_12ssp"
+            android:textColor="@color/black"
             android:textSize="@dimen/_12ssp" />
     </LinearLayout>
 

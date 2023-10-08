@@ -54,7 +54,6 @@ class NewAdapterCheckOut(val context: Context) :
 //                    textView9.text = Helper().gantiRupiah(item.priceItem!! * totalItem)
                     itemClickListener?.upsert(myPosition.id_obat, 2)
                 }
-
 //                totalItems.addTextChangedListener(object : TextWatcher {
 //                    override fun beforeTextChanged(
 //                        p0: CharSequence?, p1: Int, p2: Int, p3: Int
@@ -71,8 +70,6 @@ class NewAdapterCheckOut(val context: Context) :
 //                    }
 //
 //                })
-
-
             }
         }
     }

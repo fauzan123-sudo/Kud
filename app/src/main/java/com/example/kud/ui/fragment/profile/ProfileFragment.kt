@@ -87,7 +87,7 @@ class ProfileFragment : BaseFragment<FragmentProfileBinding>(FragmentProfileBind
 
     private fun loadDataProfile() {
         Log.d("token", "${token.getToken()}")
-        viewModel.profileUser()
+        viewModel.requestProfileUser()
         viewModel.profileResponseLiveData.observe(viewLifecycleOwner) {
             binding.progressBar.isVisible = false
             when (it) {

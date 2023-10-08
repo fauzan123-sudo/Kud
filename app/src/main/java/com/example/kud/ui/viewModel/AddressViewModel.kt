@@ -8,6 +8,7 @@ import com.example.kud.data.model.address.addOrEdit.AddEditAddressResponse
 import com.example.kud.data.model.address.list.UserAddressModel
 import com.example.kud.data.model.address.request.RequestAddOrEdit
 import com.example.kud.data.model.address.request.RequestAddress
+import com.example.kud.data.model.address.request.RequestEditAddress
 import com.example.kud.data.repository.AddressRepository
 import com.example.kud.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -39,7 +40,7 @@ class AddressViewModel @Inject constructor(private val repository: AddressReposi
         }
     }
 
-    fun requestEditAddress(request: RequestAddOrEdit) {
+    fun requestEditAddress(request: RequestEditAddress) {
         viewModelScope.launch {
             val connected = CheckInternet().check()
             if (connected) {
@@ -55,7 +56,7 @@ class AddressViewModel @Inject constructor(private val repository: AddressReposi
             val connected = CheckInternet().check()
             if (connected) {
                 _getAdd.postValue(NetworkResult.Loading())
-                _getAdd.postValue(repository.editAddress(request))
+                _getAdd.postValue(repository.addAddress(request))
             } else
                 _getAdd.postValue(NetworkResult.Error("No Internet Connection"))
         }

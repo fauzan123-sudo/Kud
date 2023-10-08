@@ -3,17 +3,17 @@ package com.example.kud.ui.fragment.address
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kud.R
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.kud.data.adapter.AdapterAddress
 import com.example.kud.data.model.address.list.Data
 import com.example.kud.data.model.address.request.RequestAddress
-import com.example.kud.databinding.FragmentUserAddressBinding
+import com.example.kud.data.model.address.request.RequestEditAddress
+import com.example.kud.databinding.FragmentPickAddressBinding
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.AddressViewModel
 import com.example.kud.utils.NetworkResult
@@ -22,48 +22,20 @@ import com.example.kud.utils.handleApiError
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class UserAddressFragment :
-    BaseFragment<FragmentUserAddressBinding>(FragmentUserAddressBinding::inflate),
+class PickAddressFragment :
+    BaseFragment<FragmentPickAddressBinding>(FragmentPickAddressBinding::inflate),
     AdapterAddress.ItemListener {
 
-    private val userData = getDataUser()!!
     private val viewModel: AddressViewModel by viewModels()
     lateinit var adapter: AdapterAddress
     private lateinit var recyclerView: RecyclerView
+    private val userData = getDataUser()!!
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         loadListAddress()
         initRecyclerView()
-        initSwipeRefreshLayout()
-        toolbarInit()
-        addAddress()
-    }
-
-    private fun addAddress() {
-        binding.toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.actionAdd -> {
-                    findNavController().navigate(R.id.action_userAddressFragment_to_addAddressFragment)
-                    return@setOnMenuItemClickListener true
-                }
-
-                else -> {
-                    return@setOnMenuItemClickListener false
-                }
-            }
-        }
-    }
-
-    private fun toolbarInit() {
-        val toolbar = binding.toolbar
-//        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-//        toolbar.inflateMenu(R.menu.menu_add)
-    }
-
-    private fun initSwipeRefreshLayout() {
-        binding.swipeRefreshLayout.setOnRefreshListener {
-            loadListAddress()
-        }
     }
 
     private fun initRecyclerView() {
@@ -96,7 +68,6 @@ class UserAddressFragment :
         }
     }
 
-
     private fun showLoading() {
         binding.progressBar.isVisible = true
     }
@@ -107,15 +78,55 @@ class UserAddressFragment :
     }
 
     override fun itemClick(data: Data) {
-        Log.d("data", "$data")
-        try {
-            val action =
-                UserAddressFragmentDirections.actionUserAddressFragmentToChangeAddressFragment(data)
-            findNavController().navigate(action)
-        } catch (e: Exception) {
-            Toast.makeText(requireContext(), "$e", Toast.LENGTH_SHORT).show()
-            Log.e("error findNav", "$e")
+        viewModel.requestEditAddress(
+            RequestEditAddress(
+                data.id.toString(),
+                data.nama,
+                data.alamat ?: "",
+                1
+            )
+        )
+        viewModel.getEdit.observe(viewLifecycleOwner) {
+            when (it) {
+                is NetworkResult.Success -> {
+                    val response = it.data!!
+                    if (response.status == 1) {
+                        showSuccessAlert()
+                    } else {
+                        showErrorAlert()
+                    }
+                }
+
+                is NetworkResult.Loading -> {
+                    showLoadingDialog()
+                }
+
+                is NetworkResult.Error -> {
+                    showErrorDialog(it.message ?: "")
+                }
+            }
         }
+    }
+
+    private fun showSuccessAlert() {
+        SweetAlertDialog(requireContext(), SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Berhasil")
+            .setContentText("Data berhasil ditambahkan")
+            .setConfirmText("OK")
+            .setConfirmClickListener {
+                findNavController().popBackStack()
+                it.dismissWithAnimation()
+            }
+            .show()
+    }
+
+    private fun showErrorAlert() {
+        SweetAlertDialog(requireContext(), SweetAlertDialog.ERROR_TYPE)
+            .setTitleText("Gagal")
+            .setContentText("Terjadi kesalahan saat menyimpan data")
+            .setConfirmText("OK")
+            .setConfirmClickListener { it.dismissWithAnimation() }
+            .show()
     }
 
 }

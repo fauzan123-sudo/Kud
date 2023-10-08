@@ -5,11 +5,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Data(
-    val alamat: String? = null,
-    val created_at: String? = null,
     val id: Int,
     val id_kustomer: String,
     val nama: String,
+    val default: String? = null,
+    val alamat: String? = null,
+    val created_at: String? = null,
     val updated_at: String? = null,
     val status: Boolean = false
 ) : Parcelable

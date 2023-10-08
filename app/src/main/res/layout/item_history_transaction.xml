@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Dikemas"
-        android:background="@drawable/background_rounded"
+        android:background="@drawable/background_rounded_warning"
         android:fontFamily="@font/rubik_medium"
         android:textSize="@dimen/_10ssp"
         android:textColor="@color/white"

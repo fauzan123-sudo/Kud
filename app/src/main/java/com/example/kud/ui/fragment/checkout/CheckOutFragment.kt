@@ -27,8 +27,10 @@ import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.CheckOutViewModel
 import com.example.kud.ui.viewModel.TransactionViewModel
 import com.example.kud.utils.NetworkResult
+import com.example.kud.utils.getAddress
 import com.example.kud.utils.getDataUser
 import com.example.kud.utils.handleApiError
+import com.example.kud.utils.saveListAddress
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -98,41 +100,6 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
             }
 
             checkOutPayment(selectedJenisPengirimanText, selectedJenisPembayaranText)
-
-//            val toastMessage =
-//                "Jenis Pengiriman: $selectedJenisPengirimanText\nJenis Pembayaran: $selectedJenisPembayaranText"
-//
-//            Toast.makeText(requireContext(), toastMessage, Toast.LENGTH_SHORT).show()
-
-
-//            val transferPay = binding.rbTransfer.isChecked
-//            val cashPay = binding.rbTunai.isChecked
-//            val viaCod = binding.rbTransfer.isChecked
-//            val viaPickUp = binding.rbTunai.isChecked
-//            val paymentMethod =
-//                if (transferPay) "2" else if (cashPay) "1" else "Tidak ada yang dipilih"
-//            val paymentPick =
-//                if (viaCod) "2" else if (viaPickUp) "1" else "Tidak ada yang dipilih"
-//            Log.d("CheckOutFragment", "Tombol Bayar diklik")
-//            if (binding.rgJenisPengiriman.checkedRadioButtonId != -1 &&
-//                binding.rgJenisPembayaran.checkedRadioButtonId != -1
-//            ) {
-//                Log.d("CheckOutFragment", "Kedua kondisi terpenuhi")
-//                binding.btnPayment.isEnabled = true
-//                val selectedPaymentId = binding.rgJenisPembayaran.checkedRadioButtonId
-//                if (selectedPaymentId == R.id.rb_transfer) {
-//                    val totalShopping = binding.tvTotal.text.toString()
-//                    Log.d("metode bayar", paymentMethod)
-//                    Log.d("metode kirim", "$paymentPick")
-//                } else {
-//                    Log.d("metode bayar", "$paymentMethod")
-//                    Log.d("metode kirim", "$paymentPick")
-////                    findNavController().navigate(R.id.action_checkOutFragment_to_thanksFragment)
-//                }
-//            } else {
-//                Log.d("CheckOutFragment", "Kondisi belum terpenuhi")
-//                binding.btnPayment.isEnabled = false
-//            }
         }
 
     }
@@ -191,21 +158,70 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
 
     private fun changeAddress() {
         binding.changeAddress.setOnClickListener {
-            findNavController().navigate(R.id.action_checkOutFragment_to_userAddressFragment)
+//            findNavController().navigate(R.id.action_checkOutFragment_to_userAddressFragment)
+            findNavController().navigate(R.id.action_checkOutFragment_to_pickAddressFragment)
         }
     }
 
     private fun getUserAddress() {
+        if (getAddress() == null) {
+            loadAddressFromApi()
+        } else {
+            val address = getAddress()!!
+            binding.txtAddress.text = address.alamat
+            userLocation = address.id.toString()
+        }
+
+    }
+
+    private fun loadAddressFromApi() {
         viewModel.requestUserAddress(RequestAddress(userData.id_pelanggan.toString()))
         viewModel.getUserAddress.observe(viewLifecycleOwner) {
             hideLoading()
             when (it) {
                 is NetworkResult.Success -> {
                     val response = it.data!!.data
-                    response.forEach { address ->
-                        binding.txtAddress.text = address.alamat
-                        userLocation = address.id.toString()
+
+                    if (response.isNotEmpty()) {
+                        val filterDataTrue = response.filter { addressUser ->
+                            addressUser.status
+                        }
+
+                        if (filterDataTrue.isEmpty()) {
+                            val dataToSave = response[0].copy(status = true)
+                            saveListAddress(listOf(dataToSave))
+                            with(binding) {
+                                txtAddress.text = dataToSave.alamat
+                                userLocation = dataToSave.id.toString()
+                            }
+                        } else {
+                            val trueData = filterDataTrue[0]
+                            with(binding) {
+                                txtAddress.text = trueData.alamat
+                                userLocation = trueData.id.toString()
+                            }
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), "data is Null", Toast.LENGTH_SHORT).show()
                     }
+
+
+//                    if (filterDataTrue.isNotEmpty()) {
+//                        val dataToSave = filterDataTrue[0].copy(status = true)
+//                        saveAddress(dataToSave)
+//                    } else {
+//                        val dataToSave = response[0].copy(status = true)
+//                        saveAddress(dataToSave)
+//                        val address = getAddress()!!
+//                        with(binding){
+//                            txtAddress.text = address.alamat
+//                            userLocation = address.id.toString()
+//                        }
+////                        response.forEach { address ->
+////                            binding.txtAddress.text = address.alamat
+////                            userLocation = address.id.toString()
+////                        }
+//                    }
                 }
 
                 is NetworkResult.Loading -> {
@@ -273,8 +289,8 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
 
                 if (selectedRadioButton.id == binding.rbCod.id) {
                     binding.tvOngkosKirim.text = "5000"
-//                    getUserAddress()
-                    binding.txtAddress.isVisible = true
+                    binding.llAlamatPengiriman.isVisible = true
+//                    binding.txtAddress.isVisible = true
                 } else {
                     binding.txtAddress.isVisible = false
                     binding.tvOngkosKirim.text = "0"
@@ -378,7 +394,6 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
         binding.progressBar.isVisible = false
     }
 
-
 //    override fun deleteItemCheckOut(position: Int, data: CheckOut) {
 //        Log.d("delete item", "deleteItemCheckOut: ")
 //    }
@@ -388,7 +403,6 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
 //    }
 
 }
-
 
 //class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutBinding::inflate) {
 //    private var mList = mutableListOf<String>()

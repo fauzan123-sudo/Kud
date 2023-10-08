@@ -4,9 +4,11 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kud.R
 import com.example.kud.data.model.address.list.Data
 import com.example.kud.databinding.ItemAddressBinding
 
@@ -50,6 +52,24 @@ class AdapterAddress(
         with(holder) {
             binding.tvTitleAddress.text = myPosition.nama
             binding.tvAddress.text = myPosition.alamat
+
+            val isDefault = myPosition.default == "1"
+
+           if (isDefault){
+               holder.binding.root.setBackgroundColor(
+                   ContextCompat.getColor(
+                       context,
+                       R.color.primary
+                   )
+               )
+           }else{
+               holder.binding.root.setBackgroundColor(
+                   ContextCompat.getColor(
+                       context,
+                       R.color.white
+                   )
+               )
+           }
 
             holder.itemView.setOnClickListener {
                 listener?.itemClick(myPosition)

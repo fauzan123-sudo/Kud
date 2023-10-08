@@ -5,6 +5,7 @@ import com.example.kud.data.model.address.addOrEdit.AddEditAddressResponse
 import com.example.kud.data.model.address.list.UserAddressModel
 import com.example.kud.data.model.address.request.RequestAddOrEdit
 import com.example.kud.data.model.address.request.RequestAddress
+import com.example.kud.data.model.address.request.RequestEditAddress
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -18,7 +19,7 @@ interface AddressApi {
 
     @POST("alamat-edit")
     suspend fun editAddress(
-       @Body request: RequestAddOrEdit
+       @Body request: RequestEditAddress
     ): Response<AddEditAddressResponse>
 
     @POST("alamat-tambah")

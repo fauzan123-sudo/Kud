@@ -176,6 +176,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_alamat_pengiriman"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -216,8 +217,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="top"
-                    android:text=""
-                    android:visibility="invisible" />
+                    android:text="" />
             </LinearLayout>
 
             <LinearLayout

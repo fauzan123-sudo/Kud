@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kud.R
 import com.example.kud.data.model.transaction.response.history.Data
 import com.example.kud.databinding.ItemHistoryTransactionBinding
 
@@ -41,9 +42,27 @@ class AdapterHistoryTransaction(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val myPosition = differ.currentList[position]
         with(holder) {
-            binding.tvOrderId.text = myPosition.id_transaksi.toString()
+            binding.tvOrderId.text = myPosition.order_id
             binding.tvTotal.text = myPosition.total_harga
-            binding.tvOrderId.text = myPosition.id_transaksi.toString()
+            binding.tvDescription.text = myPosition.produk
+            binding.tvStatus.text = myPosition.status
+
+            when (myPosition.status) {
+                "Dikemas" -> {
+                    binding.tvStatus.setBackgroundResource(R.drawable.background_rounded_warning)
+                }
+                "Dikirim" -> {
+                    binding.tvStatus.setBackgroundResource(R.drawable.background_rounded_warning)
+                }
+
+                "Sampai" -> {
+                    binding.tvStatus.setBackgroundResource(R.drawable.background_rounded_blue)
+                }
+                else ->{
+                    binding.tvStatus.setBackgroundResource(R.drawable.background_rounded_blue)
+                }
+
+            }
         }
     }
 

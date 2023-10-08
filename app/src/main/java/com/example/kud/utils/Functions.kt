@@ -31,6 +31,22 @@ fun deleteDataUser() {
     Paper.book().delete("user")
 }
 
+fun saveAddress(data: com.example.kud.data.model.address.list.Data) {
+    Paper.book().write("address", data)
+}
+
+fun getAddress(): com.example.kud.data.model.address.list.Data? {
+    return Paper.book().read<com.example.kud.data.model.address.list.Data>("address")
+}
+
+fun saveListAddress(data: List<com.example.kud.data.model.address.list.Data>) {
+    Paper.book().write("listAddress", data)
+}
+
+fun getListAddress(): List<com.example.kud.data.model.address.list.Data>? {
+    return Paper.book().read<List<com.example.kud.data.model.address.list.Data>>("listAddress")
+}
+
 fun showSweetAlert(
     context: Context,
     type: Int,

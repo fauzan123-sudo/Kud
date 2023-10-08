@@ -78,6 +78,9 @@
         <action
             android:id="@+id/action_checkOutFragment_to_thanksFragment"
             app:destination="@id/thanksFragment" />
+        <action
+            android:id="@+id/action_checkOutFragment_to_pickAddressFragment"
+            app:destination="@id/pickAddressFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
@@ -153,4 +156,9 @@
             android:name="dataAddress"
             app:argType="com.example.kud.data.model.address.list.Data" />
     </fragment>
+    <fragment
+        android:id="@+id/pickAddressFragment"
+        android:name="com.example.kud.ui.fragment.address.PickAddressFragment"
+        android:label="fragment_pick_address"
+        tools:layout="@layout/fragment_pick_address" />
 </navigation>

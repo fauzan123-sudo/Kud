@@ -1,12 +1,12 @@
 package com.example.kud.ui.fragment.transaction
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kud.data.adapter.AdapterAddress
 import com.example.kud.data.adapter.AdapterHistoryTransaction
 import com.example.kud.databinding.FragmentHistoryTransactionBinding
 import com.example.kud.ui.base.BaseFragment
@@ -50,6 +50,7 @@ class HistoryTransactionFragment :
 
                 is NetworkResult.Error -> {
                     handleApiError(it.message)
+                    Log.e("error", "${it.message}")
                 }
             }
         }
