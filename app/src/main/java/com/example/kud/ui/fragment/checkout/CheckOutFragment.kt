@@ -27,10 +27,8 @@ import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.CheckOutViewModel
 import com.example.kud.ui.viewModel.TransactionViewModel
 import com.example.kud.utils.NetworkResult
-import com.example.kud.utils.getAddress
 import com.example.kud.utils.getDataUser
 import com.example.kud.utils.handleApiError
-import com.example.kud.utils.saveListAddress
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,7 +48,6 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         adapterCheckOut = NewAdapterCheckOut(requireContext())
         adapterCheckOut.itemClickListener = this
         with(binding) {
@@ -65,7 +62,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
         pickToSend()
         grandTotal()
         changeAddress()
-        getUserAddress()
+//        getUserAddress()
 
         binding.btnCancel.setOnClickListener {
             findNavController().popBackStack()
@@ -163,16 +160,9 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
         }
     }
 
-    private fun getUserAddress() {
-        if (getAddress() == null) {
-            loadAddressFromApi()
-        } else {
-            val address = getAddress()!!
-            binding.txtAddress.text = address.alamat
-            userLocation = address.id.toString()
-        }
-
-    }
+//    private fun getUserAddress() {
+//        loadAddressFromApi()
+//    }
 
     private fun loadAddressFromApi() {
         viewModel.requestUserAddress(RequestAddress(userData.id_pelanggan.toString()))
@@ -180,32 +170,40 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
             hideLoading()
             when (it) {
                 is NetworkResult.Success -> {
-                    val response = it.data!!.data
+                    val response = it.data!!
+                    val data = response.data
+                    if (data.isNotEmpty()) {
+//                        find for find the 1 element, while filter are used for all element
+                        val defaultAddress = data.find { it.default == "1" }
 
-                    if (response.isNotEmpty()) {
-                        val filterDataTrue = response.filter { addressUser ->
-                            addressUser.status
-                        }
-
-                        if (filterDataTrue.isEmpty()) {
-                            val dataToSave = response[0].copy(status = true)
-                            saveListAddress(listOf(dataToSave))
-                            with(binding) {
-                                txtAddress.text = dataToSave.alamat
-                                userLocation = dataToSave.id.toString()
-                            }
+                        if (defaultAddress != null) {
+                            binding.txtAddress.text = defaultAddress.alamat
                         } else {
-                            val trueData = filterDataTrue[0]
-                            with(binding) {
-                                txtAddress.text = trueData.alamat
-                                userLocation = trueData.id.toString()
-                            }
+                            val topAddress = data.firstOrNull()
+                            binding.txtAddress.text = topAddress?.alamat ?: "Tidak ada alamat"
                         }
+//                        val filterDataTrue = data.filter { addressUser ->
+//                            addressUser.default == "1"
+//                        }
+//                                txtAddress.text = dataToSave.alamat
+//                                userLocation = dataToSave.id.toString()
+
+//                        if (filterDataTrue.isEmpty()) {
+//                            val dataToSave = response[0].copy(status = true)
+//                            saveListAddress(listOf(dataToSave))
+//                            with(binding) {
+//                            }
+//                        }
+//                        else {
+//                            val trueData = filterDataTrue[0]
+//                            with(binding) {
+//                                txtAddress.text = trueData.alamat
+//                                userLocation = trueData.id.toString()
+//                            }
+//                        }
                     } else {
                         Toast.makeText(requireContext(), "data is Null", Toast.LENGTH_SHORT).show()
                     }
-
-
 //                    if (filterDataTrue.isNotEmpty()) {
 //                        val dataToSave = filterDataTrue[0].copy(status = true)
 //                        saveAddress(dataToSave)
@@ -289,6 +287,7 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
 
                 if (selectedRadioButton.id == binding.rbCod.id) {
                     binding.tvOngkosKirim.text = "5000"
+                    loadAddressFromApi()
                     binding.llAlamatPengiriman.isVisible = true
 //                    binding.txtAddress.isVisible = true
                 } else {
@@ -369,9 +368,11 @@ class CheckOutFragment : BaseFragment<FragmentCheckOutBinding>(FragmentCheckOutB
                     is NetworkResult.Success -> {
 
                     }
+
                     is NetworkResult.Loading -> {
                         showLoading()
                     }
+
                     is NetworkResult.Error -> {
                         handleApiError(it.message)
                     }

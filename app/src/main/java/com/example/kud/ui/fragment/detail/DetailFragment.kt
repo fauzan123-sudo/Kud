@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -26,7 +25,7 @@ import com.example.kud.utils.visible
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.NumberFormat
-import java.util.*
+import java.util.Locale
 
 @AndroidEntryPoint
 class DetailFragment : BottomSheetDialogFragment() {
@@ -84,11 +83,12 @@ class DetailFragment : BottomSheetDialogFragment() {
                 hideLoading()
                 when (it) {
                     is NetworkResult.Success -> {
-                        Toast.makeText(
-                            requireContext(),
-                            "Successfully add in cart item ",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        findNavController().navigate(R.id.action_detailFragment_to_cartFragment)
+//                        Toast.makeText(
+//                            requireContext(),
+//                            "Successfully add in cart item ",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                     }
 
                     is NetworkResult.Loading -> {

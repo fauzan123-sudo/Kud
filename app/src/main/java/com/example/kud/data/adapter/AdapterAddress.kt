@@ -1,22 +1,17 @@
 package com.example.kud.data.adapter
 
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kud.R
 import com.example.kud.data.model.address.list.Data
 import com.example.kud.databinding.ItemAddressBinding
 
-class AdapterAddress(
-    val context: Context,
-) : RecyclerView.Adapter<AdapterAddress.ViewHolder>() {
+class AdapterAddress : RecyclerView.Adapter<AdapterAddress.ViewHolder>() {
 
     var listener: ItemListener? = null
+    var selectedPosition = RecyclerView.NO_POSITION
 
     interface ItemListener {
         fun itemClick(data: Data)
@@ -24,7 +19,6 @@ class AdapterAddress(
 
     inner class ViewHolder(val binding: ItemAddressBinding) :
         RecyclerView.ViewHolder(binding.root)
-
 
     private val differCallback = object : DiffUtil.ItemCallback<Data>() {
         override fun areItemsTheSame(
@@ -48,38 +42,30 @@ class AdapterAddress(
     )
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val myPosition = differ.currentList[position]
+        val data = differ.currentList
+        val myPosition = data[position]
         with(holder) {
-            binding.tvTitleAddress.text = myPosition.nama
-            binding.tvAddress.text = myPosition.alamat
+            with(binding) {
+                checkBox.isChecked = selectedPosition == position || myPosition.default == "1"
+                tvTitleAddress.text = myPosition.nama
+                tvAddress.text = myPosition.alamat
 
-            val isDefault = myPosition.default == "1"
-
-           if (isDefault){
-               holder.binding.root.setBackgroundColor(
-                   ContextCompat.getColor(
-                       context,
-                       R.color.primary
-                   )
-               )
-           }else{
-               holder.binding.root.setBackgroundColor(
-                   ContextCompat.getColor(
-                       context,
-                       R.color.white
-                   )
-               )
-           }
-
-            holder.itemView.setOnClickListener {
-                listener?.itemClick(myPosition)
+                checkBox.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked && selectedPosition != position) {
+                        myPosition.default = "1"
+                        for (address in differ.currentList) {
+                            if (address != myPosition) {
+                                address.default = "0"
+                            }
+                        }
+                        selectedPosition = position
+                        notifyDataSetChanged()
+                        listener?.itemClick(myPosition)
+                    }
+                }
             }
-
-            Log.d("address", "${myPosition.alamat}")
         }
     }
 
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
+    override fun getItemCount() = differ.currentList.size
 }

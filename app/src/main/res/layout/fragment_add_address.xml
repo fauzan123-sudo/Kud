@@ -54,6 +54,8 @@
             android:layout_height="wrap_content"
             android:background="@drawable/frame"
             android:hint="Judul Alamat"
+            android:inputType="text"
+            android:imeOptions="actionNext"
             android:textColor="@color/black"
             android:padding="@dimen/_12ssp"
             android:textSize="@dimen/_12ssp" />
@@ -83,6 +85,8 @@
             android:layout_height="@dimen/_150sdp"
             android:background="@drawable/frame"
             android:gravity="start"
+            android:inputType="text"
+            android:imeOptions="actionDone"
             android:textColor="@color/black"
             android:hint="Ketikan Alamatmu"
             android:padding="@dimen/_12ssp"

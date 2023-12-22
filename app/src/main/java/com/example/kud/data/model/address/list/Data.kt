@@ -8,9 +8,10 @@ data class Data(
     val id: Int,
     val id_kustomer: String,
     val nama: String,
-    val default: String? = null,
+    var default: String? = null,
     val alamat: String? = null,
     val created_at: String? = null,
     val updated_at: String? = null,
-    val status: Boolean = false
+    val status: Boolean = false,
+    var isChecked: Boolean
 ) : Parcelable

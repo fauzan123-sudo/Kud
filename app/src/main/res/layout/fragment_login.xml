@@ -54,6 +54,8 @@
             android:textAppearance="@style/label_form" />
 
         <EditText
+            android:inputType="text"
+            android:imeOptions="actionNext"
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,10 +93,11 @@
             android:layout_height="wrap_content"
             android:background="@drawable/frame"
             android:clipToOutline="true"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
             android:hint="Masukkan Email anda"
             android:padding="@dimen/_12ssp"
             android:textSize="@dimen/_12ssp" />
-
 
     </LinearLayout>
 

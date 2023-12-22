@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kud.data.model.address.addOrEdit.AddEditAddressResponse
+import com.example.kud.data.model.address.change.SetAddressResponse
 import com.example.kud.data.model.address.list.UserAddressModel
 import com.example.kud.data.model.address.request.RequestAddOrEdit
 import com.example.kud.data.model.address.request.RequestAddress
 import com.example.kud.data.model.address.request.RequestEditAddress
+import com.example.kud.data.model.address.request.RequestSetAddress
 import com.example.kud.data.repository.AddressRepository
 import com.example.kud.utils.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,6 +30,10 @@ class AddressViewModel @Inject constructor(private val repository: AddressReposi
 
     private val _getAdd = MutableLiveData<NetworkResult<AddEditAddressResponse>>()
     val getAddAddress: LiveData<NetworkResult<AddEditAddressResponse>> = _getAdd
+
+    private val _responseSetAddress = MutableLiveData<NetworkResult<SetAddressResponse>>()
+    val responseSetAddress: LiveData<NetworkResult<SetAddressResponse>>
+        get() = _responseSetAddress
 
     fun requestListUserAddress(request: RequestAddress) {
         viewModelScope.launch {
@@ -61,5 +67,16 @@ class AddressViewModel @Inject constructor(private val repository: AddressReposi
                 _getAdd.postValue(NetworkResult.Error("No Internet Connection"))
         }
     }
+
+    fun requestSetAddress(request: RequestSetAddress) =
+        viewModelScope.launch {
+            val connected = CheckInternet().check()
+            if (connected) {
+                _responseSetAddress.postValue(NetworkResult.Loading())
+                _responseSetAddress.postValue(repository.setAddress(request))
+            } else
+                _responseSetAddress.postValue(NetworkResult.Error("No Internet Connection"))
+        }
 }
+
 

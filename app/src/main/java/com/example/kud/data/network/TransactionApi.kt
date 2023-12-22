@@ -1,11 +1,11 @@
 package com.example.kud.data.network
 
 import com.example.kud.data.model.*
+import com.example.kud.data.model.transaction.detail.DetailTransactionResponse
 import com.example.kud.data.model.transaction.request.RequestAddPayment
 import com.example.kud.data.model.transaction.response.AddCartResponse
 import com.example.kud.data.model.transaction.response.CartRequest
 import com.example.kud.data.model.transaction.response.addPayment.AddPaymentResponse
-import com.example.kud.data.model.transaction.response.detail.DetailTransactionModel
 import com.example.kud.data.model.transaction.response.history.HistoryTransactionModel
 import com.example.kud.data.model.upload.ImageUploadResponse
 import okhttp3.MultipartBody
@@ -28,7 +28,7 @@ interface TransactionApi {
     @GET("detail-transaksi")
     suspend fun getDetailTransaction(
         @Query("kode_transaksi") transactionCode: String
-    ): Response<DetailTransactionModel>
+    ): Response<DetailTransactionResponse>
 
     @POST("tambah-transaksi")
     suspend fun getAddTransaction(

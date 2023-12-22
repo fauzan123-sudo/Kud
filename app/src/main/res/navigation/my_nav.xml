@@ -81,6 +81,9 @@
         <action
             android:id="@+id/action_checkOutFragment_to_pickAddressFragment"
             app:destination="@id/pickAddressFragment" />
+        <action
+            android:id="@+id/action_checkOutFragment_to_detailTransactionFragment2"
+            app:destination="@id/detailTransactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/orderFragment"
@@ -103,6 +106,9 @@
             android:name="transactionCode"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_paymentProofFragment_to_detailTransactionFragment"
+            app:destination="@id/detailTransactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/cartFragment"
@@ -136,12 +142,19 @@
         <action
             android:id="@+id/action_thanksFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_thanksFragment_to_detailTransactionFragment"
+            app:destination="@id/detailTransactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/historyTransactionFragment"
         android:name="com.example.kud.ui.fragment.transaction.HistoryTransactionFragment"
         android:label="fragment_history_transaction"
-        tools:layout="@layout/fragment_history_transaction" />
+        tools:layout="@layout/fragment_history_transaction" >
+        <action
+            android:id="@+id/action_historyTransactionFragment_to_detailTransactionFragment"
+            app:destination="@id/detailTransactionFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addAddressFragment"
         android:name="com.example.kud.ui.fragment.address.AddAddressFragment"
@@ -160,5 +173,24 @@
         android:id="@+id/pickAddressFragment"
         android:name="com.example.kud.ui.fragment.address.PickAddressFragment"
         android:label="fragment_pick_address"
-        tools:layout="@layout/fragment_pick_address" />
+        tools:layout="@layout/fragment_pick_address" >
+        <action
+            android:id="@+id/action_pickAddressFragment_to_addAddressFragment"
+            app:destination="@id/addAddressFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailTransactionFragment"
+        android:name="com.example.kud.ui.fragment.transaction.DetailTransactionFragment"
+        android:label="fragment_detail_transaction"
+        tools:layout="@layout/fragment_detail_transaction" >
+        <argument
+            android:name="transactionCode"
+            app:argType="string" />
+        <argument
+            android:name="thisNavigation"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_detailTransactionFragment_to_historyTransactionFragment"
+            app:destination="@id/historyTransactionFragment" />
+    </fragment>
 </navigation>

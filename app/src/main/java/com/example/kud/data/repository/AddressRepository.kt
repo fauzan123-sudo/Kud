@@ -3,6 +3,7 @@ package com.example.kud.data.repository
 import com.example.kud.data.model.address.request.RequestAddOrEdit
 import com.example.kud.data.model.address.request.RequestAddress
 import com.example.kud.data.model.address.request.RequestEditAddress
+import com.example.kud.data.model.address.request.RequestSetAddress
 import com.example.kud.data.network.AddressApi
 import javax.inject.Inject
 
@@ -15,6 +16,11 @@ class AddressRepository @Inject constructor(private val api: AddressApi) : BaseR
 
     suspend fun addAddress(request: RequestAddOrEdit) =
         safeApiCall { api.addAddress(request) }
+
+    suspend fun setAddress(request: RequestSetAddress) =
+        safeApiCall {
+            api.setAddress(request)
+        }
 }
 
 //class CheckOutRepository @Inject constructor(private val dao: CheckOutDao) {

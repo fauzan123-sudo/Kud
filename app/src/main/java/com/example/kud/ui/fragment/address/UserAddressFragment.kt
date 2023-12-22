@@ -43,6 +43,7 @@ class UserAddressFragment :
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.actionAdd -> {
+                    Toast.makeText(requireContext(), "hai", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_userAddressFragment_to_addAddressFragment)
                     return@setOnMenuItemClickListener true
                 }
@@ -67,7 +68,7 @@ class UserAddressFragment :
     }
 
     private fun initRecyclerView() {
-        adapter = AdapterAddress(requireContext())
+        adapter = AdapterAddress()
         adapter.listener = this
         recyclerView = binding.recListProduct
         recyclerView.adapter = adapter

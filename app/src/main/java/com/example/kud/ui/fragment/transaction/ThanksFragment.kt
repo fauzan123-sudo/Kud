@@ -15,9 +15,10 @@ class ThanksFragment : BaseFragment<FragmentThanksBinding>(FragmentThanksBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         backPress()
+        binding.btnDetailTransaction.setOnClickListener {
+            backPress()
+        }
 
     }
 
@@ -28,9 +29,6 @@ class ThanksFragment : BaseFragment<FragmentThanksBinding>(FragmentThanksBinding
                 findNavController().popBackStack(R.id.homeFragment, false)
             }
         }
-
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
     }
-
-
 }

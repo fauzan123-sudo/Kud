@@ -9,10 +9,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.example.kud.R
 import com.example.kud.data.adapter.AdapterAddress
 import com.example.kud.data.model.address.list.Data
 import com.example.kud.data.model.address.request.RequestAddress
-import com.example.kud.data.model.address.request.RequestEditAddress
+import com.example.kud.data.model.address.request.RequestSetAddress
 import com.example.kud.databinding.FragmentPickAddressBinding
 import com.example.kud.ui.base.BaseFragment
 import com.example.kud.ui.viewModel.AddressViewModel
@@ -36,10 +37,26 @@ class PickAddressFragment :
 
         loadListAddress()
         initRecyclerView()
+        setUpToolbar()
+    }
+
+    private fun setUpToolbar() {
+        binding.apply {
+            toolbar.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.actionAdd -> {
+                        findNavController().navigate(R.id.action_pickAddressFragment_to_addAddressFragment)
+                        true
+                    }
+
+                    else -> false
+                }
+            }
+        }
     }
 
     private fun initRecyclerView() {
-        adapter = AdapterAddress(requireContext())
+        adapter = AdapterAddress()
         adapter.listener = this
         recyclerView = binding.recListProduct
         recyclerView.adapter = adapter
@@ -49,9 +66,9 @@ class PickAddressFragment :
     private fun loadListAddress() {
         viewModel.requestListUserAddress(RequestAddress(userData.id_pelanggan.toString()))
         viewModel.getListAddress.observe(viewLifecycleOwner) {
-            hideLoading()
             when (it) {
                 is NetworkResult.Success -> {
+                    hideLoading()
                     val data = it.data!!.data
                     Log.d("data current address", "$data")
                     adapter.differ.submitList(data)
@@ -62,6 +79,7 @@ class PickAddressFragment :
                 }
 
                 is NetworkResult.Error -> {
+                    hideLoading()
                     handleApiError(it.message)
                 }
             }
@@ -78,17 +96,17 @@ class PickAddressFragment :
     }
 
     override fun itemClick(data: Data) {
-        viewModel.requestEditAddress(
-            RequestEditAddress(
-                data.id.toString(),
-                data.nama,
-                data.alamat ?: "",
-                1
+//        Toast.makeText(requireContext(), "berubah 1 pada : ${data.id}", Toast.LENGTH_SHORT).show()
+        viewModel.requestSetAddress(
+            RequestSetAddress(
+                data.id_kustomer.toInt(),
+                data.id,
             )
         )
         viewModel.getEdit.observe(viewLifecycleOwner) {
             when (it) {
                 is NetworkResult.Success -> {
+                    dismissLoadingDialog()
                     val response = it.data!!
                     if (response.status == 1) {
                         showSuccessAlert()
@@ -102,6 +120,7 @@ class PickAddressFragment :
                 }
 
                 is NetworkResult.Error -> {
+                    dismissLoadingDialog()
                     showErrorDialog(it.message ?: "")
                 }
             }

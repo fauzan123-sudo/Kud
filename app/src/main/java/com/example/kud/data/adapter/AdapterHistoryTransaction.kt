@@ -1,21 +1,55 @@
 package com.example.kud.data.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kud.R
 import com.example.kud.data.model.transaction.response.history.Data
 import com.example.kud.databinding.ItemHistoryTransactionBinding
 
-class AdapterHistoryTransaction(
-    val context: Context,
-) : RecyclerView.Adapter<AdapterHistoryTransaction.ViewHolder>() {
+class AdapterHistoryTransaction : RecyclerView.Adapter<AdapterHistoryTransaction.ViewHolder>() {
+
+    var listener: ItemListener? = null
+
+    interface ItemListener {
+        fun itemClick(data: Data)
+    }
+
 
     inner class ViewHolder(val binding: ItemHistoryTransactionBinding) :
-        RecyclerView.ViewHolder(binding.root)
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(data: Data) {
+            with(binding) {
+                tvOrderId.text = data.order_id
+                tvTotal.text = data.total_harga
+                tvDescription.text = data.produk
+                tvStatus.text = data.status
+
+                when (data.status) {
+                    "Dikemas" -> {
+                        tvStatus.setBackgroundResource(com.example.kud.R.drawable.background_rounded_warning)
+                    }
+
+                    "Dikirim" -> {
+                        tvStatus.setBackgroundResource(com.example.kud.R.drawable.background_rounded_primary)
+                    }
+
+                    "Sampai" -> {
+                        tvStatus.setBackgroundResource(com.example.kud.R.drawable.background_rounded_blue)
+                    }
+
+                    else -> {
+                        tvStatus.setBackgroundResource(com.example.kud.R.drawable.background_rounded_blue)
+                    }
+
+                }
+                root.setOnClickListener {
+                    listener?.itemClick(data)
+                }
+            }
+        }
+    }
 
 
     private val differCallback = object : DiffUtil.ItemCallback<Data>() {
@@ -41,32 +75,9 @@ class AdapterHistoryTransaction(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val myPosition = differ.currentList[position]
-        with(holder) {
-            binding.tvOrderId.text = myPosition.order_id
-            binding.tvTotal.text = myPosition.total_harga
-            binding.tvDescription.text = myPosition.produk
-            binding.tvStatus.text = myPosition.status
-
-            when (myPosition.status) {
-                "Dikemas" -> {
-                    binding.tvStatus.setBackgroundResource(R.drawable.background_rounded_warning)
-                }
-                "Dikirim" -> {
-                    binding.tvStatus.setBackgroundResource(R.drawable.background_rounded_warning)
-                }
-
-                "Sampai" -> {
-                    binding.tvStatus.setBackgroundResource(R.drawable.background_rounded_blue)
-                }
-                else ->{
-                    binding.tvStatus.setBackgroundResource(R.drawable.background_rounded_blue)
-                }
-
-            }
-        }
+        holder.bind(myPosition)
     }
 
     override fun getItemCount() = differ.currentList.size
-
 
 }
